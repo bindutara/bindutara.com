@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bindutara Enterprises</title>
+</head>
+<body style="font-family: sans-serif; text-align: center; padding: 50px;">
+    <img src="https://via.placeholder.com/150" alt="Company Logo" style="border-radius: 50%;" />
+    <h1>Welcome to Bindutara Enterprises</h1>
+    <p>We provide vehicle ownership solutions through rent-to-own models.</p>
+    <a href="https://forms.gle/sLZz6T2jMRxHdAE68" target="_blank" style="font-size: 18px; text-decoration: none; background: #4CAF50; color: white; padding: 10px 20px; border-radius: 5px;">Apply Now</a>
+</body>
+</html>
