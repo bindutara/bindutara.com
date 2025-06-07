@@ -109,9 +109,26 @@
       padding: 20px;
     }
 
-    .image-content img {
+    /* 👇 Racing Animation for the Car */
+    .racing-car {
       width: 100%;
       max-width: 400px;
+      transform: translateX(-120%) rotate(-10deg);
+      animation: raceIn 2s ease-out forwards;
+    }
+
+    @keyframes raceIn {
+      0% {
+        transform: translateX(-120%) rotate(-10deg) scale(0.8);
+        opacity: 0;
+      }
+      60% {
+        transform: translateX(10%) rotate(2deg) scale(1.05);
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(0%) rotate(0deg) scale(1);
+      }
     }
 
     /* Responsive */
@@ -176,7 +193,7 @@
         <a href="https://docs.google.com/forms/d/1t46RUW6gnsw4ZryACJj6bk07Mfy_oh2xcoa4P0VLJ44" target="_blank" class="apply-btn">Apply Now</a>
       </div>
       <div class="image-content">
-        <img src="images/ertiga-white.png" alt="Car Image" />
+        <img src="images/ertiga-white.png" alt="Car Image" class="racing-car" />
       </div>
     </div>
   </section>
