@@ -39,12 +39,14 @@ header {
 }
 
 .nav-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: auto;
-  padding: 0 20px;
+  background-color: #000040;
+  color: white;
+}
+
+.nav-container a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
 }
 
 .logo a {
