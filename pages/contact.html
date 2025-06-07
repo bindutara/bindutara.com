@@ -13,7 +13,6 @@
       color: #000;
       overflow-x: hidden;
     }
-
     header {
       background: #ffffff;
       color: #000;
@@ -27,7 +26,6 @@
       z-index: 999;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
-
     .logo {
       font-size: 28px;
       font-weight: bold;
@@ -36,17 +34,14 @@
       transition: transform 0.3s ease, text-shadow 0.3s ease;
       text-shadow: 1px 1px 0 #999, 2px 2px 0 #ccc, 3px 3px 0 #eee;
     }
-
     .logo:hover {
       transform: scale(1.1) rotateX(5deg) rotateY(5deg);
       text-shadow: 1px 1px 0 #888, 2px 2px 0 #bbb, 3px 3px 0 #ddd;
     }
-
     nav {
       display: flex;
       gap: 24px;
     }
-
     nav a {
       color: #000;
       text-decoration: none;
@@ -54,7 +49,6 @@
       font-size: 16px;
       padding: 4px 0;
     }
-
     nav a::after {
       content: '';
       position: absolute;
@@ -65,24 +59,20 @@
       background-color: #000;
       transition: width 0.3s ease;
     }
-
     nav a:hover::after {
       width: 100%;
     }
-
     .hamburger {
       display: none;
       font-size: 26px;
       cursor: pointer;
       color: #000;
     }
-
     .hero {
       padding-top: 120px;
       padding-bottom: 60px;
       background: #f9f9f9;
     }
-
     .hero-content {
       max-width: 800px;
       margin: auto;
@@ -92,18 +82,15 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.08);
       text-align: center;
     }
-
     .hero-content h1 {
       font-size: 36px;
       margin-bottom: 20px;
     }
-
     .hero-content p {
       font-size: 18px;
       margin: 10px 0;
       color: #333;
     }
-
     .apply-btn {
       display: inline-block;
       background: #000;
@@ -116,12 +103,10 @@
       margin-top: 20px;
       transition: all 0.3s ease;
     }
-
     .apply-btn:hover {
       background-color: #333;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
     }
-
     footer {
       background: #000;
       color: #fff;
@@ -142,40 +127,39 @@
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         z-index: 1000;
       }
-
       nav.show {
         display: flex;
       }
-
       .hamburger {
         display: block;
       }
-
       .hero-content {
         margin: 20px;
         padding: 30px 16px;
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
-
+      .hero-content p {
+        width: 100%;
+        max-width: 600px;
+      }
       .hero-content h1 {
         font-size: 28px;
       }
-
       .hero-content p {
         font-size: 16px;
       }
-
       .apply-btn {
         padding: 10px 20px;
         font-size: 14px;
       }
     }
-
     @media (max-width: 480px) {
       .hero-content h1 {
         font-size: 24px;
       }
-
       .hero-content p {
         font-size: 15px;
       }
@@ -185,7 +169,7 @@
 <body>
   <header>
     <div class="logo" onclick="location.href='../index.html'">Bindutara</div>
-    <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
     <nav id="nav-links">
       <a href="../index.html">Home</a>
       <a href="contact.html">Contact</a>
@@ -198,8 +182,8 @@
     <div class="hero-content">
       <h1>Contact Us</h1>
       <p><strong>Email:</strong> bindutarapvtltd@gmail.com</p>
-      <p><strong>Phone:</strong> +91-9883542610</p>
-      <p><strong>Address:</strong> 828 M.L. Gupta Road, Kolkata, West Bengal, India</p>
+      <p><strong>Phone:</strong> +91‑9883542610</p>
+      <p><strong>Address:</strong> 828 M.L. Gupta Road, Kolkata, West Bengal, India</p>
       <a class="apply-btn" href="mailto:bindutarapvtltd@gmail.com">Email Us</a>
     </div>
   </section>
