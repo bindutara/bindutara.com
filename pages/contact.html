@@ -15,27 +15,6 @@
       background: linear-gradient(to right, #e8f0ff, #ffffff);
     }
 
-    header {
-      background-color: #000040;
-      padding: 10px 20px;
-      color: white;
-    }
-
-    .nav-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .logo a {
-      color: white;
-      font-size: 24px;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
     .hamburger {
       display: none;
       font-size: 28px;
@@ -95,17 +74,16 @@
       padding: 40px;
       border-radius: 10px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      text-align: center;
       color: #000040;
     }
 
     .hero-content h1 {
       margin-bottom: 20px;
-      text-align: center;
     }
 
     .hero-content p {
       margin: 10px 0;
-      font-size: 16px;
     }
 
     .apply-btn {
@@ -151,6 +129,7 @@
       display: block;
     }
   </style>
+
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const hamburger = document.querySelector(".hamburger");
@@ -162,7 +141,6 @@
         });
       }
 
-      // Scroll-to-top button show/hide
       window.onscroll = function () {
         const btn = document.getElementById("scrollTopBtn");
         if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
@@ -197,7 +175,7 @@
         <h1>Contact Us</h1>
         <p><strong>Email:</strong> bindutarapvtltd@gmail.com</p>
         <p><strong>Phone:</strong> +91-9883542610</p>
-        <p><strong>Address:</strong> 828 M.L. Gupta Road, Kolkata, West Bengal, India</p>
+        <p><strong>Address:</strong> 828 M.L.Gupta Road Kolkata, West Bengal, India</p>
         <a class="apply-btn" href="mailto:bindutarapvtltd@gmail.com">Email Us</a>
       </div>
     </section>
