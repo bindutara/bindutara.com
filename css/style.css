@@ -1,279 +1,220 @@
-/* General Reset */
+/* Global Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Background Setup - Shared Across All Pages */
+/* Body Base */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   background: url('../images/business-bg.jpg') no-repeat center center fixed;
   background-size: cover;
-  position: relative;
+  color: #000040;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
-/* Header Styles */
+/* Background Overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(255, 255, 255, 0.88); /* Lighter transparency */
+  z-index: -1;
+}
+
+/* Navigation Styles */
 header {
   background-color: #000040;
   color: white;
-  padding: 10px 20px;
+  padding: 15px 20px;
   position: relative;
-  z-index: 1;
+  z-index: 10;
 }
 
 .nav-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.logo {
-  font-size: 20px;
-  font-weight: bold;
 }
 
 .logo a {
-  color: white;
+  font-size: 24px;
+  font-weight: 900;
   text-decoration: none;
+  color: white;
+  text-shadow: 1px 1px 2px #444;
+  transform: perspective(1px) translateZ(0);
+  transition: transform 0.3s ease;
 }
 
-.hamburger {
-  font-size: 28px;
-  cursor: pointer;
-  display: none;
+.logo a:hover {
+  transform: scale(1.05) rotateX(10deg);
+  color: #ffa500;
 }
 
 nav {
   display: flex;
-  justify-content: center;
   gap: 20px;
-  background-color: #000040;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 nav a {
   color: white;
   text-decoration: none;
-  padding: 8px 14px;
-  display: block;
-  background: #ff6600;
-  border-radius: 4px;
-  transition: background 0.3s;
-  font-weight: 500;
+  font-weight: 600;
+  transition: color 0.3s;
 }
 
 nav a:hover {
-  background: #e65c00;
+  color: #ff7e00;
+}
+
+.hamburger {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+}
+
+/* Responsive Nav */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  #nav-links {
+    display: none;
+    flex-direction: column;
+    background-color: #000040;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  #nav-links.show {
+    display: flex;
+  }
+
+  nav a {
+    padding: 10px 0;
+  }
 }
 
 /* Hero Section */
 .hero {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 40px 20px;
-  text-align: center;
 }
 
 .hero-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  max-width: 1200px;
-  margin: auto;
-  position: relative;
-  z-index: 1;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  max-width: 800px;
+  width: 100%;
+  animation: fadeInUp 0.6s ease;
 }
 
 .text-content {
-  flex: 1;
-  padding: 30px;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  color: #222;
-  backdrop-filter: blur(5px);
-  animation: slideUp 1.2s ease forwards;
-  opacity: 0;
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.text-content h1 {
-  font-size: 2.5rem;
+  text-align: center;
   color: #000040;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  margin-bottom: 20px;
-  animation: popIn 1s ease-out forwards;
-  transform: scale(0.95);
 }
 
-@keyframes popIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.text-content:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
-  transition: all 0.3s ease;
-}
-
-.text-content h1 span {
-  display: inline-block;
-  animation: fadeIn 1.5s ease-in-out forwards;
-  opacity: 0;
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
-}
-
-.image-content {
-  flex: 1;
-  padding: 20px;
-}
-
-.image-content img {
-  width: 100%;
-  max-width: 400px;
-}
-
-/* Apply Button */
-.apply-btn {
-  margin-top: 20px;
-  padding: 12px 24px;
+/* Button Styles */
+.btn, .apply-btn {
   background: linear-gradient(to bottom, #ff7e00, #e65c00);
   color: white;
-  text-decoration: none;
-  border-radius: 5px;
+  padding: 12px 24px;
   font-weight: bold;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  margin-top: 20px;
+  display: inline-block;
 }
 
-.apply-btn:hover {
+.btn:hover, .apply-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.4);
 }
 
-/* Testimonial Section */
-.testimonials {
-  background-color: white;
-  padding: 40px 20px;
-  text-align: center;
-}
-
-.testimonial {
-  max-width: 800px;
-  margin: auto;
-  font-style: italic;
-  margin-bottom: 20px;
-}
-
-.testimonial::before {
-  content: "\201C";
-  font-size: 2em;
-  vertical-align: top;
-  color: #ff6600;
-}
-
-.testimonial::after {
-  content: "\201D";
-  font-size: 2em;
-  vertical-align: bottom;
-  color: #ff6600;
-}
-
-/* Footer Styles */
+/* Footer */
 footer {
-  margin-top: auto;
   background-color: #000040;
   color: white;
   text-align: center;
-  padding: 15px;
+  padding: 15px 10px;
+  margin-top: auto;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
-/* Scroll to Top Button */
+/* Scroll-to-top Button (Optional) */
 #scrollTopBtn {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: #ff6600;
+  background: #000040;
   color: white;
-  padding: 10px 15px;
   border: none;
   border-radius: 50%;
-  font-size: 18px;
+  width: 40px; height: 40px;
+  font-size: 20px;
   cursor: pointer;
   display: none;
-  z-index: 10;
+  z-index: 999;
 }
 
 #scrollTopBtn:hover {
   background: #e65c00;
 }
 
-/* Mobile Responsive */
+/* Fade In Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  } to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Input Fields */
+input[type="number"], input[type="text"], textarea {
+  width: 80%;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Result Box */
+.results {
+  text-align: left;
+  margin-top: 20px;
+  font-size: 16px;
+}
+
 @media (max-width: 768px) {
-  .hamburger {
-    display: block;
-  }
-
-  nav {
-    display: none;
-    flex-direction: column;
-  }
-
-  nav.show {
-    display: flex;
-  }
-
-  nav a {
-    padding: 12px;
-    border-top: 1px solid #444;
-  }
-
   .hero-content {
-    flex-direction: column;
-  }
-
-  .text-content,
-  .image-content {
-    width: 100%;
-    padding: 10px;
-  }
-
-  input[type="number"] {
-    width: 100%;
-  }
-
-  .text-content h1 {
-    font-size: 2rem;
-  }
-
-  .text-content {
     padding: 20px;
-    font-size: 16px;
+  }
+
+  input[type="number"], input[type="text"], textarea {
+    width: 100%;
   }
 }
