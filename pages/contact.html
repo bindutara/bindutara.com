@@ -5,34 +5,191 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact - Bindutara Enterprises</title>
   <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background: linear-gradient(to right, #e8f0ff, #ffffff);
+    }
+
+    header {
+      background-color: #000040;
+      padding: 10px 20px;
+      color: white;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .logo a {
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: white;
+    }
+
+    #nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    #nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+
+      #nav-links {
+        display: none;
+        flex-direction: column;
+        background-color: #000040;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        width: 200px;
+        padding: 10px;
+        border-radius: 8px;
+        z-index: 999;
+      }
+
+      #nav-links.show {
+        display: flex;
+      }
+
+      #nav-links a {
+        color: white;
+        padding: 10px;
+        text-align: right;
+      }
+    }
+
+    .hero {
+      padding: 60px 20px;
+      flex: 1;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: auto;
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      color: #000040;
+    }
+
+    .hero-content h1 {
+      margin-bottom: 20px;
+    }
+
+    .hero-content p {
+      margin: 10px 0;
+    }
+
+    .apply-btn {
+      display: inline-block;
+      margin-top: 20px;
+      background-color: #000040;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .apply-btn:hover {
+      background-color: #333399;
+    }
+
+    footer {
+      background-color: #000040;
+      color: white;
+      text-align: center;
+      padding: 15px 20px;
+      margin-top: auto;
+    }
+
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #000040;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 12px 16px;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      display: none;
+    }
+
+    #scrollTopBtn.show {
+      display: block;
+    }
+  </style>
+
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const hamburger = document.querySelector(".hamburger");
       const navLinks = document.getElementById("nav-links");
+
       if (hamburger && navLinks) {
         hamburger.addEventListener("click", function () {
           navLinks.classList.toggle("show");
         });
       }
+
+      // Scroll-to-top button show/hide
+      window.onscroll = function () {
+        const btn = document.getElementById("scrollTopBtn");
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+          btn.classList.add("show");
+        } else {
+          btn.classList.remove("show");
+        }
+      };
     });
   </script>
 </head>
-<body>
-<header>
-  <div class="nav-container">
-    <div class="logo">
-      <a href="../index.html">Bindutara</a>
-    </div>
-    <div class="hamburger">&#9776;</div>
-    <nav id="nav-links">
-      <a href="../index.html">Home</a>
-      <a href="contact.html">Contact</a>
-      <a href="terms.html">Terms</a>
-      <a href="rent-calculator.html">Rent Calculator</a>
-    </nav>
-  </div>
-</header>
 
+<body>
+  <header>
+    <div class="nav-container">
+      <div class="logo">
+        <a href="../index.html">Bindutara</a>
+      </div>
+      <div class="hamburger">&#9776;</div>
+      <nav id="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="contact.html">Contact</a>
+        <a href="terms.html">Terms</a>
+        <a href="rent-calculator.html">Rent Calculator</a>
+      </nav>
+    </div>
+  </header>
 
   <main>
     <section class="hero">
