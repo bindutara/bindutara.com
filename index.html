@@ -6,29 +6,23 @@
   <title>Bindutara Enterprises</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
-  <script>
-  function toggleMenu() {
-    const nav = document.getElementById("nav-links");
-    nav.classList.toggle("show");
-  }
-</script>
 <body>
 
   <!-- HEADER -->
   <header>
-  <div class="nav-container">
-    <div class="logo">Bindutara</div>
-    <div class="hamburger" onclick="toggleMenu()">
-      &#9776;
+    <div class="nav-container">
+      <div class="logo">Bindutara</div>
+      <div class="hamburger" onclick="toggleMenu()">
+        &#9776;
+      </div>
+      <nav id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="pages/contact.html">Contact</a>
+        <a href="pages/terms.html">Terms</a>
+        <a href="pages/rent-calculator.html">Rent Calculator</a>
+      </nav>
     </div>
-    <nav id="nav-links">
-      <a href="index.html">Home</a>
-      <a href="pages/contact.html">Contact</a>
-      <a href="pages/terms.html">Terms</a>
-      <a href="pages/rent-calculator.html">Rent Calculator</a>
-    </nav>
-  </div>
-</header>
+  </header>
 
   <!-- HERO SECTION -->
   <section class="hero">
@@ -44,5 +38,12 @@
     </div>
   </section>
 
+  <!-- JavaScript for Hamburger Menu -->
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById("nav-links");
+      nav.classList.toggle("show");
+    }
+  </script>
 </body>
 </html>
