@@ -1,81 +1,56 @@
-
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #d7f3f7, #f9f8f8);
-  animation: fadeIn 1s ease-in;
+/* Hero Section Styles */
+.hero {
+  background: linear-gradient(135deg, #1b005e, #6f00ff);
+  padding: 80px 20px;
+  color: #fff;
+  text-align: left;
 }
-header {
-  background: #111;
+
+.hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.text-content {
+  flex: 1 1 45%;
+}
+
+.text-content h1 {
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.text-content p {
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.apply-btn {
+  padding: 14px 28px;
+  background: linear-gradient(45deg, #3d00ff, #9c00ff);
   color: white;
-  padding: 1rem;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.apply-btn:hover {
+  background: linear-gradient(45deg, #9c00ff, #3d00ff);
+}
+
+.image-content {
+  flex: 1 1 45%;
   text-align: center;
 }
-nav {
-  display: flex;
-  justify-content: center;
-  background: #333;
-}
-nav a {
-  color: white;
-  padding: 1rem;
-  text-decoration: none;
-}
-nav a:hover {
-  background: #575757;
-}
-main {
-  padding: 2rem;
-  animation: slideUp 1s ease-out;
-}
-.vehicle {
+
+.image-content img {
   max-width: 100%;
   height: auto;
-  margin: 1rem 0;
-}
-footer {
-  background: #111;
-  color: white;
-  text-align: center;
-  padding: 1rem;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-}
-.contact-float {
-  position: fixed;
-  bottom: 80px;
-  right: 20px;
-  background: #007bff;
-  color: white;
-  padding: 1rem;
-  border-radius: 50%;
-  text-align: center;
-  font-size: 1.5rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-.apply-float {
-  position: fixed;
-  bottom: 150px;
-  right: 20px;
-  background: #28a745;
-  color: white;
-  padding: 1rem 1.5rem;
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: bold;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  transition: background 0.3s ease;
-}
-.apply-float:hover {
-  background: #218838;
 }
