@@ -28,8 +28,51 @@
       z-index: -1;
     }
 
-    .hero {
+    header {
+      background-color: #000040;
+      padding: 10px 20px;
+      color: white;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .logo a {
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      text-decoration: none;
+      text-shadow: 1px 1px 2px #000;
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: white;
+    }
+
+    #nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    #nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    main {
       flex: 1;
+    }
+
+    .hero {
       padding: 40px 20px;
     }
 
@@ -76,7 +119,60 @@
       text-align: left;
     }
 
+    footer {
+      background-color: #000040;
+      color: white;
+      text-align: center;
+      padding: 15px 10px;
+    }
+
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #000040;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 12px 16px;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      display: none;
+      z-index: 1000;
+    }
+
+    #scrollTopBtn.show {
+      display: block;
+    }
+
     @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+
+      #nav-links {
+        display: none;
+        flex-direction: column;
+        background-color: #000040;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        width: 200px;
+        padding: 10px;
+        border-radius: 8px;
+        z-index: 999;
+      }
+
+      #nav-links.show {
+        display: flex;
+      }
+
+      #nav-links a {
+        padding: 10px;
+        text-align: right;
+      }
+
       input[type="number"] {
         width: 100%;
       }
@@ -113,30 +209,39 @@
     document.addEventListener("DOMContentLoaded", function () {
       const hamburger = document.querySelector(".hamburger");
       const navLinks = document.getElementById("nav-links");
+      const scrollBtn = document.getElementById("scrollTopBtn");
+
       if (hamburger && navLinks) {
         hamburger.addEventListener("click", function () {
           navLinks.classList.toggle("show");
         });
       }
+
+      window.addEventListener("scroll", function () {
+        if (window.scrollY > 100) {
+          scrollBtn.classList.add("show");
+        } else {
+          scrollBtn.classList.remove("show");
+        }
+      });
     });
   </script>
 </head>
 <body>
-<header>
-  <div class="nav-container">
-    <div class="logo">
-      <a href="../index.html">Bindutara</a>
+  <header>
+    <div class="nav-container">
+      <div class="logo">
+        <a href="../index.html">Bindutara</a>
+      </div>
+      <div class="hamburger">&#9776;</div>
+      <nav id="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="contact.html">Contact</a>
+        <a href="terms.html">Terms</a>
+        <a href="rent-calculator.html">Rent Calculator</a>
+      </nav>
     </div>
-    <div class="hamburger">&#9776;</div>
-    <nav id="nav-links">
-      <a href="../index.html">Home</a>
-      <a href="contact.html">Contact</a>
-      <a href="terms.html">Terms</a>
-      <a href="rent-calculator.html">Rent Calculator</a>
-    </nav>
-  </div>
-</header>
-
+  </header>
 
   <main>
     <section class="hero">
@@ -154,5 +259,7 @@
   <footer>
     <p>&copy; 2025 Bindutara Enterprises Pvt. Ltd. All rights reserved.</p>
   </footer>
+
+  <button id="scrollTopBtn" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">&#8679;</button>
 </body>
 </html>
