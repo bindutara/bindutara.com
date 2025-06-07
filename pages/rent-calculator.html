@@ -1,41 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rent Calculator</title>
-  <link rel="stylesheet" href="../css/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rent Calculator - Bindutara Enterprises</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+    }
+    .calculator-container {
+      max-width: 400px;
+      margin: 80px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      animation: fadeInUp 0.5s ease-out;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label, input {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .apply-btn {
+      display: inline-block;
+      background: linear-gradient(to bottom, #ff7e00, #e65c00);
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+      width: 100%;
+      text-align: center;
+    }
+    .apply-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      document.querySelector(".hamburger").addEventListener("click", function () {
+        document.getElementById("nav-links").classList.toggle("show");
+      });
+    });
+  </script>
 </head>
 <body>
   <header>
-    <div class="logo">Bindutara Enterprises</div>
-    <nav>
-      <a href="../index.html">Home</a>
-      <a href="contact.html">Contact</a>
-      <a href="terms.html">Terms</a>
-      <a href="rent-calculator.html">Rent Calculator</a>
-    </nav>
-  </header>
-  <main class="hero-section">
-    <div class="hero-text">
-      <h1>Rent Calculator</h1>
-      <p>Enter Loan Amount (in ₹ lakhs):</p>
-      <input type="number" id="amount" placeholder="e.g. 1" />
-      <p id="result"></p>
-      <script>
-        document.getElementById('amount').addEventListener('input', function () {
-          const val = parseFloat(this.value);
-          if (!isNaN(val)) {
-            const rent = val * 100;
-            const emi = val * 20;
-            document.getElementById('result').innerText =
-              `You pay ₹${rent + emi} per day (₹${rent} Rent + ₹${emi} EMI).`;
-          } else {
-            document.getElementById('result').innerText = '';
-          }
-        });
-      </script>
+    <div class="nav-container">
+      <div class="logo">Bindutara</div>
+      <div class="hamburger">&#9776;</div>
+      <nav id="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="contact.html">Contact</a>
+        <a href="terms.html">Terms</a>
+        <a href="rent-calculator.html">Rent Calculator</a>
+      </nav>
     </div>
-  </main>
+  </header>
+
+  <div class="calculator-container">
+    <h1>Rent Calculator</h1>
+    <label for="price">Vehicle Price (₹):</label>
+    <input type="number" id="price" placeholder="Enter amount">
+
+    <label for="months">Duration (months):</label>
+    <input type="number" id="months" placeholder="e.g. 60">
+
+    <a href="#" class="apply-btn" onclick="calculateRent()">Calculate</a>
+    <p id="result" style="margin-top: 20px; font-weight: bold; text-align: center;"></p>
+  </div>
+
+  <script>
+    function calculateRent() {
+      const price = document.getElementById("price").value;
+      const months = document.getElementById("months").value;
+      if (price && months) {
+        const rent = (parseFloat(price) / parseInt(months)).toFixed(2);
+        document.getElementById("result").innerText = `Monthly Rent: ₹${rent}`;
+      } else {
+        document.getElementById("result").innerText = "Please enter valid values.";
+      }
+    }
+  </script>
 </body>
 </html>
