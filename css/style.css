@@ -21,7 +21,7 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.95); /* 95% opacity overlay */
+  background: rgba(255, 255, 255, 0.99); /* 99% opacity overlay */
   z-index: -1;
 }
 
@@ -89,6 +89,18 @@ nav a {
   padding: 20px;
 }
 
+.text-content h1 span {
+  display: inline-block;
+  animation: fadeIn 1.5s ease-in-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
 .image-content {
   flex: 1;
   padding: 20px;
@@ -99,7 +111,7 @@ nav a {
   max-width: 400px;
 }
 
-/* Apply Button - 3D Style */
+/* Apply Button */
 .apply-btn {
   margin-top: 20px;
   padding: 12px 24px;
@@ -117,6 +129,34 @@ nav a {
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
 }
 
+/* Testimonial Section */
+.testimonials {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.testimonial {
+  max-width: 800px;
+  margin: auto;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.testimonial::before {
+  content: "\201C";
+  font-size: 2em;
+  vertical-align: top;
+  color: #ff6600;
+}
+
+.testimonial::after {
+  content: "\201D";
+  font-size: 2em;
+  vertical-align: bottom;
+  color: #ff6600;
+}
+
 /* Footer Styles */
 footer {
   margin-top: auto;
@@ -126,6 +166,26 @@ footer {
   padding: 15px;
   position: relative;
   z-index: 1;
+}
+
+/* Scroll to Top Button */
+#scrollTopBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #ff6600;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: none;
+  z-index: 10;
+}
+
+#scrollTopBtn:hover {
+  background: #e65c00;
 }
 
 /* Mobile Responsive */
