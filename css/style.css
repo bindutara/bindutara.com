@@ -14,16 +14,7 @@ body {
   min-height: 100vh;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.99); /* 99% opacity overlay */
-  z-index: -1;
-}
+/* Removed body::before overlay */
 
 /* Header Styles */
 header {
@@ -131,7 +122,7 @@ nav a {
 
 /* Testimonial Section */
 .testimonials {
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: white;
   padding: 40px 20px;
   text-align: center;
 }
