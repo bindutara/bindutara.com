@@ -1,224 +1,192 @@
-/* General Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bindutara Enterprises</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-/* Background Setup - Shared Across All Pages */
-body {
-  font-family: Arial, sans-serif;
-  background: url('../images/business-bg.jpg') no-repeat center center fixed;
-  background-size: cover;
-  position: relative;
-  min-height: 100vh;
-}
+    body {
+      font-family: Arial, sans-serif;
+    }
 
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.99); /* 99% opacity overlay */
-  z-index: -1;
-}
+    header {
+      background-color: #000040;
+      color: white;
+      padding: 10px 20px;
+    }
 
-/* Header Styles */
-header {
-  background-color: #000040;
-  color: white;
-  padding: 10px 20px;
-  position: relative;
-  z-index: 1;
-}
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: auto;
+    }
 
-.nav-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-}
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
 
-.logo {
-  font-size: 20px;
-  font-weight: bold;
-}
+    .hamburger {
+      font-size: 28px;
+      cursor: pointer;
+      display: none;
+    }
 
-.hamburger {
-  font-size: 28px;
-  cursor: pointer;
-  display: none;
-}
+    #nav-links {
+      display: flex;
+      gap: 15px;
+    }
 
-nav {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  background-color: #000040;
-}
+    #nav-links a {
+      background: #ff6600;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
 
-nav a {
-  color: white;
-  text-decoration: none;
-  padding: 15px 10px;
-  display: block;
-}
+    #nav-links a:hover {
+      background: #e65c00;
+    }
 
-/* Hero Section */
-.hero {
-  padding: 40px 20px;
-  text-align: center;
-}
+    /* HERO SECTION */
+    .hero {
+      padding: 40px 20px;
+      background-color: #f7f7f7;
+      text-align: center;
+    }
 
-.hero-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  max-width: 1200px;
-  margin: auto;
-  position: relative;
-  z-index: 1;
-}
+    .hero-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      max-width: 1200px;
+      margin: auto;
+    }
 
-.text-content {
-  flex: 1;
-  padding: 20px;
-}
+    .text-content {
+      flex: 1;
+      padding: 20px;
+    }
 
-.text-content h1 span {
-  display: inline-block;
-  animation: fadeIn 1.5s ease-in-out forwards;
-  opacity: 0;
-}
+    .text-content h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
 
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
-}
+    .text-content p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
 
-.image-content {
-  flex: 1;
-  padding: 20px;
-}
+    .apply-btn {
+      display: inline-block;
+      background-color: #ff6600;
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
 
-.image-content img {
-  width: 100%;
-  max-width: 400px;
-}
+    .image-content {
+      flex: 1;
+      padding: 20px;
+    }
 
-/* Apply Button */
-.apply-btn {
-  margin-top: 20px;
-  padding: 12px 24px;
-  background: linear-gradient(to bottom, #ff7e00, #e65c00);
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: bold;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
+    .image-content img {
+      width: 100%;
+      max-width: 400px;
+    }
 
-.apply-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
-}
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
 
-/* Testimonial Section */
-.testimonials {
-  background-color: rgba(255, 255, 255, 0.95);
-  padding: 40px 20px;
-  text-align: center;
-}
+      #nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #000040;
+        margin-top: 10px;
+      }
 
-.testimonial {
-  max-width: 800px;
-  margin: auto;
-  font-style: italic;
-  margin-bottom: 20px;
-}
+      #nav-links.show {
+        display: flex;
+      }
 
-.testimonial::before {
-  content: "\201C";
-  font-size: 2em;
-  vertical-align: top;
-  color: #ff6600;
-}
+      #nav-links a {
+        border-top: 1px solid #444;
+        padding: 10px;
+      }
 
-.testimonial::after {
-  content: "\201D";
-  font-size: 2em;
-  vertical-align: bottom;
-  color: #ff6600;
-}
+      .hero-content {
+        flex-direction: column;
+      }
 
-/* Footer Styles */
-footer {
-  margin-top: auto;
-  background-color: #000040;
-  color: white;
-  text-align: center;
-  padding: 15px;
-  position: relative;
-  z-index: 1;
-}
+      .text-content, .image-content {
+        width: 100%;
+        padding: 10px;
+      }
 
-/* Scroll to Top Button */
-#scrollTopBtn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #ff6600;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 50%;
-  font-size: 18px;
-  cursor: pointer;
-  display: none;
-  z-index: 10;
-}
+      .apply-btn {
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="nav-container">
+      <div class="logo">Bindutara</div>
+      <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+    </div>
+    <nav id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="pages/contact.html">Contact</a>
+      <a href="pages/terms.html">Terms</a>
+      <a href="pages/rent-calculator.html">Rent Calculator</a>
+    </nav>
+  </header>
 
-#scrollTopBtn:hover {
-  background: #e65c00;
-}
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="text-content">
+        <h1>BINDUTARA ENTERPRISES PVT. LTD.</h1>
+        <p>Own your vehicle in 5 years with our rent-to-own plan.</p>
+        <a href="https://docs.google.com/forms/d/1t46RUW6gnsw4ZryACJj6bk07Mfy_oh2xcoa4P0VLJ44" target="_blank" class="apply-btn">Apply Now</a>
+      </div>
+      <div class="image-content">
+        <img src="images/ertiga-white.png" alt="Car Image" />
+      </div>
+    </div>
+  </section>
 
-/* Mobile Responsive */
-@media (max-width: 768px) {
-  .hamburger {
-    display: block;
-  }
-
-  nav {
-    display: none;
-    flex-direction: column;
-  }
-
-  nav.show {
-    display: flex;
-  }
-
-  nav a {
-    padding: 12px;
-    border-top: 1px solid #444;
-  }
-
-  .hero-content {
-    flex-direction: column;
-  }
-
-  .text-content,
-  .image-content {
-    width: 100%;
-    padding: 10px;
-  }
-
-  input[type="number"] {
-    width: 100%;
-  }
-}
+  <!-- JavaScript -->
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById("nav-links");
+      nav.classList.toggle("show");
+    }
+  </script>
+</body>
+</html>
