@@ -2,251 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bindutara Enterprises</title>
   <link rel="stylesheet" href="css/style.css" />
-  <style>
-    /* General Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-    }
-
-    header {
-      background-color: #000040;
-      color: white;
-      padding: 10px 20px;
-    }
-
-    .nav-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .logo {
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    .hamburger {
-      font-size: 28px;
-      cursor: pointer;
-      display: none;
-    }
-
-    #nav-links {
-      display: flex;
-      gap: 15px;
-    }
-
-    #nav-links a {
-      background: #ff6600;
-      color: white;
-      padding: 8px 14px;
-      border-radius: 4px;
-      text-decoration: none;
-      font-weight: 500;
-      transition: background 0.3s;
-    }
-
-    #nav-links a:hover {
-      background: #e65c00;
-    }
-
-    /* HERO SECTION */
-    .hero {
-      padding: 40px 20px;
-      background-color: #f7f7f7;
-      text-align: center;
-    }
-
-    .hero-content {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .text-content {
-      flex: 1;
-      padding: 20px;
-    }
-
-    .text-content h1 {
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-
-    .text-content p {
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
-
-    .apply-btn {
-      display: inline-block;
-      background-color: #ff6600;
-      color: white;
-      padding: 12px 24px;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-
-    .image-content {
-      flex: 1;
-      padding: 20px;
-    }
-
-    /* 👇 Racing Animation for the Car */
-    .racing-car {
-      width: 100%;
-      max-width: 400px;
-      transform: translateX(-120%) rotate(-10deg);
-      animation: raceIn 2s ease-out forwards;
-    }
-
-    @keyframes raceIn {
-      0% {
-        transform: translateX(-120%) rotate(-10deg) scale(0.8);
-        opacity: 0;
-      }
-      60% {
-        transform: translateX(10%) rotate(2deg) scale(1.05);
-        opacity: 1;
-      }
-      100% {
-        transform: translateX(0%) rotate(0deg) scale(1);
-      }
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .hamburger {
-        display: block;
-      }
-
-      #nav-links {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        background-color: #000040;
-        margin-top: 10px;
-      }
-
-      #nav-links.show {
-        display: flex;
-      }
-
-      #nav-links a {
-        border-top: 1px solid #444;
-        padding: 10px;
-      }
-
-      .hero-content {
-        flex-direction: column;
-      }
-
-      .text-content, .image-content {
-        width: 100%;
-        padding: 10px;
-      }
-
-      .apply-btn {
-        margin-bottom: 20px;
-      }
-    }
-  <!-- OVERVIEW / USP SECTION -->
-<section class="overview">
-  <div class="overview-content">
-    <h2>🚘 Welcome to Bindutara Enterprises — Empowering Independent Mobility</h2>
-    <p>
-      At <strong>Bindutara Enterprises</strong>, we go beyond just providing vehicles — we offer freedom, ownership, and opportunity to everyday drivers and aspiring entrepreneurs. Whether you're working with ride-hailing, delivery, or passenger transport services, we empower you through a unique <strong>Rent-to-Own Vehicle Program</strong> that’s tailored for your long-term success.
-    </p>
-
-    <h3>✅ What Sets Us Apart?</h3>
-    <ul>
-      <li><strong>🔑 Ownership-Driven Model:</strong> Unlike endless rentals, every payment you make brings you closer to full ownership of your vehicle.</li>
-      <li><strong>🤝 Personalized Contracts:</strong> Choose from daily, weekly, or monthly plans aligned with your cash flow. Transparent terms — no surprises.</li>
-      <li><strong>🚗 Commercial Use Freedom:</strong> Use your car on any app — Ola, Uber, Yatrisathi, Rapido, and more — without restrictions.</li>
-      <li><strong>🔧 Maintenance Flexibility:</strong> You're free to service your vehicle wherever you trust — we don’t lock you into expensive contracts.</li>
-      <li><strong>📍 Local Support:</strong> Based in Kolkata, we offer faster responses, real people, and personal care. You're not just a number.</li>
-    </ul>
-
-    <p class="cta-text"><strong>Drive your dream. Own your success. Welcome to Bindutara Enterprises.</strong></p>
-  </div>
-</section>
-
-<!-- FOOTER OR ADDITIONAL SECTIONS HERE -->
-
-<style>
-  .overview {
-    background-color: #ffffff;
-    padding: 60px 20px;
-    color: #000040;
-  }
-
-  .overview-content {
-    max-width: 1000px;
-    margin: auto;
-    line-height: 1.8;
-    font-size: 16px;
-  }
-
-  .overview-content h2 {
-    font-size: 24px;
-    color: #000040;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-
-  .overview-content h3 {
-    font-size: 20px;
-    margin-top: 30px;
-    color: #000040;
-  }
-
-  .overview-content ul {
-    margin-top: 15px;
-    padding-left: 20px;
-  }
-
-  .overview-content ul li {
-    margin-bottom: 15px;
-    list-style-type: disc;
-  }
-
-  .cta-text {
-    font-size: 18px;
-    margin-top: 30px;
-    font-weight: bold;
-    text-align: center;
-    color: #ff6600;
-  }
-
-  @media (max-width: 768px) {
-    .overview-content h2,
-    .overview-content h3 {
-      text-align: left;
-    }
-
-    .cta-text {
-      font-size: 16px;
-      text-align: left;
-    }
-  }
-  </style>
 </head>
 <body>
   <!-- HEADER -->
@@ -277,6 +35,85 @@
     </div>
   </section>
 
+  <!-- OVERVIEW / USP SECTION -->
+  <section class="overview">
+    <div class="overview-content">
+      <h2>🚘 Welcome to Bindutara Enterprises — Empowering Independent Mobility</h2>
+      <p>
+        At <strong>Bindutara Enterprises</strong>, we go beyond just providing vehicles — we offer freedom, ownership, and opportunity to everyday drivers and aspiring entrepreneurs. Whether you're working with ride-hailing, delivery, or passenger transport services, we empower you through a unique <strong>Rent-to-Own Vehicle Program</strong> that’s tailored for your long-term success.
+      </p>
+
+      <h3>✅ What Sets Us Apart?</h3>
+      <ul>
+        <li><strong>🔑 Ownership-Driven Model:</strong> Unlike endless rentals, every payment you make brings you closer to full ownership of your vehicle.</li>
+        <li><strong>🤝 Personalized Contracts:</strong> Choose from daily, weekly, or monthly plans aligned with your cash flow. Transparent terms — no surprises.</li>
+        <li><strong>🚗 Commercial Use Freedom:</strong> Use your car on any app — Ola, Uber, Yatrisathi, Rapido, and more — without restrictions.</li>
+        <li><strong>🔧 Maintenance Flexibility:</strong> You're free to service your vehicle wherever you trust — we don’t lock you into expensive contracts.</li>
+        <li><strong>📍 Local Support:</strong> Based in Kolkata, we offer faster responses, real people, and personal care. You're not just a number.</li>
+      </ul>
+
+      <p class="cta-text"><strong>Drive your dream. Own your success. Welcome to Bindutara Enterprises.</strong></p>
+    </div>
+  </section>
+
+  <style>
+    .overview {
+      background-color: #ffffff;
+      padding: 60px 20px;
+      color: #000040;
+    }
+
+    .overview-content {
+      max-width: 1000px;
+      margin: auto;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .overview-content h2 {
+      font-size: 24px;
+      color: #000040;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .overview-content h3 {
+      font-size: 20px;
+      margin-top: 30px;
+      color: #000040;
+    }
+
+    .overview-content ul {
+      margin-top: 15px;
+      padding-left: 20px;
+    }
+
+    .overview-content ul li {
+      margin-bottom: 15px;
+      list-style-type: disc;
+    }
+
+    .cta-text {
+      font-size: 18px;
+      margin-top: 30px;
+      font-weight: bold;
+      text-align: center;
+      color: #ff6600;
+    }
+
+    @media (max-width: 768px) {
+      .overview-content h2,
+      .overview-content h3 {
+        text-align: left;
+      }
+
+      .cta-text {
+        font-size: 16px;
+        text-align: left;
+      }
+    }
+  </style>
+
   <!-- JavaScript -->
   <script>
     function toggleMenu() {
@@ -286,3 +123,4 @@
   </script>
 </body>
 </html>
+
