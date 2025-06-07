@@ -6,93 +6,18 @@
   <title>Terms - Bindutara Enterprises</title>
   <link rel="stylesheet" href="../css/style.css" />
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: url('../images/business-bg.jpg') no-repeat center center fixed;
-      background-size: cover;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      position: relative;
+    .hero-content h2 {
+      margin-top: 20px;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.85);
-      z-index: -1;
+    .hero-content p,
+    .hero-content li {
+      line-height: 1.6;
+      margin-bottom: 12px;
     }
 
-    header {
-      background-color: #000040;
-      color: white;
-      padding: 15px 20px;
-    }
-
-    .nav-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .logo a {
-      font-size: 24px;
-      font-weight: bold;
-      color: white;
-      text-decoration: none;
-      text-shadow: 1px 1px 2px #888;
-      transition: transform 0.3s ease, text-shadow 0.3s ease;
-    }
-
-    .logo a:hover {
-      transform: scale(1.05);
-      text-shadow: 2px 2px 5px #ff6600;
-    }
-
-    .hamburger {
-      font-size: 26px;
-      color: white;
-      cursor: pointer;
-      display: none;
-    }
-
-    #nav-links {
-      display: flex;
-      gap: 15px;
-    }
-
-    #nav-links a {
-      text-decoration: none;
-      color: white;
-      background-color: #ff6600;
-      padding: 8px 14px;
-      border-radius: 5px;
-      transition: background 0.3s ease;
-    }
-
-    #nav-links a:hover {
-      background-color: #e65c00;
-    }
-
-    .hero {
-      padding: 40px 20px;
-      flex: 1;
-    }
-
-    .hero-content {
-      max-width: 800px;
-      margin: auto;
-      background-color: rgba(255, 255, 255, 0.95);
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    .hero-content ul {
+      margin-left: 20px;
     }
 
     .apply-btn {
@@ -105,56 +30,14 @@
       font-weight: bold;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
       transition: transform 0.2s, box-shadow 0.2s;
-      margin-top: 20px;
+      margin-top: 30px;
     }
 
     .apply-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
     }
-
-    footer {
-      background-color: #000040;
-      color: white;
-      text-align: center;
-      padding: 15px 20px;
-      margin-top: auto;
-    }
-
-    @media (max-width: 768px) {
-      .hamburger {
-        display: block;
-      }
-
-      #nav-links {
-        flex-direction: column;
-        display: none;
-        margin-top: 10px;
-        background-color: #000040;
-        padding: 10px;
-        border-radius: 5px;
-      }
-
-      #nav-links.show {
-        display: flex;
-      }
-
-      .hero-content {
-        padding: 20px;
-      }
-    }
   </style>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const hamburger = document.querySelector(".hamburger");
-      const navLinks = document.getElementById("nav-links");
-      if (hamburger && navLinks) {
-        hamburger.addEventListener("click", function () {
-          navLinks.classList.toggle("show");
-        });
-      }
-    });
-  </script>
 </head>
 <body>
   <header>
@@ -173,17 +56,72 @@
   <section class="hero">
     <div class="hero-content">
       <h1>Terms & Conditions</h1>
-      <p>
-        Please read the terms and conditions carefully before proceeding.
-        By using our services, you agree to the following terms...
-      </p>
-      <p>
-        Vehicles are provided under rental agreements for a fixed term of 60 months.
-        Bindutara Enterprises is not liable for personal misuse or negligence.
-      </p>
-      <p>
-        Late payments or violations of contract may result in service interruption.
-      </p>
+      <p><strong>Effective Date:</strong> June 7, 2025</p>
+
+      <h2>1. Introduction</h2>
+      <p>Please read these Terms and Conditions ("Agreement") carefully before proceeding with any vehicle rental, lease, or service engagement with Bindutara Enterprises Pvt. Ltd. By accessing our services, signing any agreements, or making payments, you agree to be bound by these Terms and Conditions.</p>
+
+      <h2>2. Vehicle Rental Terms</h2>
+      <ul>
+        <li>Vehicles are provided under a rent-to-own or lease agreement for a maximum duration of 60 months or as determined in the signed customer contract.</li>
+        <li>At the end of the rental period or upon full repayment including any foreclosure charges, vehicle ownership (RC/title) will be transferred to the customer.</li>
+        <li>The cost and responsibility of completing the legal transfer of ownership rests solely with the customer.</li>
+      </ul>
+
+      <h2>3. Payment Schedule</h2>
+      <ul>
+        <li>Customers may choose to pay rent on a <strong>daily, weekly, or monthly</strong> basis as specified in their individual contract.</li>
+        <li>Late payments will attract penalties, and persistent delays may lead to contract suspension or termination.</li>
+      </ul>
+
+      <h2>4. Vehicle Use & Commercial Fleets</h2>
+      <ul>
+        <li>The vehicles may be used for commercial purposes including ride-hailing or taxi aggregation services such as Ola, Uber, Yatrisathi, InDrive, Rapido, Red Taxi, Suttle, or any other legally recognized operator.</li>
+        <li>Misuse, illegal activity, or unauthorized sub-leasing of the vehicle is strictly prohibited.</li>
+      </ul>
+
+      <h2>5. Customer Responsibilities</h2>
+      <ul>
+        <li>Customers are required to maintain the vehicle in good working condition and report any damages immediately.</li>
+        <li>Bindutara Enterprises will not be held liable for accidents, thefts, fines, or legal actions resulting from customer negligence.</li>
+      </ul>
+
+      <h2>6. Insurance and Legal Compliance</h2>
+      <ul>
+        <li>Customers must ensure that the vehicle’s third-party insurance is valid at all times.</li>
+        <li>Renewal of insurance is the responsibility of the customer before the expiry date as per Indian Motor Vehicle Laws.</li>
+      </ul>
+
+      <h2>7. Title Transfer & Foreclosure</h2>
+      <ul>
+        <li>Upon full and final settlement of dues, including applicable interest, foreclosure fees, or penalties, the vehicle title will be transferred to the customer.</li>
+        <li>No verbal assurance or informal communication will override these conditions.</li>
+      </ul>
+
+      <h2>8. Termination of Contract</h2>
+      <ul>
+        <li>Bindutara Enterprises reserves the right to terminate the contract immediately if any breach of terms is observed.</li>
+        <li>Customers wishing to cancel their contract before completion must notify in writing and shall be liable to pay an early termination penalty as per agreement.</li>
+      </ul>
+
+      <h2>9. Confidentiality Clause</h2>
+      <p>All terms, pricing, and operational models discussed or agreed upon between the customer and Bindutara Enterprises are to be treated as strictly confidential. Disclosure to third parties without written consent from the company is prohibited and may lead to legal action.</p>
+
+      <h2>10. Non-Disclosure Clause</h2>
+      <p>Customers and associated personnel must not reveal proprietary business models, customer lists, pricing structures, or operational mechanisms of Bindutara Enterprises to any external party. This obligation continues indefinitely even after contract termination.</p>
+
+      <h2>11. Non-Compete Clause</h2>
+      <p>Customers agree not to directly or indirectly engage in any competing vehicle rental, fleet, or lease business during the term of this agreement and for a period of two (2) years after termination or expiry of the contract within the same district or business region as Bindutara Enterprises.</p>
+
+      <h2>12. Communication Validity</h2>
+      <p>Any verbal, telephonic, WhatsApp, text message, or unofficial email communication shall be considered null and void unless explicitly incorporated into the signed contract or written and acknowledged by the company via official email.</p>
+
+      <h2>13. Legal Jurisdiction</h2>
+      <p>This agreement shall be governed by the laws of India. Any dispute arising shall fall under the jurisdiction of Kolkata courts only.</p>
+
+      <h2>14. Final Agreement</h2>
+      <p>These Terms and Conditions represent the final agreement between the parties and override all previous understandings, whether written or oral. Any changes must be documented and signed by both parties to be enforceable.</p>
+
       <a class="apply-btn" href="mailto:bindutarapvtltd@gmail.com">Apply Now</a>
     </div>
   </section>
@@ -191,5 +129,17 @@
   <footer>
     <p>&copy; 2025 Bindutara Enterprises Pvt. Ltd. All rights reserved.</p>
   </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const hamburger = document.querySelector(".hamburger");
+      const navLinks = document.getElementById("nav-links");
+      if (hamburger && navLinks) {
+        hamburger.addEventListener("click", function () {
+          navLinks.classList.toggle("show");
+        });
+      }
+    });
+  </script>
 </body>
 </html>
