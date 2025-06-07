@@ -1,11 +1,10 @@
+
 function calculateRent() {
-    const amount = parseFloat(document.getElementById("amount").value);
-    if (isNaN(amount) || amount <= 0) {
-        document.getElementById("result").textContent = "Enter a valid amount.";
-        return;
+    const amount = document.getElementById('amount').value;
+    if (amount) {
+        const rent = (amount * 0.0012).toFixed(2);
+        const emi = (rent * 0.7).toFixed(2);
+        document.getElementById('result').innerText =
+            `Daily Rent: ₹${rent}\nDaily EMI Part: ₹${emi}\nDaily Commission Part: ₹${(rent - emi).toFixed(2)}`;
     }
-    const daily = (amount / 100000) * 120;
-    const rent = (amount / 100000) * 100;
-    const emi = (amount / 100000) * 20;
-    document.getElementById("result").textContent = `Daily Pay: ₹${daily.toFixed(2)} (₹${rent.toFixed(2)} rent + ₹${emi.toFixed(2)} EMI)`;
 }
