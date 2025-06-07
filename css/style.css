@@ -25,7 +25,7 @@ body::before {
   left: 0;
   width: 100%; 
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.5); /* 50% transparency */
+  background-color: rgba(255, 255, 255, 0.7); /* 70% transparency */
   z-index: -1;
 }
 
@@ -113,7 +113,7 @@ nav a:hover {
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   padding: 40px 20px;
 }
 
@@ -125,29 +125,46 @@ nav a:hover {
   max-width: 900px;
   width: 100%;
   animation: fadeInUp 0.6s ease;
+  display: block;
+  color: #000040;
+}
+
+.hero-content h1,
+.hero-content h2 {
+  color: #000040;
+  margin-bottom: 10px;
+}
+
+.hero-content h2 {
+  margin-top: 30px;
+  font-size: 20px;
+}
+
+.hero-content p {
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.hero-content ul {
+  margin-bottom: 12px;
+  padding-left: 20px;
+}
+
+.hero-content strong {
+  display: inline-block;
+  min-width: 90px;
+}
+
+/* Ensure proper alignment of contact info */
+.hero-content p:has(strong) {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
+  gap: 6px;
+  align-items: flex-start;
 }
 
-.text-content {
-  flex: 1;
-  text-align: center;
-  color: #000040;
-  padding: 20px;
-}
-
-.image-content {
-  flex: 1;
-  padding: 20px;
-  text-align: center;
-}
-
-.image-content img {
-  width: 100%;
-  max-width: 400px;
-  animation: raceIn 2s ease-out forwards;
+.hero-content p strong {
+  flex-shrink: 0;
 }
 
 /* Button Styles */
@@ -241,18 +258,23 @@ footer {
   }
 }
 
+/* Responsive Adjustments */
 @media (max-width: 768px) {
   .hero-content {
     flex-direction: column;
     padding: 20px;
   }
 
-  .text-content, .image-content {
-    width: 100%;
-    padding: 10px;
-  }
-
   input[type="number"], input[type="text"], textarea {
     width: 100%;
+  }
+
+  .hero-content p:has(strong) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-content p strong {
+    margin-bottom: 4px;
   }
 }
