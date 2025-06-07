@@ -57,9 +57,13 @@
   </style>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      document.querySelector(".hamburger").addEventListener("click", function () {
-        document.getElementById("nav-links").classList.toggle("show");
-      });
+      const hamburger = document.querySelector(".hamburger");
+      const navLinks = document.getElementById("nav-links");
+      if (hamburger && navLinks) {
+        hamburger.addEventListener("click", function () {
+          navLinks.classList.toggle("show");
+        });
+      }
     });
   </script>
 </head>
@@ -93,11 +97,12 @@
     function calculateRent() {
       const price = document.getElementById("price").value;
       const months = document.getElementById("months").value;
-      if (price && months) {
+      const result = document.getElementById("result");
+      if (price && months && parseFloat(price) > 0 && parseInt(months) > 0) {
         const rent = (parseFloat(price) / parseInt(months)).toFixed(2);
-        document.getElementById("result").innerText = `Monthly Rent: ₹${rent}`;
+        result.innerText = `Monthly Rent: ₹${rent}`;
       } else {
-        document.getElementById("result").innerText = "Please enter valid values.";
+        result.innerText = "Please enter valid values.";
       }
     }
   </script>
