@@ -5,11 +5,33 @@
   box-sizing: border-box;
 }
 
+/* Background Setup - Shared Across All Pages */
+body {
+  font-family: Arial, sans-serif;
+  background: url('../images/business-bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+  min-height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9); /* 90% opacity overlay */
+  z-index: -1;
+}
+
 /* Header Styles */
 header {
   background-color: #000040;
   color: white;
   padding: 10px 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .nav-container {
@@ -48,7 +70,6 @@ nav a {
 /* Hero Section */
 .hero {
   padding: 40px 20px;
-  background-color: #f7f7f7;
   text-align: center;
 }
 
@@ -59,6 +80,8 @@ nav a {
   align-items: center;
   max-width: 1200px;
   margin: auto;
+  position: relative;
+  z-index: 1;
 }
 
 .text-content {
@@ -76,15 +99,33 @@ nav a {
   max-width: 400px;
 }
 
-/* Apply Button */
+/* Apply Button - 3D Style */
 .apply-btn {
   margin-top: 20px;
   padding: 12px 24px;
-  background-color: #ff6600;
+  background: linear-gradient(to bottom, #ff7e00, #e65c00);
   color: white;
   text-decoration: none;
   border-radius: 5px;
   font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.apply-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Footer Styles */
+footer {
+  margin-top: auto;
+  background-color: #000040;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  position: relative;
+  z-index: 1;
 }
 
 /* Mobile Responsive */
@@ -115,5 +156,9 @@ nav a {
   .image-content {
     width: 100%;
     padding: 10px;
+  }
+
+  input[type="number"] {
+    width: 100%;
   }
 }
