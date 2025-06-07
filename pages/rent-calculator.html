@@ -8,7 +8,8 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
+      background: url('../images/background.jpg') no-repeat center center fixed;
+      background-size: cover;
       margin: 0;
       padding: 0;
       display: flex;
@@ -19,7 +20,7 @@
     .calculator-container {
       max-width: 600px;
       margin: 50px auto;
-      background-color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.95);
       padding: 30px;
       border-radius: 10px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -90,20 +91,26 @@
         <button class="btn" onclick="window.print()">Print</button>
       `;
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      document.querySelector(".hamburger").addEventListener("click", function () {
+        document.getElementById("nav-links").classList.toggle("show");
+      });
+    });
   </script>
 </head>
 <body>
   <header>
     <div class="nav-container">
       <div class="logo">Bindutara</div>
-      <div class="hamburger" onclick="document.getElementById('nav-links').classList.toggle('show')">&#9776;</div>
-      <nav id="nav-links">
-        <a href="../index.html">Home</a>
-        <a href="contact.html">Contact</a>
-        <a href="terms.html">Terms</a>
-        <a href="rent-calculator.html">Rent Calculator</a>
-      </nav>
+      <div class="hamburger">&#9776;</div>
     </div>
+    <nav id="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="contact.html">Contact</a>
+      <a href="terms.html">Terms</a>
+      <a href="rent-calculator.html">Rent Calculator</a>
+    </nav>
   </header>
 
   <main>
