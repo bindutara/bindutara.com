@@ -1,0 +1,16 @@
+<!DOCTYPE html><html><head><title>Calculator</title></head><body>
+        <h1>Rent Calculator</h1>
+        <label>Enter Amount (in ₹ Lakhs): <input type='number' id='amount' /></label>
+        <button onclick='calculate()'>Calculate</button>
+        <p id='result'></p>
+        <script>
+          function calculate() {
+            var amount = parseFloat(document.getElementById('amount').value);
+            var daily = amount * 120;
+            var rent = amount * 100;
+            var emi = amount * 20;
+            document.getElementById('result').innerText =
+              'Total Daily: ₹' + daily + ' (₹' + rent + ' rent + ₹' + emi + ' EMI)';
+          }
+        </script>
+    </body></html>
