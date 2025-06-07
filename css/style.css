@@ -229,11 +229,11 @@ footer {
   }
 }
 
-/* Racing Animation for Car */
+/* Racing Animation for Car - from Right */
 @keyframes raceIn {
   0% {
     opacity: 0;
-    transform: translateX(-100%) scale(0.6) rotate(-5deg);
+    transform: translateX(100%) scale(0.6) rotate(5deg);
   }
   100% {
     opacity: 1;
