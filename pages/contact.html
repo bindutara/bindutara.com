@@ -81,7 +81,6 @@
       padding-top: 120px;
       padding-bottom: 60px;
       background: #f9f9f9;
-      text-align: center;
     }
 
     .hero-content {
@@ -91,6 +90,7 @@
       background: #fff;
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      text-align: center;
     }
 
     .hero-content h1 {
@@ -149,11 +149,35 @@
 
       .hamburger {
         display: block;
-        color: #000;
       }
 
       .hero-content {
         margin: 20px;
+        padding: 30px 16px;
+        text-align: center;
+      }
+
+      .hero-content h1 {
+        font-size: 28px;
+      }
+
+      .hero-content p {
+        font-size: 16px;
+      }
+
+      .apply-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-content h1 {
+        font-size: 24px;
+      }
+
+      .hero-content p {
+        font-size: 15px;
       }
     }
   </style>
