@@ -5,6 +5,152 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bindutara Enterprises</title>
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background-color: #000040;
+      color: white;
+      padding: 10px 20px;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .hamburger {
+      font-size: 28px;
+      cursor: pointer;
+      display: none;
+    }
+
+    #nav-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    #nav-links a {
+      background: #ff6600;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    #nav-links a:hover {
+      background: #e65c00;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      padding: 40px 20px;
+      background-color: #f7f7f7;
+      text-align: center;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .text-content {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .text-content h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .text-content p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .apply-btn {
+      display: inline-block;
+      background-color: #ff6600;
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .image-content {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .image-content img {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+
+      #nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #000040;
+        margin-top: 10px;
+      }
+
+      #nav-links.show {
+        display: flex;
+      }
+
+      #nav-links a {
+        border-top: 1px solid #444;
+        padding: 10px;
+      }
+
+      .hero-content {
+        flex-direction: column;
+      }
+
+      .text-content, .image-content {
+        width: 100%;
+        padding: 10px;
+      }
+
+      .apply-btn {
+        margin-bottom: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- HEADER -->
@@ -35,7 +181,7 @@
     </div>
   </section>
 
-  <!-- SCRIPT -->
+  <!-- JavaScript -->
   <script>
     function toggleMenu() {
       const nav = document.getElementById("nav-links");
