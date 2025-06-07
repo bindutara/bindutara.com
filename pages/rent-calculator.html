@@ -8,70 +8,95 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
+
     .calculator-container {
-      max-width: 400px;
-      margin: 80px auto;
-      background: #fff;
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #ffffff;
       padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-      animation: fadeInUp 0.5s ease-out;
-    }
-    h1 {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
       text-align: center;
-      margin-bottom: 20px;
     }
-    label, input {
-      display: block;
-      width: 100%;
-      margin-bottom: 15px;
-    }
-    input {
+
+    input[type="number"] {
       padding: 10px;
+      font-size: 16px;
+      width: 80%;
+      margin: 10px 0;
       border: 1px solid #ccc;
       border-radius: 5px;
     }
-    .apply-btn {
-      display: inline-block;
+
+    .btn {
       background: linear-gradient(to bottom, #ff7e00, #e65c00);
       color: white;
       padding: 12px 24px;
-      text-decoration: none;
-      border-radius: 5px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
       font-weight: bold;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
-      width: 100%;
-      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     }
-    .apply-btn:hover {
+
+    .btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
     }
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
+
+    .results {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    footer {
+      margin-top: auto;
+      background-color: #000040;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+
+    @media (max-width: 768px) {
+      input[type="number"] {
+        width: 100%;
+      }
     }
   </style>
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const hamburger = document.querySelector(".hamburger");
-      const navLinks = document.getElementById("nav-links");
-      if (hamburger && navLinks) {
-        hamburger.addEventListener("click", function () {
-          navLinks.classList.toggle("show");
-        });
-      }
-    });
+    function calculateRent() {
+      const amount = parseFloat(document.getElementById('amount').value);
+      const perLakh = amount / 100000;
+      const dailyRentPerLakh = 120; // 100 base + 20 per lakh
+      const dailyRent = dailyRentPerLakh * perLakh;
+      const monthlyRent = dailyRent * 30;
+      const totalRent = monthlyRent * 60;
+      const emi = monthlyRent.toFixed(2);
+
+      document.getElementById('output').innerHTML = `
+        <p><strong>Vehicle Amount:</strong> ₹${amount.toLocaleString()}</p>
+        <p><strong>Daily Rent:</strong> ₹${dailyRent.toFixed(2)}</p>
+        <p><strong>Monthly Rent (EMI):</strong> ₹${emi}</p>
+        <p><strong>Total Rent (60 Months):</strong> ₹${totalRent.toFixed(2)}</p>
+        <button class="btn" onclick="window.print()">Print</button>
+      `;
+    }
   </script>
 </head>
 <body>
   <header>
     <div class="nav-container">
       <div class="logo">Bindutara</div>
-      <div class="hamburger">&#9776;</div>
+      <div class="hamburger" onclick="document.getElementById('nav-links').classList.toggle('show')">&#9776;</div>
       <nav id="nav-links">
         <a href="../index.html">Home</a>
         <a href="contact.html">Contact</a>
@@ -81,30 +106,19 @@
     </div>
   </header>
 
-  <div class="calculator-container">
-    <h1>Rent Calculator</h1>
-    <label for="price">Vehicle Price (₹):</label>
-    <input type="number" id="price" placeholder="Enter amount">
+  <main>
+    <div class="calculator-container">
+      <h1>Rent Calculator</h1>
+      <p>Enter the vehicle cost (in INR):</p>
+      <input type="number" id="amount" placeholder="e.g. 500000">
+      <br>
+      <button class="btn" onclick="calculateRent()">Calculate</button>
+      <div id="output" class="results"></div>
+    </div>
+  </main>
 
-    <label for="months">Duration (months):</label>
-    <input type="number" id="months" placeholder="e.g. 60">
-
-    <a href="#" class="apply-btn" onclick="calculateRent()">Calculate</a>
-    <p id="result" style="margin-top: 20px; font-weight: bold; text-align: center;"></p>
-  </div>
-
-  <script>
-    function calculateRent() {
-      const price = document.getElementById("price").value;
-      const months = document.getElementById("months").value;
-      const result = document.getElementById("result");
-      if (price && months && parseFloat(price) > 0 && parseInt(months) > 0) {
-        const rent = (parseFloat(price) / parseInt(months)).toFixed(2);
-        result.innerText = `Monthly Rent: ₹${rent}`;
-      } else {
-        result.innerText = "Please enter valid values.";
-      }
-    }
-  </script>
+  <footer>
+    <p>&copy; 2025 Bindutara Enterprises Pvt. Ltd. All rights reserved.</p>
+  </footer>
 </body>
 </html>
