@@ -1,21 +1,40 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="UTF-8"><title>Terms</title><link rel="stylesheet" href="style.css">
-</head><body>
-<header><h1>Bindutara Enterprises</h1></header>
-<nav>
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <a href="gallery.html">Gallery</a>
-  <a href="terms.html">Terms</a>
-  <a href="contact.html">Contact</a>
-  <a href="calculator.html">Calculator</a>
-</nav>
-<a class="contact-float" href="contact.html">✉</a>
-<main>
-<ul>
-  <li>No refund after rent begins.</li>
-  <li>Security deposit may be forfeited if damaged.</li>
-  <li>Legal action for fraud or misuse of vehicle.</li>
-  <li>Privacy guaranteed, misuse of company data not allowed.</li>
-</ul>
-</main><footer>&copy; 2025 Bindutara Enterprises</footer></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms - Bindutara Enterprises</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <div class="logo">Bindutara</div>
+      <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+    </div>
+    <nav id="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="contact.html">Contact</a>
+      <a href="terms.html">Terms</a>
+      <a href="rent-calculator.html">Rent Calculator</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="text-content">
+        <h1>Terms and Conditions</h1>
+        <p>All vehicle plans are subject to approval. Please review our policies before applying.</p>
+        <p>Prices and terms may vary without notice.</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById("nav-links");
+      nav.classList.toggle("show");
+    }
+  </script>
+</body>
+</html>
