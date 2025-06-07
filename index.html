@@ -33,10 +33,13 @@
       font-weight: bold;
       color: #000;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, text-shadow 0.3s ease;
+      text-shadow: 1px 1px 0 #999, 2px 2px 0 #ccc, 3px 3px 0 #eee;
     }
+
     .logo:hover {
-      transform: scale(1.1);
+      transform: scale(1.1) rotateX(5deg) rotateY(5deg);
+      text-shadow: 1px 1px 0 #888, 2px 2px 0 #bbb, 3px 3px 0 #ddd;
     }
 
     nav {
