@@ -31,7 +31,7 @@ body::before {
 
 /* Navigation Styles */
 header {
-  background-color: #000040;
+  background: linear-gradient(to right, #000040, #000060);
   color: white;
   padding: 15px 0;
   position: relative;
@@ -251,7 +251,7 @@ footer {
   #nav-links {
     display: none;
     flex-direction: column;
-    background-color: #000040;
+    background: linear-gradient(to right, #000040, #000060);
     width: 100%;
     margin-top: 10px;
     border-radius: 0 0 8px 8px;
