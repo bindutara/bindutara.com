@@ -302,18 +302,71 @@ footer {
 .features-section {
   background: rgba(255, 255, 255, 0.06);
   border-radius: 20px;
-  padding: 50px 30px;
-  margin: 60px auto;
-  max-width: 900px;
+  padding: 60px 30px;
+  margin: 80px auto;
+  max-width: 1100px;
   backdrop-filter: blur(15px);
-  box-shadow: 0 0 25px rgba(0, 64, 255, 0.2);
+  box-shadow: 0 0 30px rgba(0, 64, 255, 0.15);
   animation: fadeInUp 1.2s ease-out;
   transform-style: preserve-3d;
   perspective: 1000px;
   transition: transform 0.3s ease;
-  /* flex-direction: column; → only if used with display:flex */
 }
 
+.features-section:hover {
+  animation: bounceRotate 0.8s ease forwards;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #000040;
+  margin-bottom: 40px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', 'Poppins', sans-serif;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.feature-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 25px 20px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  font-family: 'Segoe UI', 'Poppins', sans-serif;
+  font-size: 1.05rem;
+  color: #000040;
+  font-weight: 500;
+  line-height: 1.6;
+  position: relative;
+  overflow: hidden;
+  border-left: 5px solid #ff7e00;
+}
+
+.feature-card::before {
+  content: attr(data-icon);
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 24px;
+  opacity: 0.2;
+  transform: rotate(-10deg);
+}
+
+.feature-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 64, 255, 0.2);
+}
+.feature-card:hover::before {
+  opacity: 0.4;
+  transform: rotate(0deg) scale(1.1);
+}
 .features-section:hover {
   transform: rotateX(3deg) rotateY(-3deg) scale(1.01);
   box-shadow: 0 0 40px rgba(0, 120, 255, 0.5);
@@ -328,13 +381,6 @@ footer {
   font-weight: bold;
 }
 
-.features-list {
-  list-style-type: none;
-  padding-left: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-}
 
 .features-list li {
   background: #ffffff;
@@ -389,3 +435,4 @@ html {
 input[type="number"]:hover, input[type="text"]:hover, textarea:hover {
   border-color: #000080;
 }
+<button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
