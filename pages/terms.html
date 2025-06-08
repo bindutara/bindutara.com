@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Terms - Bindutara Enterprises</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Terms and Conditions for Bindutara Enterprises - Rent to Own Vehicles for Commercial Use.">
+  <title>Terms & Conditions | Bindutara Enterprises</title>
+  <link rel="stylesheet" href="/css/style.css" />
   <style>
     /* Navigation Styles */
     .nav-container {
@@ -17,6 +18,7 @@
       position: sticky;
       top: 0;
       z-index: 1000;
+      flex-wrap: wrap;
     }
 
     .logo a {
@@ -43,6 +45,10 @@
       color: white;
       text-decoration: none;
       font-weight: 500;
+    }
+    #nav-links a.active {
+      border-bottom: 2px solid white;
+      font-weight: bold;
     }
 
     @media (max-width: 768px) {
@@ -93,21 +99,8 @@
       color: #000040;
     }
 
-    .hero-content h1, .hero-content h2 {
-      color: #000040;
-      margin-bottom: 10px;
-    }
-
-    .hero-content h2 {
-      margin-top: 30px;
-    }
-
-    .hero-content ul {
-      padding-left: 20px;
-    }
-
-    .hero-content p {
-      margin-bottom: 15px;
+    .contact-info {
+      line-height: 1.8;
     }
 
     footer {
@@ -117,32 +110,28 @@
       padding: 15px 20px;
       margin-top: auto;
     }
-
-    @media (max-width: 768px) {
-      .hero-content {
-  padding: clamp(1rem, 5vw, 3rem);
-}
-    }
   </style>
 </head>
 <body>
-<header>
-  <div class="nav-container">
-    <div class="logo">
-      <a href="/index.html">Bindutara</a>
-    </div>
-    <div class="hamburger">&#9776;</div>
-    <nav id="nav-links">
-  <a href="/index.html">Home</a>
-  <a href="/pages/contact.html">Contact</a>
-  <a href="/pages/terms.html" class="active">Terms</a>
-  <a href="/pages/rent-calculator.html">Rent Calculator</a>
-</nav>
-  </div>
-</header>
 
-<section class="hero">
-  <div class="hero-content">
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <div class="logo"><a href="/index.html">Bindutara</a></div>
+      <div class="hamburger" onclick="toggleMenu()">☰</div>
+      <nav id="nav-links">
+        <a href="/index.html">Home</a>
+        <a href="/pages/contact.html">Contact</a>
+        <a href="/pages/terms.html" class="active">Terms</a>
+        <a href="/pages/rent-calculator.html">Rent Calculator</a>
+      </nav>
+    </div>
+  </header>
+  
+ <!-- Main Content -->
+  <main class="hero">
+    <div class="hero-content">
+      <!-- Start of T&C -->
     <h1>Terms and Conditions</h1>
     <p><strong>Effective Date:</strong> June 7, 2025</p>
     <p>Welcome to Nytrix Bindutara Enterprises Pvt. Ltd. (“Bindutara”, “Company”, “we”, “us”, or “our”). These Terms and Conditions ("Terms") govern your relationship with Bindutara Enterprises in connection with the vehicle rental, lease, and rent-to-own services offered through our platform and agreements. By signing any agreement, using our services, or engaging in any transaction with Bindutara Enterprises, you (“Customer”, “you”, “your”) agree to be bound by these Terms in full.</p>
@@ -213,14 +202,15 @@
     <p>15.1 Bindutara Enterprises reserves the right to modify these terms at any time. The updated Terms shall be binding upon publication or customer notification.</p>
     <p>15.2 In case of conflict between these Terms and the signed agreement, the contract shall prevail.</p>
 
-    <h2>16. Contact Information</h2>
-    <div style="line-height: 1.8;">
+     <p><strong>Contact Us:</strong></p>
+      <div class="contact-info">
       <p><strong>Address:</strong> 828 M.L. Gupta Road, Kolkata, West Bengal, India</p>
       <p><strong>Phone:</strong> +91-9883542610</p>
       <p><strong>Email:</strong> <a href="mailto:bindutarapvtltd@gmail.com">bindutarapvtltd@gmail.com</a></p>
       <p><strong>Website:</strong> <a href="https://www.bindutara.com" target="_blank">www.bindutara.com</a></p>
     </div>
-
+  </div>
+</main>
     <p>By continuing with the vehicle rental or signing the agreement, you confirm that you have read, understood, and accepted these Terms and Conditions in their entirety.</p>
   </div>
 </section>
@@ -229,17 +219,12 @@
   <p>&copy; 2025 Nytrix Bindutara Enterprises Pvt. Ltd. All rights reserved.</p>
 </footer>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.getElementById('nav-links');
-
-    if (hamburger && navLinks) {
-      hamburger.addEventListener('click', function () {
-        navLinks.classList.toggle('show');
-      });
+  <!-- Script -->
+  <script>
+    function toggleMenu() {
+      var navLinks = document.getElementById("nav-links");
+      navLinks.classList.toggle("show");
     }
-  });
-</script>
+  </script>
 </body>
 </html>
