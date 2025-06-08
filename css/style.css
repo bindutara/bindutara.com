@@ -311,8 +311,8 @@ footer {
   transform-style: preserve-3d;
   perspective: 1000px;
   transition: transform 0.3s ease;
+  /* flex-direction: column; → only if used with display:flex */
 }
-  flex-direction: column;
 
 .features-section:hover {
   transform: rotateX(3deg) rotateY(-3deg) scale(1.01);
@@ -348,16 +348,21 @@ footer {
   transition: all 0.3s ease;
 }
 
-.features-list li:hover {
-  background: rgba(0, 100, 255, 0.2);
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 0 20px rgba(0, 150, 255, 0.4);
+.features-section {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  padding: 50px 30px;
+  margin: 60px auto;
+  max-width: 900px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 0 25px rgba(0, 64, 255, 0.2);
+  animation: fadeInUp 1.2s ease-out;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.3s ease;
+  /* flex-direction: column; → only if used with display:flex */
 }
 
-/* Entrance animation */
-.features-list li:hover {
-  filter: drop-shadow(0 0 8px rgba(0, 150, 255, 0.5));
-}
 .features-section:hover {
   animation: bounceRotate 0.8s ease forwards;
 }
@@ -369,4 +374,10 @@ a:focus, button:focus {
   0% { transform: rotateX(0deg) rotateY(0deg); }
   50% { transform: rotateX(5deg) rotateY(-5deg) scale(1.03); }
   100% { transform: rotateX(3deg) rotateY(-3deg) scale(1.01); }
+}
+html {
+  scroll-behavior: smooth;
+}
+input[type="number"]:hover, input[type="text"]:hover, textarea:hover {
+  border-color: #000080;
 }
