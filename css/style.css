@@ -312,6 +312,7 @@ footer {
   perspective: 1000px;
   transition: transform 0.3s ease;
 }
+  flex-direction: column;
 
 .features-section:hover {
   transform: rotateX(3deg) rotateY(-3deg) scale(1.01);
