@@ -222,14 +222,8 @@ footer {
 
 /* Fade In Animation */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* Racing Animation for Car */
@@ -360,23 +354,16 @@ footer {
 }
 
 /* Entrance animation */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 .features-list li:hover {
   filter: drop-shadow(0 0 8px rgba(0, 150, 255, 0.5));
 }
 .features-section:hover {
   animation: bounceRotate 0.8s ease forwards;
 }
-
+a:focus, button:focus {
+  outline: 2px dashed #ffa500;
+  outline-offset: 3px;
+}
 @keyframes bounceRotate {
   0% { transform: rotateX(0deg) rotateY(0deg); }
   50% { transform: rotateX(5deg) rotateY(-5deg) scale(1.03); }
