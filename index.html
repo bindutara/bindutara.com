@@ -76,101 +76,45 @@
       cursor: pointer;
       color: #000;
     }
-
-    .hero {
+   .hero {
       padding-top: 120px;
-      background: #f9f9f9;
       padding-bottom: 60px;
+      background: #f9f9f9;
     }
-
     .hero-content {
-      max-width: 1300px;
+      max-width: 800px;
       margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 40px;
-      padding: 0 20px;
+      padding: 40px 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      text-align: center;
     }
-
-    .hero-text {
-      flex: 1 1 300px;
-      max-width: 600px;
-    }
-
-    .hero-text h1 {
-      font-size: 48px;
-      font-weight: bold;
+  .hero-content h1 {
+      font-size: 36px;
       margin-bottom: 20px;
-      color: #000;
     }
-
-    .hero-text p {
-      font-size: 20px;
-      margin-bottom: 30px;
-      line-height: 1.6;
+    .hero-content p {
+      font-size: 18px;
+      margin: 10px 0;
       color: #333;
     }
-
     .apply-btn {
       display: inline-block;
       background: #000;
       color: #fff;
       font-weight: bold;
-      padding: 14px 32px;
+      padding: 12px 28px;
       border-radius: 50px;
       text-decoration: none;
-      font-size: 18px;
+      font-size: 16px;
+      margin-top: 20px;
       transition: all 0.3s ease;
     }
-
     .apply-btn:hover {
       background-color: #333;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
     }
-
-    .car-image {
-      flex: 1 1 300px;
-      max-width: 500px;
-      width: 100%;
-      animation: floatCar 3s ease-in-out infinite;
-    }
-
-    @keyframes floatCar {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    .features-section {
-      background: #ffffff;
-      padding: 80px 20px;
-      text-align: center;
-    }
-
-    .features-section h2 {
-      font-size: 36px;
-      margin-bottom: 40px;
-      color: #000;
-    }
-
-    .features-section ul {
-      list-style: none;
-      max-width: 1000px;
-      margin: auto;
-      padding: 0;
-    }
-
-    .features-section li {
-      font-size: 20px;
-      background: #f0f0f0;
-      margin: 12px 0;
-      padding: 16px 24px;
-      border-radius: 10px;
-      color: #333;
-      text-align: left;
-    }
-
     footer {
       background: #000;
       color: #fff;
@@ -191,53 +135,47 @@
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         z-index: 1000;
       }
-
       nav.show {
         display: flex;
       }
-
       .hamburger {
         display: block;
-        color: #000;
       }
-
       .hero-content {
+        margin: 20px;
+        padding: 30px 16px;
+        text-align: left;
+        display: flex;
         flex-direction: column;
-        text-align: center;
+        align-items: left;
       }
-
-      .car-image {
-        max-width: 90%;
-        margin: auto;
+      .hero-content p {
+        width: 100%;
+        max-width: 600px;
+      }
+      .hero-content h1 {
+        font-size: 28px;
+      }
+      .hero-content p {
+        font-size: 16px;
+      }
+      .apply-btn {
+        padding: 10px 20px;
+        font-size: 14px;
       }
     }
-
     @media (max-width: 480px) {
-      header {
-        padding: 12px 20px;
+      .hero-content h1 {
+        font-size: 24px;
       }
-
-      .hero-text h1 {
-        font-size: 32px;
-      }
-
-      .hero-text p {
-        font-size: 16px;
-      }
-
-      .apply-btn {
-        padding: 12px 24px;
-        font-size: 16px;
-      }
-
-      .features-section li {
-        font-size: 16px;
-        padding: 14px 18px;
+      .hero-content p {
+        font-size: 15px;
       }
     }
   </style>
 </head>
 <body>
+  
   <header>
     <header id="main-header">
   <div class="nav-container" id="nav-container">
