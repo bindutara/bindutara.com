@@ -2,242 +2,311 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Terms - Bindutara Enterprises</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bindutara Enterprises</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    /* Navigation Styles */
-    .nav-container {
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: #ffffff;
+      color: #000;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: #ffffff;
+      color: #000;
+      padding: 16px 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: #000040;
-      color: white;
-      padding: 10px 20px;
-      position: relative;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 999;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
-    .logo a {
-      font-size: 1.5em;
+    .logo {
+      font-size: 28px;
       font-weight: bold;
+      color: #000;
+      cursor: pointer;
+      transition: transform 0.3s ease, text-shadow 0.3s ease;
+      text-shadow: 1px 1px 0 #999, 2px 2px 0 #ccc, 3px 3px 0 #eee;
+    }
+
+    .logo:hover {
+      transform: scale(1.1) rotateX(5deg) rotateY(5deg);
+      text-shadow: 1px 1px 0 #888, 2px 2px 0 #bbb, 3px 3px 0 #ddd;
+    }
+
+    nav {
+      display: flex;
+      gap: 24px;
+    }
+
+    nav a {
+      color: #000;
       text-decoration: none;
-      color: white;
+      position: relative;
+      font-size: 16px;
+      padding: 4px 0;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      height: 2px;
+      width: 0;
+      background-color: #000;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
     }
 
     .hamburger {
       display: none;
-      font-size: 28px;
+      font-size: 26px;
       cursor: pointer;
-      padding: 10px;
-      color: white;
+      color: #000;
     }
 
-    #nav-links {
-      display: flex;
-      gap: 20px;
-    }
-
-    #nav-links a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    @media (max-width: 768px) {
-      .hamburger {
-        display: block;
-      }
-
-      #nav-links {
-        display: none;
-        flex-direction: column;
-        background-color: #000040;
-        position: absolute;
-        top: 60px;
-        right: 20px;
-        width: 200px;
-        padding: 10px;
-        border-radius: 8px;
-        z-index: 999;
-      }
-
-      #nav-links a {
-        color: white;
-        padding: 10px;
-        display: block;
-        text-align: right;
-      }
-
-      #nav-links.show {
-        display: flex;
-      }
-    }
-
-    /* Hero Section Styles */
     .hero {
-      padding: 40px 20px;
-      flex: 1;
+      padding-top: 120px;
+      background: #f9f9f9;
+      padding-bottom: 60px;
     }
 
     .hero-content {
-      max-width: 900px;
+      max-width: 1300px;
       margin: auto;
-      background-color: rgba(255, 255, 255, 0.97);
-      padding: 40px;
-      border-radius: 10px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 40px;
+      padding: 0 20px;
+    }
+
+    .hero-text {
+      flex: 1 1 300px;
+      max-width: 600px;
+    }
+
+    .hero-text h1 {
+      font-size: 48px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #000;
+    }
+
+    .hero-text p {
+      font-size: 20px;
+      margin-bottom: 30px;
       line-height: 1.6;
-      font-size: 16px;
-      color: #000040;
+      color: #333;
     }
 
-    .hero-content h1, .hero-content h2 {
-      color: #000040;
-      margin-bottom: 10px;
+    .apply-btn {
+      display: inline-block;
+      background: #000;
+      color: #fff;
+      font-weight: bold;
+      padding: 14px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 18px;
+      transition: all 0.3s ease;
     }
 
-    .hero-content h2 {
-      margin-top: 30px;
+    .apply-btn:hover {
+      background-color: #333;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
     }
 
-    .hero-content ul {
-      padding-left: 20px;
+    .car-image {
+      flex: 1 1 300px;
+      max-width: 500px;
+      width: 100%;
+      animation: floatCar 3s ease-in-out infinite;
     }
 
-    .hero-content p {
-      margin-bottom: 15px;
+    @keyframes floatCar {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .features-section {
+      background: #ffffff;
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    .features-section h2 {
+      font-size: 36px;
+      margin-bottom: 40px;
+      color: #000;
+    }
+
+    .features-section ul {
+      list-style: none;
+      max-width: 1000px;
+      margin: auto;
+      padding: 0;
+    }
+
+    .features-section li {
+      font-size: 20px;
+      background: #f0f0f0;
+      margin: 12px 0;
+      padding: 16px 24px;
+      border-radius: 10px;
+      color: #333;
+      text-align: left;
     }
 
     footer {
-      background-color: #000040;
-      color: white;
+      background: #000;
+      color: #fff;
       text-align: center;
-      padding: 15px 20px;
-      margin-top: auto;
+      padding: 20px;
     }
 
     @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        padding: 10px 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        z-index: 1000;
+      }
+
+      nav.show {
+        display: flex;
+      }
+
+      .hamburger {
+        display: block;
+        color: #000;
+      }
+
       .hero-content {
-        padding: 20px;
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .car-image {
+        max-width: 90%;
+        margin: auto;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 12px 20px;
+      }
+
+      .hero-text h1 {
+        font-size: 32px;
+      }
+
+      .hero-text p {
+        font-size: 16px;
+      }
+
+      .apply-btn {
+        padding: 12px 24px;
+        font-size: 16px;
+      }
+
+      .features-section li {
+        font-size: 16px;
+        padding: 14px 18px;
       }
     }
   </style>
 </head>
 <body>
-<header>
-  <div class="nav-container">
-    <div class="logo">
-      <a href="../index.html">Bindutara</a>
-    </div>
-    <div class="hamburger">&#9776;</div>
+  <header>
+    <header id="main-header">
+  <div class="nav-container" id="nav-container">
+    <div class="logo" onclick="location.href='index.html'">Bindutara</div>
+    <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
     <nav id="nav-links">
-      <a href="../index.html">Home</a>
-      <a href="contact.html">Contact</a>
-      <a href="terms.html">Terms</a>
-      <a href="rent-calculator.html">Rent Calculator</a>
+      <a href="index.html">Home</a>
+      <a href="pages/contact.html">Contact</a>
+      <a href="pages/terms.html">Terms</a>
+      <a href="pages/rent-calculator.html">Rent Calculator</a>
     </nav>
-  </div>
-</header>
+  </header>
 
-<section class="hero">
-  <div class="hero-content">
-    <h1>Terms and Conditions</h1>
-    <p><strong>Effective Date:</strong> June 7, 2025</p>
-    <p>Welcome to Nytrix Bindutara Enterprises Pvt. Ltd. (“Bindutara”, “Company”, “we”, “us”, or “our”). These Terms and Conditions ("Terms") govern your relationship with Bindutara Enterprises in connection with the vehicle rental, lease, and rent-to-own services offered through our platform and agreements. By signing any agreement, using our services, or engaging in any transaction with Bindutara Enterprises, you (“Customer”, “you”, “your”) agree to be bound by these Terms in full.</p>
-    <p>If you do not agree to these Terms, do not use or sign any documentation or vehicle-related service with Bindutara Enterprises.</p>
-
-    <h2>1. Nature of the Agreement</h2>
-    <p>1.1 Bindutara Enterprises offers vehicles under a structured long-term rent-to-own plan typically lasting 60 months (5 years).</p>
-    <p>1.2 Under this plan, the customer pays a recurring rental fee, which may be daily, weekly, or monthly, as defined in the customer’s signed agreement. These payments contribute toward eventual ownership of the vehicle.</p>
-    <p>1.3 The vehicle remains the legal property of Bindutara Enterprises until the full term is completed and all dues, including any outstanding amounts or penalties, are paid.</p>
-
-    <h2>2. Contract Term and Ownership Transfer</h2>
-    <p>2.1 The standard rental term is 60 months, unless otherwise stated in the specific contract signed between the customer and the company.</p>
-    <p>2.2 Upon completion of all scheduled payments and any applicable charges (including foreclosure, penalties, or legal fees), ownership of the vehicle will be transferred to the customer.</p>
-    <p>2.3 The responsibility and cost of name transfer in the registration and associated government records shall lie solely with the customer. The company is not responsible for any delays or costs incurred during this process.</p>
-    <p>2.4 If the contract ends early due to foreclosure or pre-closure, the customer must ensure all outstanding payments, penalties, and charges are settled before title transfer.</p>
-
-    <h2>3. Payment Terms</h2>
-    <p>3.1 Payment options shall be defined in the agreement and may be: Daily, Weekly, or Monthly.</p>
-    <p>3.2 The mode and schedule of payments will be selected at the start of the contract and cannot be altered without written approval from the company.</p>
-    <p>3.3 Failure to pay on time may result in late fees, service interruptions, vehicle seizure, or contract termination.</p>
-
-    <h2>4. Commercial Use and Liability</h2>
-    <p>4.1 Vehicles are intended for use in commercial passenger transport services, including but not limited to: Ola, Uber, Yatrisathi, InDrive, Rapido, Red Taxi, Suttle.</p>
-    <p>4.2 Customers must comply with all state and central transport regulations, including passenger safety and commercial driving license requirements.</p>
-    <p>4.3 The company is not liable for customer misuse, passenger disputes, traffic violations, or negligence.</p>
-
-    <h2>5. Customer Obligations</h2>
-    <p>5.1 Customers are expected to keep the vehicle in good working condition, conduct routine maintenance, avoid misuse or unauthorized modifications, and not sublease the vehicle.</p>
-    <p>5.2 All costs for wear-and-tear, maintenance, and operational fuel are borne by the customer.</p>
-
-    <h2>6. Insurance</h2>
-    <p>6.1 The customer shall be responsible for ensuring that the third-party insurance for the vehicle is renewed before its expiry in compliance with applicable motor vehicle laws.</p>
-    <p>6.2 Failure to renew insurance may result in legal penalties and contract suspension.</p>
-
-    <h2>7. Inspection and Monitoring</h2>
-    <p>7.1 Bindutara Enterprises reserves the right to inspect the vehicle at any reasonable time.</p>
-    <p>7.2 The vehicle may be equipped with GPS or IoT-based monitoring tools for security and compliance.</p>
-    <p>7.3 Tampering with such equipment may result in legal action and contract termination.</p>
-
-    <h2>8. Breach and Termination</h2>
-    <p>8.1 The Company may immediately terminate the agreement without notice if any clause in these Terms is breached, fraud is detected, payments are defaulted, or illegal use is identified.</p>
-    <p>8.2 If the customer cancels the contract, a cancellation penalty will apply, all balance rent and fees must be paid, and the vehicle returned in acceptable condition.</p>
-
-    <h2>9. Confidentiality and Non-Disclosure</h2>
-    <p>9.1 All business, financial, and personal information shared between the company and customer during the term of the contract is considered confidential.</p>
-    <p>9.2 Neither party shall disclose confidential information to third parties without written consent.</p>
-    <p>9.3 This clause remains in force even after contract termination or expiry.</p>
-
-    <h2>10. Non-Compete Clause</h2>
-    <p>10.1 The customer agrees not to directly or indirectly engage in a competing rent-to-own or rental vehicle business during the term of this agreement and up to 2 years post termination.</p>
-    <p>10.2 Violation of this clause may result in legal proceedings and financial penalties.</p>
-
-    <h2>11. Communication Disclaimer</h2>
-    <p>11.1 Only written communication documented in the official contract or legal annexures shall be considered valid.</p>
-    <p>11.2 Any verbal, unofficial, telephonic, WhatsApp, SMS, or other media-based communication is considered null and void unless explicitly written into the agreement.</p>
-    <p>11.3 Customers are advised to retain all official correspondence and receipts for legal protection.</p>
-
-    <h2>12. Indemnity</h2>
-    <p>12.1 The customer shall indemnify Bindutara Enterprises from any claims, losses, damages, or expenses arising out of legal violations, commercial operations, or third-party issues related to vehicle use.</p>
-
-    <h2>13. Force Majeure</h2>
-    <p>13.1 The company shall not be held liable for any delay, failure, or interruption in service due to natural disasters, riots, Acts of God, government restrictions, or pandemics.</p>
-
-    <h2>14. Dispute Resolution</h2>
-    <p>14.1 Any disputes shall be attempted to be resolved amicably, followed by arbitration under the Indian Arbitration and Conciliation Act. Jurisdiction shall be in Kolkata, West Bengal, India.</p>
-
-    <h2>15. Amendment and Interpretation</h2>
-    <p>15.1 Bindutara Enterprises reserves the right to modify these terms at any time. The updated Terms shall be binding upon publication or customer notification.</p>
-    <p>15.2 In case of conflict between these Terms and the signed agreement, the contract shall prevail.</p>
-
-    <h2>16. Contact Information</h2>
-    <div style="line-height: 1.8;">
-      <p><strong>Address:</strong> 828 M.L. Gupta Road, Kolkata, West Bengal, India</p>
-      <p><strong>Phone:</strong> +91-9883542610</p>
-      <p><strong>Email:</strong> <a href="mailto:bindutarapvtltd@gmail.com">bindutarapvtltd@gmail.com</a></p>
-      <p><strong>Website:</strong> <a href="https://www.bindutara.com" target="_blank">www.bindutara.com</a></p>
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>BINDUTARA ENTERPRISES PVT. LTD.</h1>
+        <p>Drive your own success story with our transparent and flexible rent-to-own plan. Empowering you to own your vehicle in just 5 years.</p>
+        <a href="https://docs.google.com/forms/d/1t46RUW6gnsw4ZryACJj6bk07Mfy_oh2xcoa4P0VLJ44" target="_blank" class="apply-btn">Join Us</a>
+      </div>
+      <img src="images/ertiga-white.png" alt="Car Image" class="car-image" />
     </div>
+  </section>
 
-    <p>By continuing with the vehicle rental or signing the agreement, you confirm that you have read, understood, and accepted these Terms and Conditions in their entirety.</p>
+ <section class="features-section">
+  <h2 class="section-title">Key Features & Benefits</h2>
+  <div class="features-grid">
+<div class="feature-card" data-icon="💰">Flexible rent-to-own options with no heavy upfront cost.</div>
+<div class="feature-card" data-icon="📱">Use vehicles for commercial apps like Ola, Uber, InDrive, Rapido, and more.</div>
+<div class="feature-card" data-icon="📅">Daily/Weekly/Monthly payment modes available.</div>
+<div class="feature-card" data-icon="🧾">Customer name transfer after final payment.</div>
+<div class="feature-card" data-icon="🛡️">Vehicles delivered with valid insurance and fitness certificates.</div>
+<div class="feature-card" data-icon="⏳">Early closure options available for eligible customers.</div>
   </div>
 </section>
 
-<footer>
-  <p>&copy; 2025 Nytrix Bindutara Enterprises Pvt. Ltd. All rights reserved.</p>
-</footer>
+  <footer>
+    &copy; 2025 Bindutara Enterprises Pvt. Ltd. All rights reserved.
+  </footer>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.getElementById('nav-links');
-
-    if (hamburger && navLinks) {
-      hamburger.addEventListener('click', function () {
-        navLinks.classList.toggle('show');
-      });
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById("nav-links");
+      nav.classList.toggle("show");
     }
+  </script>
+    <script>
+  let lastScrollTop = 0;
+  const header = document.getElementById('main-header');
+  const nav = document.getElementById('nav-container');
+
+  window.addEventListener('scroll', function () {
+    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (currentScroll < lastScrollTop) {
+      // Scrolling up
+      header.classList.add('transparent');
+      nav.classList.add('transparent');
+    } else {
+      // Scrolling down or top
+      header.classList.remove('transparent');
+      nav.classList.remove('transparent');
+    }
+
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Avoid negative
   });
+      if (currentScroll < lastScrollTop && currentScroll > 100) {
+
 </script>
+    
 </body>
 </html>
