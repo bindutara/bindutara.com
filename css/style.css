@@ -240,17 +240,6 @@ footer {
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-  /* Transparent Header Effect on Scroll */
-header.transparent {
-  background: rgba(0, 0, 64, 0); /* Fully transparent */
-  transition: background 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: none;
-}
-
-.nav-container.transparent {
-  background: transparent;
-  box-shadow: none;
-}
   .hamburger {
     display: block;
     font-size: 26px;
