@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="description" content="Bindutara Enterprises offers flexible rent-to-own car plans for commercial drivers and entrepreneurs across India." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bindutara Enterprises</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
@@ -154,32 +154,23 @@
       color: #000;
     }
 
-      .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      max-width: 1200px;
+    .features-section ul {
+      list-style: none;
+      max-width: 1000px;
       margin: auto;
+      padding: 0;
     }
 
-    .feature-card {
-      background: #f9f9f9;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-      font-size: 18px;
-      position: relative;
-      padding-left: 50px;
+    .features-section li {
+      font-size: 20px;
+      background: #f0f0f0;
+      margin: 12px 0;
+      padding: 16px 24px;
+      border-radius: 10px;
+      color: #333;
       text-align: left;
     }
 
-    .feature-card::before {
-      content: attr(data-icon);
-      position: absolute;
-      left: 16px;
-      top: 18px;
-      font-size: 24px;
-    }
     footer {
       background: #000;
       color: #fff;
@@ -249,7 +240,7 @@
 <body>
   <header>
     <header id="main-header">
-      <div class="nav-container" id="nav-container">
+  <div class="nav-container" id="nav-container">
     <div class="logo" onclick="location.href='index.html'">Bindutara</div>
     <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
     <nav id="nav-links">
@@ -263,7 +254,7 @@
   <section class="hero">
     <div class="hero-content">
       <div class="hero-text">
-        <h1>RENT TO OWN</h1>
+        <h1>BINDUTARA ENTERPRISES PVT. LTD.</h1>
         <p>Drive your own success story with our transparent and flexible rent-to-own plan. Empowering you to own your vehicle in just 5 years.</p>
         <a href="https://docs.google.com/forms/d/1t46RUW6gnsw4ZryACJj6bk07Mfy_oh2xcoa4P0VLJ44" target="_blank" class="apply-btn">Join Us</a>
       </div>
@@ -284,7 +275,7 @@
 </section>
 
   <footer>
-    &copy; 2025 Nytrix Bindutara Enterprises Pvt. Ltd. All rights reserved.
+    &copy; 2025 Bindutara Enterprises Pvt. Ltd. All rights reserved.
   </footer>
 
   <script>
@@ -292,7 +283,8 @@
       const nav = document.getElementById("nav-links");
       nav.classList.toggle("show");
     }
-     
+  </script>
+    <script>
   let lastScrollTop = 0;
   const header = document.getElementById('main-header');
   const nav = document.getElementById('nav-container');
@@ -310,8 +302,11 @@
       nav.classList.remove('transparent');
     }
 
-    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-    });
-  </script>
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Avoid negative
+  });
+      if (currentScroll < lastScrollTop && currentScroll > 100) {
+
+</script>
+    
 </body>
 </html>
