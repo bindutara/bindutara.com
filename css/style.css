@@ -4,14 +4,7 @@
   padding: 0;
   box-sizing: border-box;
 }
-/* Root Variables */
-:root {
-  --navy: #000040;
-  --orange: #ff7e00;
-  --deep-orange: #e65c00;
-  --white: #ffffff;
-  --text: #000040;
-}
+
 /* Body Base */
 body {
   font-family: 'Segoe UI', sans-serif;
@@ -36,7 +29,7 @@ body::before {
   z-index: -1;
 }
 
-/* Header and Navigation */
+/* Navigation Styles */
 header {
   background: linear-gradient(to right, #000040, #000060);
   color: white;
@@ -154,7 +147,7 @@ nav a:hover {
   align-items: flex-start;
 }
 
-.hero-content .with-strong strong {
+.hero-content p strong {
   flex-shrink: 0;
 }
 
@@ -179,23 +172,14 @@ nav a:hover {
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
 }
 
-/* Inputs */
-input[type="number"],
-input[type="text"],
-textarea {
+/* Input Fields */
+input[type="number"], input[type="text"], textarea {
   width: 80%;
   padding: 10px;
   margin: 10px 0;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  transition: border-color 0.3s ease;
-}
-
-input[type="number"]:hover,
-input[type="text"]:hover,
-textarea:hover {
-  border-color: var(--navy);
 }
 
 /* Result Box */
@@ -235,12 +219,7 @@ footer {
 #scrollTopBtn:hover {
   background: #e65c00;
 }
-/* Accessibility Focus Outline */
-a:focus,
-button:focus {
-  outline: 2px dashed var(--orange);
-  outline-offset: 3px;
-}
+
 /* Fade In Animation */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(40px); }
@@ -258,18 +237,79 @@ button:focus {
     transform: translateX(0) scale(1) rotate(0);
   }
 }
-@keyframes bounceRotate {
-  0% {
-    transform: rotateX(0deg) rotateY(0deg);
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  /* Transparent Header Effect on Scroll */
+header.transparent {
+  background: rgba(0, 0, 64, 0); /* Fully transparent */
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: none;
+}
+
+.nav-container.transparent {
+  background: transparent;
+  box-shadow: none;
+}
+  .hamburger {
+    display: block;
+    font-size: 26px;
+    color: white;
+    cursor: pointer;
   }
-  50% {
-    transform: rotateX(5deg) rotateY(-5deg) scale(1.03);
+
+  #nav-links {
+    display: none;
+    flex-direction: column;
+    background: white; /* ✅ Light background */
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 0 0 8px 8px;
+    padding: 10px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
-  100% {
-    transform: rotateX(3deg) rotateY(-3deg) scale(1.01);
+
+  #nav-links.show {
+    display: flex;
+  }
+
+  #nav-links a {
+    color: #000040; /* ✅ Dark navy text */
+    padding: 12px 20px;
+    width: 100%;
+    text-align: left;
+    font-weight: 600;
+    font-size: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  #nav-links a:hover {
+    background-color: #f2f2f2;
+    color: #e65c00;
+  }
+  #nav-links a.active {
+  border-bottom: 2px solid white;
+  font-weight: bold;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  input[type="number"], input[type="text"], textarea {
+    width: 100%;
+  }
+
+  .hero-content p:has(strong) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-content p strong {
+    margin-bottom: 4px;
   }
 }
-/* Feature Section */
 .features-section {
   background: rgba(255, 255, 255, 0.06);
   border-radius: 20px;
@@ -286,66 +326,86 @@ button:focus {
 
 .features-section:hover {
   animation: bounceRotate 0.8s ease forwards;
-  transform: rotateX(3deg) rotateY(-3deg) scale(1.01);
-  box-shadow: 0 0 40px rgba(0, 120, 255, 0.5);
 }
 
 .section-title {
   text-align: center;
   font-size: 2.4rem;
   font-weight: 800;
-  color: var(--text);
+  color: #000040;
   margin-bottom: 40px;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', 'Poppins', sans-serif;
 }
 
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  max-width: 1200px;
-  margin: auto;
+  gap: 25px;
 }
 
 .feature-card {
-  background: var(--white);
-  padding: 20px 20px 20px 50px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  font-size: 18px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 25px 20px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  font-family: 'Segoe UI', 'Poppins', sans-serif;
+  font-size: 1.05rem;
+  color: #000040;
+  font-weight: 500;
+  line-height: 1.6;
   position: relative;
-  text-align: left;
+  overflow: hidden;
+  border-left: 5px solid #ff7e00;
 }
 
 .feature-card::before {
   content: attr(data-icon);
   position: absolute;
-  left: 16px;
   top: 18px;
+  right: 18px;
   font-size: 24px;
+  opacity: 0.2;
+  transform: rotate(-10deg);
 }
 
 .feature-card:hover {
   transform: translateY(-5px) scale(1.02);
   box-shadow: 0 10px 25px rgba(0, 64, 255, 0.2);
 }
-
 .feature-card:hover::before {
   opacity: 0.4;
   transform: rotate(0deg) scale(1.1);
 }
+.features-section:hover {
+  transform: rotateX(3deg) rotateY(-3deg) scale(1.01);
+  box-shadow: 0 0 40px rgba(0, 120, 255, 0.5);
+}
 
-/* Feature List */
+.section-title {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #ffffff;
+  margin-bottom: 30px;
+  text-shadow: 0 0 10px rgba(0, 140, 255, 0.7);
+  font-weight: bold;
+}
+
+
 .features-list li {
-  background: var(--white);
+  background: #ffffff;
   border-radius: 14px;
   padding: 30px 20px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-  border-left: 5px solid var(--navy);
-  color: var(--text);
+  transition: all 0.3s ease;
+  text-align: left;
+  border-left: 5px solid #000080;
+  position: relative;
+  overflow: hidden;
+  color: #000040;
   font-size: 1.05rem;
   font-weight: 500;
-  transition: all 0.3s ease;
 }
 
 .features-list li:hover {
@@ -353,80 +413,37 @@ button:focus {
   transform: translateY(-6px);
 }
 
-/* Smooth Scroll */
+.features-section {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  padding: 50px 30px;
+  margin: 60px auto;
+  max-width: 900px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 0 25px rgba(0, 64, 255, 0.2);
+  animation: fadeInUp 1.2s ease-out;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.3s ease;
+  /* flex-direction: column; → only if used with display:flex */
+}
+
+.features-section:hover {
+  animation: bounceRotate 0.8s ease forwards;
+}
+a:focus, button:focus {
+  outline: 2px dashed #ffa500;
+  outline-offset: 3px;
+}
+@keyframes bounceRotate {
+  0% { transform: rotateX(0deg) rotateY(0deg); }
+  50% { transform: rotateX(5deg) rotateY(-5deg) scale(1.03); }
+  100% { transform: rotateX(3deg) rotateY(-3deg) scale(1.01); }
+}
 html {
   scroll-behavior: smooth;
 }
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-  header.transparent {
-    background: rgba(0, 0, 64, 0);
-    box-shadow: none;
-    transition: background 0.3s ease;
-  }
-
-  .nav-container.transparent {
-    background: transparent;
-    box-shadow: none;
-  }
-
-  .hamburger {
-    display: block;
-  }
-
-  #nav-links {
-    display: none;
-    flex-direction: column;
-    background: white;
-    width: 100%;
-    margin-top: 10px;
-    border-radius: 0 0 8px 8px;
-    padding: 10px 0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-
-  #nav-links.show {
-    display: flex;
-  }
-
-  #nav-links a {
-    color: var(--navy);
-    padding: 12px 20px;
-    width: 100%;
-    text-align: left;
-    font-weight: 600;
-    font-size: 16px;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-  }
-
-  #nav-links a:hover {
-    background-color: #f2f2f2;
-    color: var(--deep-orange);
-  }
-
-  #nav-links a.active {
-    border-bottom: 2px solid white;
-    font-weight: bold;
-  }
-
-  .hero-content {
-    flex-direction: column;
-    padding: 20px;
-  }
-
-  input[type="number"],
-  input[type="text"],
-  textarea {
-    width: 100%;
-  }
-
-  .hero-content .with-strong {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .hero-content .with-strong strong {
-    margin-bottom: 4px;
-  }
+input[type="number"]:hover, input[type="text"]:hover, textarea:hover {
+  border-color: #000080;
 }
+<button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
