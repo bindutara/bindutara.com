@@ -253,6 +253,29 @@
     });
   </script>
 </head>
+  <script>
+  function calculateDepreciation() {
+    const price = parseFloat(document.getElementById('carPrice').value);
+    const years = parseFloat(document.getElementById('carYears').value);
+    const rate = parseFloat(document.getElementById('depreciationRate').value) / 100;
+
+    if (isNaN(price) || isNaN(years) || isNaN(rate)) {
+      document.getElementById('depreciationOutput').innerHTML = "<p>Please fill in all fields correctly.</p>";
+      return;
+    }
+
+    const currentValue = price * Math.pow(1 - rate, years);
+    const depreciation = price - currentValue;
+
+    document.getElementById('depreciationOutput').innerHTML = `
+      <p><strong>Original Price:</strong> ₹${price.toLocaleString()}</p>
+      <p><strong>Depreciated Value:</strong> ₹${currentValue.toFixed(2)}</p>
+      <p><strong>Total Depreciation:</strong> ₹${depreciation.toFixed(2)}</p>
+      <button class="btn" onclick="window.print()">Print</button>
+    `;
+  }
+  </script>
+  
 <body>
   <header>
     <div class="logo">
@@ -278,6 +301,27 @@
         <div id="output" class="results"></div>
       </div>
     </section>
+    <section class="hero">
+  <div class="hero-content">
+    <h1>Car Depreciation Calculator</h1>
+    <p>Estimate the current value of your car</p>
+
+    <label for="carPrice">Original Price (₹):</label><br>
+    <input type="number" id="carPrice" placeholder="e.g. 800000" />
+
+    <label for="carYears">Age of Car (Years):</label><br>
+    <input type="number" id="carYears" placeholder="e.g. 3" />
+
+    <label for="depreciationRate">Depreciation Rate (% per year):</label><br>
+    <input type="number" id="depreciationRate" placeholder="e.g. 15" />
+
+    <br />
+    <button class="btn" onclick="calculateDepreciation()">Calculate</button>
+
+    <div id="depreciationOutput" class="results"></div>
+  </div>
+</section>
+
   </main>
 
   <footer>
