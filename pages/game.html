@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <title>Mini Games Page</title>
   <style>
-    body { font-family: sans-serif; margin: 20px; }
+    body { font-family: sans-serif; margin: 20px; background: #f9f9f9; }
     h2 { margin-top: 40px; }
-    canvas, .game-box { margin: 10px 0; border: 1px solid #ccc; padding: 10px; }
+    canvas, .game-box { margin: 10px 0; border: 1px solid #ccc; padding: 10px; background: #fff; }
     button { margin: 5px; }
   </style>
 </head>
@@ -41,13 +41,20 @@
     <p id="mathFeedback"></p>
   </div>
 
-  <!-- 5. Typing Speed Test -->
-  <h2>Typing Speed Test</h2>
+  <!-- 5. Snake Game -->
+  <h2>Snake Game</h2>
   <div class="game-box">
-    <p id="typingSentence">Click start to begin...</p>
-    <input type="text" id="typingInput" disabled>
-    <button onclick="startTypingTest()">Start</button>
-    <p id="typingResult"></p>
+    <canvas id="snakeCanvas" width="300" height="300" style="background:#eee;"></canvas>
+    <p><strong>Controls:</strong> Arrow Keys</p>
+    <button onclick="resetSnake()">Reset Snake</button>
+  </div>
+
+  <!-- 6. Dot Maze Game -->
+  <h2>Dot Maze Game</h2>
+  <div class="game-box">
+    <canvas id="mazeCanvas" width="300" height="300" style="background:#000;"></canvas>
+    <p><strong>Controls:</strong> Arrow Keys – Eat all the dots!</p>
+    <button onclick="resetMaze()">Reset Maze</button>
   </div>
 
   <script>
@@ -76,14 +83,9 @@
     }
     function checkTTTWin() {
       const winCombo = [
-        [ [0,0], [0,1], [0,2] ],
-        [ [1,0], [1,1], [1,2] ],
-        [ [2,0], [2,1], [2,2] ],
-        [ [0,0], [1,0], [2,0] ],
-        [ [0,1], [1,1], [2,1] ],
-        [ [0,2], [1,2], [2,2] ],
-        [ [0,0], [1,1], [2,2] ],
-        [ [0,2], [1,1], [2,0] ]
+        [[0,0],[0,1],[0,2]], [[1,0],[1,1],[1,2]], [[2,0],[2,1],[2,2]],
+        [[0,0],[1,0],[2,0]], [[0,1],[1,1],[2,1]], [[0,2],[1,2],[2,2]],
+        [[0,0],[1,1],[2,2]], [[0,2],[1,1],[2,0]]
       ];
       for (let combo of winCombo) {
         let [a,b,c] = combo;
@@ -149,24 +151,93 @@
       document.getElementById("mathFeedback").textContent = parseInt(ans) === (num1 + num2) ? "Correct!" : "Try again.";
     }
 
-    // 5. Typing Speed
-    const typingSentence = "The quick brown fox jumps over the lazy dog.";
-    let startTime;
-    function startTypingTest() {
-      document.getElementById("typingSentence").textContent = typingSentence;
-      const input = document.getElementById("typingInput");
-      input.value = "";
-      input.disabled = false;
-      input.focus();
-      startTime = new Date();
-      input.oninput = () => {
-        if (input.value === typingSentence) {
-          const timeTaken = ((new Date() - startTime) / 1000).toFixed(2);
-          document.getElementById("typingResult").textContent = `Done in ${timeTaken} seconds!`;
-          input.disabled = true;
-        }
-      };
+    // 5. Snake
+    const canvas = document.getElementById("snakeCanvas");
+    const ctx = canvas.getContext("2d");
+    const gridSize = 15;
+    let snake = [{x: 5, y: 5}], food = {x: 10, y: 10}, dx = 1, dy = 0;
+    function drawSnakeGame() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "red";
+      ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize, gridSize);
+      ctx.fillStyle = "green";
+      for (let s of snake) {
+        ctx.fillRect(s.x * gridSize, s.y * gridSize, gridSize, gridSize);
+      }
     }
+    function updateSnake() {
+      let head = {x: snake[0].x + dx, y: snake[0].y + dy};
+      if (head.x < 0 || head.x >= 20 || head.y < 0 || head.y >= 20 || snake.some(s => s.x === head.x && s.y === head.y)) {
+        alert("Game Over! Refresh or click reset.");
+        clearInterval(snakeInterval);
+        return;
+      }
+      snake.unshift(head);
+      if (head.x === food.x && head.y === food.y) {
+        food = {x: Math.floor(Math.random()*20), y: Math.floor(Math.random()*20)};
+      } else {
+        snake.pop();
+      }
+      drawSnakeGame();
+    }
+    document.addEventListener("keydown", e => {
+      if (e.key === "ArrowUp" && dy === 0) [dx, dy] = [0, -1];
+      if (e.key === "ArrowDown" && dy === 0) [dx, dy] = [0, 1];
+      if (e.key === "ArrowLeft" && dx === 0) [dx, dy] = [-1, 0];
+      if (e.key === "ArrowRight" && dx === 0) [dx, dy] = [1, 0];
+    });
+    let snakeInterval = setInterval(updateSnake, 200);
+    function resetSnake() {
+      snake = [{x: 5, y: 5}];
+      food = {x: 10, y: 10};
+      dx = 1; dy = 0;
+      clearInterval(snakeInterval);
+      snakeInterval = setInterval(updateSnake, 200);
+    }
+
+    // 6. Dot Maze
+    const mazeCanvas = document.getElementById("mazeCanvas");
+    const mCtx = mazeCanvas.getContext("2d");
+    const mSize = 10, cols = 30, rows = 30;
+    let player = {x: 1, y: 1}, dots = [];
+    function initMazeDots() {
+      dots = [];
+      for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+          if ((i + j) % 2 === 0 && (i > 1 && j > 1)) dots.push({x: i, y: j});
+        }
+      }
+    }
+    function drawMaze() {
+      mCtx.clearRect(0, 0, mazeCanvas.width, mazeCanvas.height);
+      mCtx.fillStyle = "white";
+      dots.forEach(dot => {
+        mCtx.beginPath();
+        mCtx.arc(dot.x * mSize + 5, dot.y * mSize + 5, 2, 0, Math.PI * 2);
+        mCtx.fill();
+      });
+      mCtx.fillStyle = "yellow";
+      mCtx.beginPath();
+      mCtx.arc(player.x * mSize + 5, player.y * mSize + 5, 5, 0, Math.PI * 2);
+      mCtx.fill();
+    }
+    document.addEventListener("keydown", e => {
+      let [x, y] = [player.x, player.y];
+      if (e.key === "ArrowUp") y--;
+      if (e.key === "ArrowDown") y++;
+      if (e.key === "ArrowLeft") x--;
+      if (e.key === "ArrowRight") x++;
+      player = {x, y};
+      dots = dots.filter(dot => !(dot.x === x && dot.y === y));
+      drawMaze();
+      if (dots.length === 0) alert("You win! All dots eaten.");
+    });
+    function resetMaze() {
+      player = {x: 1, y: 1};
+      initMazeDots();
+      drawMaze();
+    }
+    resetMaze();
   </script>
 </body>
 </html>
