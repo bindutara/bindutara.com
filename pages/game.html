@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mobile Mini Games</title>
+  <title>Mini Games Collection</title>
   <style>
     body {
       font-family: sans-serif;
-      margin: 0;
-      padding: 20px;
-      background: linear-gradient(135deg, #d4d4d4, #ffffff);
+      margin: 10px;
+      background: linear-gradient(135deg, #e0e0e0, #ffffff);
     }
-    h1 {
+    h1, h2 {
       text-align: center;
     }
     .game-box {
@@ -19,8 +18,8 @@
       padding: 15px;
       border: 2px solid #444;
       border-radius: 12px;
-      background: #f9f9f9;
-      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+      background: #fff;
+      box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.2);
     }
     canvas {
       display: block;
@@ -31,160 +30,306 @@
     .joystick {
       display: flex;
       justify-content: center;
+      align-items: center;
+      margin-top: 15px;
       flex-wrap: wrap;
-      margin-top: 10px;
     }
-    .joystick button {
+    .joystick .btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
       margin: 5px;
-      padding: 12px 16px;
       font-size: 20px;
-      border-radius: 10px;
-      background: #ffffff;
-      border: 2px solid #999;
-      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+      border: 2px solid #888;
+      background: #fff;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    }
+    table {
+      margin: auto;
+    }
+    table td {
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      font-size: 24px;
+    }
+    input[type="number"], input[type="text"] {
+      width: 80%;
+      padding: 5px;
+      margin: 5px auto;
+      display: block;
+    }
+    button {
+      padding: 6px 12px;
+      font-size: 16px;
+      border-radius: 8px;
     }
   </style>
 </head>
 <body>
-  <h1>Mini Games for Mobile</h1>
 
-  <!-- Snake Game -->
+  <h1>All-in-One Mini Games</h1>
+
+  <!-- 1. Tic-Tac-Toe -->
   <div class="game-box">
-    <h2>Snake Game</h2>
+    <h2>Tic-Tac-Toe</h2>
+    <table id="ticTacToe" border="1" cellspacing="0" cellpadding="10"></table>
+    <p id="tttResult"></p>
+  </div>
+
+  <!-- 2. Memory Match Game -->
+  <div class="game-box">
+    <h2>Memory Match</h2>
+    <div id="memoryGame"></div>
+  </div>
+
+  <!-- 3. Whack-a-Mole -->
+  <div class="game-box">
+    <h2>Whack-a-Mole</h2>
+    <div id="moleGrid"></div>
+    <p>Score: <span id="moleScore">0</span></p>
+  </div>
+
+  <!-- 4. Math Quiz -->
+  <div class="game-box">
+    <h2>Math Quiz</h2>
+    <p id="mathQuestion"></p>
+    <input type="number" id="mathAnswer">
+    <button onclick="checkMathAnswer()">Submit</button>
+    <p id="mathFeedback"></p>
+  </div>
+
+  <!-- 5. Snake Game -->
+  <div class="game-box">
+    <h2>Snake</h2>
     <canvas id="snake" width="300" height="300"></canvas>
     <div class="joystick">
-      <button onclick="snakeDir('left')">⬅️</button>
-      <button onclick="snakeDir('up')">⬆️</button>
-      <button onclick="snakeDir('down')">⬇️</button>
-      <button onclick="snakeDir('right')">➡️</button>
+      <button class="btn" onclick="snakeDir('up')">⬆️</button>
+      <div>
+        <button class="btn" onclick="snakeDir('left')">⬅️</button>
+        <button class="btn" onclick="snakeDir('right')">➡️</button>
+      </div>
+      <button class="btn" onclick="snakeDir('down')">⬇️</button>
     </div>
   </div>
 
-  <!-- Dot Maze Game -->
+  <!-- 6. Pac-Man Style Maze -->
   <div class="game-box">
-    <h2>Dot Maze</h2>
+    <h2>Pac-Man Maze</h2>
     <canvas id="dotmaze" width="300" height="300"></canvas>
     <div class="joystick">
-      <button onclick="dotDir('left')">⬅️</button>
-      <button onclick="dotDir('up')">⬆️</button>
-      <button onclick="dotDir('down')">⬇️</button>
-      <button onclick="dotDir('right')">➡️</button>
+      <button class="btn" onclick="dotDir('up')">⬆️</button>
+      <div>
+        <button class="btn" onclick="dotDir('left')">⬅️</button>
+        <button class="btn" onclick="dotDir('right')">➡️</button>
+      </div>
+      <button class="btn" onclick="dotDir('down')">⬇️</button>
     </div>
   </div>
 
-  <script>
-    // Snake Game Logic
-    const canvas = document.getElementById('snake');
-    const ctx = canvas.getContext('2d');
-    const box = 20;
-    let snake = [{x: 9 * box, y: 10 * box}];
-    let food = {
-      x: Math.floor(Math.random() * 15 + 1) * box,
-      y: Math.floor(Math.random() * 15 + 1) * box
-    };
-    let d;
+<script>
+  // 1. Tic Tac Toe
+  const ttt = document.getElementById("ticTacToe");
+  let tttBoard = Array(3).fill().map(() => Array(3).fill(""));
+  let tttTurn = "X";
 
-    document.addEventListener('keydown', function(event) {
-      if (event.keyCode === 37 && d !== "RIGHT") d = "LEFT";
-      else if (event.keyCode === 38 && d !== "DOWN") d = "UP";
-      else if (event.keyCode === 39 && d !== "LEFT") d = "RIGHT";
-      else if (event.keyCode === 40 && d !== "UP") d = "DOWN";
+  function drawTTT() {
+    ttt.innerHTML = "";
+    for (let r = 0; r < 3; r++) {
+      let row = ttt.insertRow();
+      for (let c = 0; c < 3; c++) {
+        let cell = row.insertCell();
+        cell.textContent = tttBoard[r][c];
+        cell.onclick = () => {
+          if (!tttBoard[r][c]) {
+            tttBoard[r][c] = tttTurn;
+            tttTurn = tttTurn === "X" ? "O" : "X";
+            drawTTT();
+            checkTTTWin();
+          }
+        };
+      }
+    }
+  }
+  function checkTTTWin() {
+    const winCombo = [
+      [ [0,0], [0,1], [0,2] ],
+      [ [1,0], [1,1], [1,2] ],
+      [ [2,0], [2,1], [2,2] ],
+      [ [0,0], [1,0], [2,0] ],
+      [ [0,1], [1,1], [2,1] ],
+      [ [0,2], [1,2], [2,2] ],
+      [ [0,0], [1,1], [2,2] ],
+      [ [0,2], [1,1], [2,0] ]
+    ];
+    for (let combo of winCombo) {
+      let [a,b,c] = combo;
+      if (tttBoard[a[0]][a[1]] && tttBoard[a[0]][a[1]] === tttBoard[b[0]][b[1]] && tttBoard[a[0]][a[1]] === tttBoard[c[0]][c[1]]) {
+        document.getElementById("tttResult").textContent = `${tttBoard[a[0]][a[1]]} Wins!`;
+      }
+    }
+  }
+  drawTTT();
+
+  // 2. Memory Match
+  const memoryContainer = document.getElementById("memoryGame");
+  const memoryValues = [..."AABBCCDD"].sort(() => Math.random() - 0.5);
+  let selected = [];
+  memoryValues.forEach((val, i) => {
+    let btn = document.createElement("button");
+    btn.textContent = "?";
+    btn.onclick = () => {
+      btn.textContent = val;
+      selected.push({i, val, btn});
+      if (selected.length === 2) {
+        if (selected[0].val === selected[1].val) {
+          selected = [];
+        } else {
+          setTimeout(() => {
+            selected[0].btn.textContent = "?";
+            selected[1].btn.textContent = "?";
+            selected = [];
+          }, 1000);
+        }
+      }
+    };
+    memoryContainer.appendChild(btn);
+  });
+
+  // 3. Whack-a-Mole
+  const moleGrid = document.getElementById("moleGrid");
+  let moleScore = 0;
+  function placeMole() {
+    moleGrid.innerHTML = "";
+    for (let i = 0; i < 9; i++) {
+      let div = document.createElement("button");
+      div.textContent = i === moleIndex ? "🐹" : "";
+      div.onclick = () => {
+        if (i === moleIndex) {
+          moleScore++;
+          document.getElementById("moleScore").textContent = moleScore;
+          moleIndex = Math.floor(Math.random() * 9);
+          placeMole();
+        }
+      };
+      moleGrid.appendChild(div);
+    }
+  }
+  let moleIndex = Math.floor(Math.random() * 9);
+  placeMole();
+
+  // 4. Math Quiz
+  let num1 = Math.floor(Math.random() * 10), num2 = Math.floor(Math.random() * 10);
+  document.getElementById("mathQuestion").textContent = `${num1} + ${num2} = ?`;
+  function checkMathAnswer() {
+    const ans = document.getElementById("mathAnswer").value;
+    document.getElementById("mathFeedback").textContent = parseInt(ans) === (num1 + num2) ? "Correct!" : "Try again.";
+  }
+
+  // 5. Snake Game
+  const canvas = document.getElementById('snake');
+  const ctx = canvas.getContext('2d');
+  const box = 20;
+  let snake = [{x: 5 * box, y: 5 * box}];
+  let food = { x: 10 * box, y: 10 * box };
+  let d = "RIGHT";
+  let score = 0;
+  let speed = 200;
+  function snakeDir(dir) {
+    if (dir === "left" && d !== "RIGHT") d = "LEFT";
+    if (dir === "up" && d !== "DOWN") d = "UP";
+    if (dir === "right" && d !== "LEFT") d = "RIGHT";
+    if (dir === "down" && d !== "UP") d = "DOWN";
+  }
+
+  function drawSnake() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < snake.length; i++) {
+      ctx.fillStyle = i === 0 ? "green" : "white";
+      ctx.fillRect(snake[i].x, snake[i].y, box, box);
+      ctx.strokeRect(snake[i].x, snake[i].y, box, box);
+    }
+    ctx.fillStyle = "red";
+    ctx.fillRect(food.x, food.y, box, box);
+
+    let headX = snake[0].x;
+    let headY = snake[0].y;
+    if (d === "LEFT") headX -= box;
+    if (d === "RIGHT") headX += box;
+    if (d === "UP") headY -= box;
+    if (d === "DOWN") headY += box;
+
+    if (headX === food.x && headY === food.y) {
+      food = {
+        x: Math.floor(Math.random() * 15) * box,
+        y: Math.floor(Math.random() * 15) * box
+      };
+      score++;
+      if (score % 10 === 0 && speed > 60) {
+        clearInterval(snakeGame);
+        speed -= 20;
+        snakeGame = setInterval(drawSnake, speed);
+      }
+    } else {
+      snake.pop();
+    }
+
+    let newHead = {x: headX, y: headY};
+    if (
+      headX < 0 || headY < 0 ||
+      headX >= canvas.width || headY >= canvas.height ||
+      snake.some(seg => seg.x === headX && seg.y === headY)
+    ) {
+      alert("Game Over!");
+      clearInterval(snakeGame);
+      return;
+    }
+
+    snake.unshift(newHead);
+  }
+  let snakeGame = setInterval(drawSnake, speed);
+
+  // 6. Pac-Man Maze
+  const dotCanvas = document.getElementById("dotmaze");
+  const dotCtx = dotCanvas.getContext("2d");
+  const dotBox = 20;
+  let pacman = {x: 0, y: 0};
+  let dotDirValue = "";
+  let dots = [];
+
+  for (let i = 0; i < 15; i++)
+    for (let j = 0; j < 15; j++)
+      dots.push({x: i * dotBox, y: j * dotBox});
+
+  function dotDir(dir) {
+    dotDirValue = dir.toUpperCase();
+  }
+
+  function drawDotMaze() {
+    dotCtx.clearRect(0, 0, dotCanvas.width, dotCanvas.height);
+    dotCtx.fillStyle = "yellow";
+    dotCtx.beginPath();
+    dotCtx.arc(pacman.x + 10, pacman.y + 10, 10, 0, Math.PI * 2);
+    dotCtx.fill();
+
+    dotCtx.fillStyle = "blue";
+    dots.forEach(dot => {
+      dotCtx.beginPath();
+      dotCtx.arc(dot.x + 10, dot.y + 10, 3, 0, Math.PI * 2);
+      dotCtx.fill();
     });
 
-    function snakeDir(dir) {
-      if (dir === "left" && d !== "RIGHT") d = "LEFT";
-      else if (dir === "up" && d !== "DOWN") d = "UP";
-      else if (dir === "right" && d !== "LEFT") d = "RIGHT";
-      else if (dir === "down" && d !== "UP") d = "DOWN";
-    }
+    if (dotDirValue === "LEFT" && pacman.x > 0) pacman.x -= dotBox;
+    if (dotDirValue === "RIGHT" && pacman.x < dotCanvas.width - dotBox) pacman.x += dotBox;
+    if (dotDirValue === "UP" && pacman.y > 0) pacman.y -= dotBox;
+    if (dotDirValue === "DOWN" && pacman.y < dotCanvas.height - dotBox) pacman.y += dotBox;
 
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < snake.length; i++) {
-        ctx.fillStyle = i === 0 ? "green" : "white";
-        ctx.fillRect(snake[i].x, snake[i].y, box, box);
-        ctx.strokeStyle = "black";
-        ctx.strokeRect(snake[i].x, snake[i].y, box, box);
-      }
+    dots = dots.filter(dot => !(dot.x === pacman.x && dot.y === pacman.y));
+    dotDirValue = "";
+  }
 
-      ctx.fillStyle = "red";
-      ctx.fillRect(food.x, food.y, box, box);
+  setInterval(drawDotMaze, 200);
+</script>
 
-      let headX = snake[0].x;
-      let headY = snake[0].y;
-
-      if (d === "LEFT") headX -= box;
-      if (d === "UP") headY -= box;
-      if (d === "RIGHT") headX += box;
-      if (d === "DOWN") headY += box;
-
-      if (headX === food.x && headY === food.y) {
-        food = {
-          x: Math.floor(Math.random() * 15 + 1) * box,
-          y: Math.floor(Math.random() * 15 + 1) * box
-        };
-      } else {
-        snake.pop();
-      }
-
-      const newHead = {x: headX, y: headY};
-
-      if (
-        headX < 0 || headY < 0 ||
-        headX >= canvas.width || headY >= canvas.height ||
-        snake.some(seg => seg.x === newHead.x && seg.y === newHead.y)
-      ) {
-        clearInterval(game);
-        alert("Game Over!");
-        return;
-      }
-
-      snake.unshift(newHead);
-    }
-
-    let game = setInterval(draw, 150);
-
-    // Dot Maze (Pac-Man Style) Game Logic
-    const dotCanvas = document.getElementById('dotmaze');
-    const dotCtx = dotCanvas.getContext('2d');
-    const dotBox = 20;
-    let pacman = {x: 5 * dotBox, y: 5 * dotBox};
-    let dots = [];
-    let dotD = "";
-
-    for (let i = 0; i < 10; i++)
-      for (let j = 0; j < 10; j++)
-        dots.push({x: i * dotBox, y: j * dotBox});
-
-    function dotDir(dir) {
-      dotD = dir.toUpperCase();
-    }
-
-    function drawDotMaze() {
-      dotCtx.clearRect(0, 0, dotCanvas.width, dotCanvas.height);
-      dotCtx.fillStyle = "yellow";
-      dotCtx.beginPath();
-      dotCtx.arc(pacman.x + 10, pacman.y + 10, 10, 0, Math.PI * 2);
-      dotCtx.fill();
-
-      dotCtx.fillStyle = "blue";
-      dots.forEach(dot => {
-        dotCtx.beginPath();
-        dotCtx.arc(dot.x + 10, dot.y + 10, 3, 0, Math.PI * 2);
-        dotCtx.fill();
-      });
-
-      if (dotD === "LEFT" && pacman.x > 0) pacman.x -= dotBox;
-      if (dotD === "RIGHT" && pacman.x < dotCanvas.width - dotBox) pacman.x += dotBox;
-      if (dotD === "UP" && pacman.y > 0) pacman.y -= dotBox;
-      if (dotD === "DOWN" && pacman.y < dotCanvas.height - dotBox) pacman.y += dotBox;
-
-      dots = dots.filter(dot => !(dot.x === pacman.x && dot.y === pacman.y));
-      dotD = "";
-    }
-
-    setInterval(drawDotMaze, 200);
-  </script>
 </body>
-</
-  
+</html>
