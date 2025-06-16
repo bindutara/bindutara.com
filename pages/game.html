@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mini Games Page</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    h2 { margin-top: 40px; }
+    canvas, .game-box { margin: 10px 0; border: 1px solid #ccc; padding: 10px; }
+    button { margin: 5px; }
+  </style>
+</head>
+<body>
+
+  <h1>Mini Games on One Page</h1>
+
+  <!-- 1. Tic-Tac-Toe -->
+  <h2>Tic-Tac-Toe</h2>
+  <div class="game-box">
+    <table id="ticTacToe" border="1" cellspacing="0" cellpadding="20"></table>
+    <p id="tttResult"></p>
+  </div>
+
+  <!-- 2. Memory Match Game -->
+  <h2>Memory Match</h2>
+  <div class="game-box" id="memoryGame"></div>
+
+  <!-- 3. Whack-a-Mole -->
+  <h2>Whack-a-Mole</h2>
+  <div class="game-box">
+    <div id="moleGrid"></div>
+    <p>Score: <span id="moleScore">0</span></p>
+  </div>
+
+  <!-- 4. Math Quiz -->
+  <h2>Math Quiz</h2>
+  <div class="game-box">
+    <p id="mathQuestion"></p>
+    <input type="number" id="mathAnswer">
+    <button onclick="checkMathAnswer()">Submit</button>
+    <p id="mathFeedback"></p>
+  </div>
+
+  <!-- 5. Typing Speed Test -->
+  <h2>Typing Speed Test</h2>
+  <div class="game-box">
+    <p id="typingSentence">Click start to begin...</p>
+    <input type="text" id="typingInput" disabled>
+    <button onclick="startTypingTest()">Start</button>
+    <p id="typingResult"></p>
+  </div>
+
+  <script>
+    // 1. Tic Tac Toe
+    const ttt = document.getElementById("ticTacToe");
+    let tttBoard = Array(3).fill().map(() => Array(3).fill(""));
+    let tttTurn = "X";
+
+    function drawTTT() {
+      ttt.innerHTML = "";
+      for (let r = 0; r < 3; r++) {
+        let row = ttt.insertRow();
+        for (let c = 0; c < 3; c++) {
+          let cell = row.insertCell();
+          cell.textContent = tttBoard[r][c];
+          cell.onclick = () => {
+            if (!tttBoard[r][c]) {
+              tttBoard[r][c] = tttTurn;
+              tttTurn = tttTurn === "X" ? "O" : "X";
+              drawTTT();
+              checkTTTWin();
+            }
+          };
+        }
+      }
+    }
+    function checkTTTWin() {
+      const winCombo = [
+        [ [0,0], [0,1], [0,2] ],
+        [ [1,0], [1,1], [1,2] ],
+        [ [2,0], [2,1], [2,2] ],
+        [ [0,0], [1,0], [2,0] ],
+        [ [0,1], [1,1], [2,1] ],
+        [ [0,2], [1,2], [2,2] ],
+        [ [0,0], [1,1], [2,2] ],
+        [ [0,2], [1,1], [2,0] ]
+      ];
+      for (let combo of winCombo) {
+        let [a,b,c] = combo;
+        if (tttBoard[a[0]][a[1]] && tttBoard[a[0]][a[1]] === tttBoard[b[0]][b[1]] && tttBoard[a[0]][a[1]] === tttBoard[c[0]][c[1]]) {
+          document.getElementById("tttResult").textContent = `${tttBoard[a[0]][a[1]]} Wins!`;
+        }
+      }
+    }
+    drawTTT();
+
+    // 2. Memory Match
+    const memoryContainer = document.getElementById("memoryGame");
+    const memoryValues = [..."AABBCCDD"].sort(() => Math.random() - 0.5);
+    let selected = [];
+    memoryValues.forEach((val, i) => {
+      let btn = document.createElement("button");
+      btn.textContent = "?";
+      btn.onclick = () => {
+        btn.textContent = val;
+        selected.push({i, val, btn});
+        if (selected.length === 2) {
+          if (selected[0].val === selected[1].val) {
+            selected = [];
+          } else {
+            setTimeout(() => {
+              selected[0].btn.textContent = "?";
+              selected[1].btn.textContent = "?";
+              selected = [];
+            }, 1000);
+          }
+        }
+      };
+      memoryContainer.appendChild(btn);
+    });
+
+    // 3. Whack-a-Mole
+    const moleGrid = document.getElementById("moleGrid");
+    let moleScore = 0;
+    function placeMole() {
+      moleGrid.innerHTML = "";
+      for (let i = 0; i < 9; i++) {
+        let div = document.createElement("button");
+        div.textContent = i === moleIndex ? "🐹" : "";
+        div.onclick = () => {
+          if (i === moleIndex) {
+            moleScore++;
+            document.getElementById("moleScore").textContent = moleScore;
+            moleIndex = Math.floor(Math.random() * 9);
+            placeMole();
+          }
+        };
+        moleGrid.appendChild(div);
+      }
+    }
+    let moleIndex = Math.floor(Math.random() * 9);
+    placeMole();
+
+    // 4. Math Quiz
+    let num1 = Math.floor(Math.random() * 10), num2 = Math.floor(Math.random() * 10);
+    document.getElementById("mathQuestion").textContent = `${num1} + ${num2} = ?`;
+    function checkMathAnswer() {
+      const ans = document.getElementById("mathAnswer").value;
+      document.getElementById("mathFeedback").textContent = parseInt(ans) === (num1 + num2) ? "Correct!" : "Try again.";
+    }
+
+    // 5. Typing Speed
+    const typingSentence = "The quick brown fox jumps over the lazy dog.";
+    let startTime;
+    function startTypingTest() {
+      document.getElementById("typingSentence").textContent = typingSentence;
+      const input = document.getElementById("typingInput");
+      input.value = "";
+      input.disabled = false;
+      input.focus();
+      startTime = new Date();
+      input.oninput = () => {
+        if (input.value === typingSentence) {
+          const timeTaken = ((new Date() - startTime) / 1000).toFixed(2);
+          document.getElementById("typingResult").textContent = `Done in ${timeTaken} seconds!`;
+          input.disabled = true;
+        }
+      };
+    }
+  </script>
+</body>
+</html>
