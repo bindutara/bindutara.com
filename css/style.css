@@ -1,4 +1,4 @@
-/* Global Reset */
+  /* Global Reset */
 * {
   margin: 0;
   padding: 0;
@@ -434,7 +434,6 @@ input[type="number"]:hover, input[type="text"]:hover, textarea:hover {
   font-size: 16px;
   padding: 10px 0;
   overflow: hidden;
-  white-space: nowrap;
   position: relative;
   z-index: 998;
   font-family: 'Segoe UI', sans-serif;
@@ -442,15 +441,13 @@ input[type="number"]:hover, input[type="text"]:hover, textarea:hover {
 
 .marquee-content {
   display: inline-block;
-  min-width: 100%;
   white-space: nowrap;
-  padding-left: 100%;
   animation: marqueeScroll 18s linear infinite;
 }
 
 @keyframes marqueeScroll {
   0% {
-    transform: translateX(0%);
+    transform: translateX(100%);
   }
   100% {
     transform: translateX(-100%);
