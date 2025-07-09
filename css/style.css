@@ -437,19 +437,15 @@ input[type="number"]:hover, input[type="text"]:hover, textarea:hover {
   position: relative;
   z-index: 998;
   font-family: 'Segoe UI', sans-serif;
+  width: 100%;
 }
 
 .marquee-content {
   display: inline-block;
   white-space: nowrap;
-  animation: marqueeScroll 18s linear infinite;
+  min-width: 100%;
+  padding-left: 100%; /* Start off-screen */
+  animation: marqueeScroll 15s linear infinite;
+  box-sizing: border-box;
 }
-
-@keyframes marqueeScroll {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
 }
