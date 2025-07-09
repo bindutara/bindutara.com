@@ -428,24 +428,26 @@ input[type="number"]:hover, input[type="text"]:hover, textarea:hover {
 }
 
 .dpiit-marquee-banner {
+  width: 100%;
+  overflow: hidden;
   background: linear-gradient(to right, #0ea5e9, #2563eb);
   color: white;
-  font-weight: 600;
   font-size: 16px;
-  padding: 10px 0;
-  overflow: hidden;
+  padding: 8px 0;
   position: relative;
-  z-index: 998;
-  font-family: 'Segoe UI', sans-serif;
-  width: 100%;
+  box-sizing: border-box;
 }
 
 .marquee-content {
   display: inline-block;
   white-space: nowrap;
-  min-width: 100%;
-  padding-left: 100%; /* Start off-screen */
+  padding-left: 100%;
+  box-sizing: content-box;
   animation: marqueeScroll 15s linear infinite;
-  box-sizing: border-box;
 }
+
+@keyframes marqueeScroll {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
 }
+
