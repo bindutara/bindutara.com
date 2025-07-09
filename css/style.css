@@ -317,15 +317,6 @@ footer {
   animation: bounceRotate 0.8s ease forwards;
 }
 
-.section-title {
-  text-align: center;
-  font-size: 2.4rem;
-  font-weight: 800;
-  color: #000040;
-  margin-bottom: 40px;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  font-family: 'Segoe UI', 'Poppins', sans-serif;
-}
 
 .features-grid {
   display: grid;
@@ -446,12 +437,13 @@ input[type="number"]:hover, input[type="text"]:hover, textarea:hover {
   white-space: nowrap;
   position: relative;
   z-index: 998;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   font-family: 'Segoe UI', sans-serif;
 }
 
 .marquee-content {
   display: inline-block;
+  min-width: 100%;
+  white-space: nowrap;
   padding-left: 100%;
   animation: marqueeScroll 18s linear infinite;
 }
