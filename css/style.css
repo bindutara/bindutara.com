@@ -437,29 +437,36 @@ input[type="number"]:hover, input[type="text"]:hover, textarea:hover {
 }
 <button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
 
-.dpiit-badge {
+.dpiit-floating-badge {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #0f172a; /* dark blue background */
-  color: #fff;
-  padding: 10px 16px;
-  border-radius: 12px;
+  bottom: 30px;
+  right: 30px;
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+  color: white;
+  font-weight: bold;
+  padding: 14px 18px;
   font-size: 14px;
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  transform: perspective(600px) rotateX(5deg) rotateY(-5deg);
+  text-align: center;
   z-index: 9999;
-  animation: floatIn 1s ease-out;
   font-family: 'Segoe UI', sans-serif;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
 }
 
-@keyframes floatIn {
-  from {
-    transform: translateY(30px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0px);
-    opacity: 1;
+.dpiit-floating-badge:hover {
+  transform: perspective(600px) rotateX(0deg) rotateY(0deg) scale(1.05);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+}
+
+@media (max-width: 600px) {
+  .dpiit-floating-badge {
+    bottom: 15px;
+    right: 15px;
+    font-size: 12px;
+    padding: 10px 14px;
   }
 }
