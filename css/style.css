@@ -435,7 +435,7 @@ html {
 input[type="number"]:hover, input[type="text"]:hover, textarea:hover {
   border-color: #000080;
 }
-<button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
+
 
 .dpiit-floating-badge {
   position: fixed;
