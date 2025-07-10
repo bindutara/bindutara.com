@@ -13,6 +13,7 @@
       color: #000;
       overflow-x: hidden;
     }
+
     header {
       background: #ffffff;
       color: #000;
@@ -26,6 +27,7 @@
       z-index: 999;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
+
     .logo {
       font-size: 28px;
       font-weight: bold;
@@ -34,14 +36,17 @@
       transition: transform 0.3s ease, text-shadow 0.3s ease;
       text-shadow: 1px 1px 0 #999, 2px 2px 0 #ccc, 3px 3px 0 #eee;
     }
+
     .logo:hover {
       transform: scale(1.1) rotateX(5deg) rotateY(5deg);
       text-shadow: 1px 1px 0 #888, 2px 2px 0 #bbb, 3px 3px 0 #ddd;
     }
+
     nav {
       display: flex;
       gap: 24px;
     }
+
     nav a {
       color: #000;
       text-decoration: none;
@@ -49,6 +54,7 @@
       font-size: 16px;
       padding: 4px 0;
     }
+
     nav a::after {
       content: '';
       position: absolute;
@@ -59,20 +65,24 @@
       background-color: #000;
       transition: width 0.3s ease;
     }
+
     nav a:hover::after {
       width: 100%;
     }
+
     .hamburger {
       display: none;
       font-size: 26px;
       cursor: pointer;
       color: #000;
     }
+
     .hero {
       padding-top: 120px;
       padding-bottom: 60px;
       background: #f9f9f9;
     }
+
     .hero-content {
       max-width: 800px;
       margin: auto;
@@ -80,38 +90,79 @@
       background: #fff;
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      text-align: center;
+      text-align: left;
     }
+
     .hero-content h1 {
-      font-size: 36px;
+      font-size: 32px;
       margin-bottom: 20px;
+      text-shadow: 1px 1px 0 #aaa, 2px 2px 0 #ddd, 3px 3px 0 #eee;
     }
-    .hero-content p {
+
+    .hero-content p,
+    .hero-content label {
       font-size: 18px;
       margin: 10px 0;
       color: #333;
     }
-    .apply-btn {
-      display: inline-block;
+
+    input {
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    .btn {
       background: #000;
       color: #fff;
+      padding: 10px 24px;
       font-weight: bold;
-      padding: 12px 28px;
-      border-radius: 50px;
-      text-decoration: none;
       font-size: 16px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #333;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .results {
       margin-top: 20px;
-      transition: all 0.3s ease;
+      font-size: 16px;
     }
-    .apply-btn:hover {
-      background-color: #333;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    }
+
     footer {
       background: #000;
       color: #fff;
       text-align: center;
       padding: 20px;
+      margin-top: 40px;
+    }
+
+    #scrollTopBtn {
+      display: none;
+      position: fixed;
+      bottom: 40px;
+      right: 20px;
+      z-index: 9999;
+      font-size: 24px;
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    #scrollTopBtn.show {
+      display: block;
     }
 
     @media (max-width: 768px) {
@@ -127,44 +178,41 @@
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         z-index: 1000;
       }
+
       nav.show {
         display: flex;
       }
+
       .hamburger {
         display: block;
       }
+
       .hero-content {
         margin: 20px;
         padding: 30px 16px;
-        text-align: left;
-        display: flex;
-        flex-direction: column;
-        align-items: left;
       }
-      .hero-content p {
-        width: 100%;
-        max-width: 600px;
-      }
+
       .hero-content h1 {
-        font-size: 28px;
+        font-size: 26px;
       }
-      .hero-content p {
-        font-size: 16px;
-      }
-      .apply-btn {
-        padding: 10px 20px;
-        font-size: 14px;
+
+      .btn {
+        width: 100%;
+        font-size: 15px;
       }
     }
+
     @media (max-width: 480px) {
       .hero-content h1 {
         font-size: 24px;
       }
-      .hero-content p {
-        font-size: 15px;
+
+      .btn {
+        font-size: 14px;
       }
     }
   </style>
+
   <script>
     function calculateRent() {
       const amount = parseFloat(document.getElementById('amount').value);
@@ -174,17 +222,36 @@
       }
 
       const perLakh = amount / 100000;
-      const dailyRentPerLakh = 120;
-      const dailyRent = dailyRentPerLakh * perLakh;
+      const dailyRent = 120 * perLakh;
       const monthlyRent = dailyRent * 30;
       const totalRent = monthlyRent * 60;
-      const emi = monthlyRent.toFixed(2);
 
       document.getElementById('output').innerHTML = `
         <p><strong>Vehicle Amount:</strong> ₹${amount.toLocaleString()}</p>
         <p><strong>Daily Rent:</strong> ₹${dailyRent.toFixed(2)}</p>
-        <p><strong>Monthly Rent (EMI):</strong> ₹${emi}</p>
+        <p><strong>Monthly Rent (EMI):</strong> ₹${monthlyRent.toFixed(2)}</p>
         <p><strong>Total Rent (60 Months):</strong> ₹${totalRent.toFixed(2)}</p>
+        <button class="btn" onclick="window.print()">Print</button>
+      `;
+    }
+
+    function calculateDepreciation() {
+      const price = parseFloat(document.getElementById('carPrice').value);
+      const years = parseFloat(document.getElementById('carYears').value);
+      const rate = parseFloat(document.getElementById('depreciationRate').value) / 100;
+
+      if (isNaN(price) || isNaN(years) || isNaN(rate)) {
+        document.getElementById('depreciationOutput').innerHTML = "<p>Please fill in all fields correctly.</p>";
+        return;
+      }
+
+      const currentValue = price * Math.pow(1 - rate, years);
+      const depreciation = price - currentValue;
+
+      document.getElementById('depreciationOutput').innerHTML = `
+        <p><strong>Original Price:</strong> ₹${price.toLocaleString()}</p>
+        <p><strong>Depreciated Value:</strong> ₹${currentValue.toFixed(2)}</p>
+        <p><strong>Total Depreciation:</strong> ₹${depreciation.toFixed(2)}</p>
         <button class="btn" onclick="window.print()">Print</button>
       `;
     }
@@ -210,35 +277,10 @@
     });
   </script>
 </head>
-  <script>
-  function calculateDepreciation() {
-    const price = parseFloat(document.getElementById('carPrice').value);
-    const years = parseFloat(document.getElementById('carYears').value);
-    const rate = parseFloat(document.getElementById('depreciationRate').value) / 100;
-
-    if (isNaN(price) || isNaN(years) || isNaN(rate)) {
-      document.getElementById('depreciationOutput').innerHTML = "<p>Please fill in all fields correctly.</p>";
-      return;
-    }
-
-    const currentValue = price * Math.pow(1 - rate, years);
-    const depreciation = price - currentValue;
-
-    document.getElementById('depreciationOutput').innerHTML = `
-      <p><strong>Original Price:</strong> ₹${price.toLocaleString()}</p>
-      <p><strong>Depreciated Value:</strong> ₹${currentValue.toFixed(2)}</p>
-      <p><strong>Total Depreciation:</strong> ₹${depreciation.toFixed(2)}</p>
-      <button class="btn" onclick="window.print()">Print</button>
-    `;
-  }
-  </script>
-  
 <body>
   <header>
-    <div class="logo">
-      <a href="../index.html" style="text-decoration: none; color: inherit;">Bindutara</a>
-    </div>
-    <div class="hamburger">&#9776;</div>
+    <div class="logo" onclick="location.href='../index.html'">Bindutara</div>
+    <div class="hamburger">☰</div>
     <nav id="nav-links">
       <a href="../index.html">Home</a>
       <a href="contact.html">Contact</a>
@@ -253,36 +295,33 @@
         <h1>Rent Calculator</h1>
         <p>Enter the vehicle cost (in INR):</p>
         <input type="number" id="amount" placeholder="e.g. 500000" />
-        <br />
         <button class="btn" onclick="calculateRent()">Calculate</button>
         <div id="output" class="results"></div>
       </div>
     </section>
+
     <section class="hero">
-  <div class="hero-content">
-    <h1>Car Depreciation Calculator</h1>
-    <p>Estimate the current value of your car</p>
+      <div class="hero-content">
+        <h1>Car Depreciation Calculator</h1>
+        <p>Estimate the current value of your car</p>
 
-    <label for="carPrice">Original Price (₹):</label><br>
-    <input type="number" id="carPrice" placeholder="e.g. 800000" />
+        <label for="carPrice">Original Price (₹):</label>
+        <input type="number" id="carPrice" placeholder="e.g. 800000" />
 
-    <label for="carYears">Age of Car (Years):</label><br>
-    <input type="number" id="carYears" placeholder="e.g. 3" />
+        <label for="carYears">Age of Car (Years):</label>
+        <input type="number" id="carYears" placeholder="e.g. 3" />
 
-    <label for="depreciationRate">Depreciation Rate (% per year):</label><br>
-    <input type="number" id="depreciationRate" placeholder="e.g. 15" />
+        <label for="depreciationRate">Depreciation Rate (% per year):</label>
+        <input type="number" id="depreciationRate" placeholder="e.g. 15" />
 
-    <br />
-    <button class="btn" onclick="calculateDepreciation()">Calculate</button>
-
-    <div id="depreciationOutput" class="results"></div>
-  </div>
-</section>
-
+        <button class="btn" onclick="calculateDepreciation()">Calculate</button>
+        <div id="depreciationOutput" class="results"></div>
+      </div>
+    </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 Nytrix Bindutara Enterprises Pvt. Ltd. All rights reserved.</p>
+    &copy; 2025 Nytrix Bindutara Enterprises Pvt. Ltd. All rights reserved.
   </footer>
 
   <button id="scrollTopBtn" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">&#8679;</button>
