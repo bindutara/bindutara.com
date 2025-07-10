@@ -95,13 +95,35 @@
 
     .hero-content h1 {
       font-size: 36px;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 0 #aaa, 2px 2px 0 #ddd, 3px 3px 0 #eee;
     }
 
-    .hero-content p {
+    .contact-item {
       font-size: 18px;
-      margin: 10px 0;
+      margin: 16px 0;
       color: #333;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-shadow: 1px 1px 0 #ccc, 2px 2px 0 #eee;
+    }
+
+    .contact-item a {
+      color: #000;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+
+    .contact-icon {
+      font-size: 20px;
+      display: inline-block;
+      transform: translateZ(0);
+      transition: transform 0.2s ease;
+    }
+
+    .contact-item:hover .contact-icon {
+      transform: scale(1.2) rotateY(10deg);
     }
 
     .apply-btn {
@@ -113,13 +135,15 @@
       border-radius: 50px;
       text-decoration: none;
       font-size: 16px;
-      margin-top: 20px;
+      margin-top: 30px;
       transition: all 0.3s ease;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
     }
 
     .apply-btn:hover {
       background-color: #333;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      transform: scale(1.05);
     }
 
     footer {
@@ -157,12 +181,14 @@
         text-align: left;
       }
 
-      .hero-content p {
-        font-size: 16px;
-      }
-
       .hero-content h1 {
         font-size: 28px;
+      }
+
+      .contact-item {
+        font-size: 16px;
+        flex-direction: row;
+        gap: 10px;
       }
 
       .apply-btn {
@@ -176,7 +202,7 @@
         font-size: 24px;
       }
 
-      .hero-content p {
+      .contact-item {
         font-size: 15px;
       }
     }
@@ -197,12 +223,30 @@
   <section class="hero">
     <div class="hero-content">
       <h1>Contact Us</h1>
-      <p><strong>Email:</strong> <a href="mailto:bindutarapvtltd@gmail.com">bindutarapvtltd@gmail.com</a></p>
-      <p><strong>Phone:</strong> +91-7890722782</p>
-      <p><strong>Address:</strong> 828 M.L. Gupta Road, Kolkata, West Bengal, India</p>
-      <p><strong>Website:</strong> <a href="https://www.bindutara.com" target="_blank">www.bindutara.com</a></p>
 
-      <a class="apply-btn" href="mailto:bindutarapvtltd@gmail.com">Email Us</a>
+      <div class="contact-item">
+        <span class="contact-icon">📧</span>
+        <strong>Email:</strong> 
+        <a href="mailto:bindutarapvtltd@gmail.com">bindutarapvtltd@gmail.com</a>
+      </div>
+
+      <div class="contact-item">
+        <span class="contact-icon">☎️</span>
+        <strong>Phone:</strong> +91-7890722782
+      </div>
+
+      <div class="contact-item">
+        <span class="contact-icon">📍</span>
+        <strong>Address:</strong> 828 M.L. Gupta Road, Kolkata, West Bengal, India
+      </div>
+
+      <div class="contact-item">
+        <span class="contact-icon">🌐</span>
+        <strong>Website:</strong> 
+        <a href="https://www.bindutara.com" target="_blank">www.bindutara.com</a>
+      </div>
+
+      <a class="apply-btn" href="mailto:bindutarapvtltd@gmail.com">📨 Email Us</a>
     </div>
   </section>
 
