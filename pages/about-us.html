@@ -141,16 +141,7 @@
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo" onclick="location.href='../index.html'">Bindutara</div>
-    <div class="hamburger" onclick="toggleMenu()">☰</div>
-    <nav id="nav-links">
-      <a href="../index.html">Home</a>
-      <a href="contact.html">Contact</a>
-      <a href="terms.html">Terms</a>
-      <a href="rent-calculator.html">Rent Calculator</a>
-    </nav>
-  </header>
+<div id="header"></div>
 
   <section class="hero">
     <div class="hero-content">
@@ -177,9 +168,24 @@
     </div>
   </section>
 
-  <footer>
-    &copy; 2025 Nytrix Bindutara Enterprises Pvt. Ltd. All rights reserved.
-  </footer>
+ <div id="footer"></div>
+
+ <script>
+  async function loadComponent(id, url) {
+    const res = await fetch(url);
+    const html = await res.text();
+    document.getElementById(id).innerHTML = html;
+  }
+  loadComponent("header", "../components/header.html");
+  loadComponent("footer", "../components/footer.html");
+</script>
+  
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById("nav-links");
+      nav.classList.toggle("show");
+    }
+  </script>
 
   <script>
     function toggleMenu() {
