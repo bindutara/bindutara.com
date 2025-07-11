@@ -427,15 +427,16 @@ input[type="number"]:hover, input[type="text"]:hover, textarea:hover {
   border-color: #000080;
 }
 
-.dpiit-marquee-banner {
-background-color: #000040;
+.banner {
+  background-color: #000040;
   color: white;
   text-align: center;
   padding: 10px;
   font-size: 16px;
   width: 100%;
   z-index: 2900;
-  position: relative; /* changed from sticky/fixed */
+  position: relative; /* ensure it's not fixed/sticky */
+  margin-top: 3cm; /* push the banner 3cm below the header */
 }
 
 .marquee-content {
@@ -445,12 +446,15 @@ background-color: #000040;
   box-sizing: content-box;
   animation: marqueeScroll 15s linear infinite;
 }
+
 @media (max-width: 768px) {
   .subheader {
     font-size: 14px;
     padding: 8px;
-    top: 60px; /* match your mobile header height */
+    top: 60px; /* if needed for mobile positioning */
   }
+}
+
 @keyframes marqueeScroll {
   0% { transform: translateX(0%); }
   100% { transform: translateX(-100%); }
