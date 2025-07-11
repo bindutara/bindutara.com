@@ -457,10 +457,9 @@ input[type="number"]:hover, input[type="text"]:hover, textarea:hover {
   text-align: center;
   padding: 10px;
   font-size: 16px;
-  position: sticky;
-  top: 64px; /* adjust to match actual header height */
   width: 100%;
-  z-index: 999;
+  z-index: 900;
+  position: relative; /* changed from sticky/fixed */
 }
 
 .subheader a {
