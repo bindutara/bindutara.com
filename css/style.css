@@ -428,15 +428,14 @@ input[type="number"]:hover, input[type="text"]:hover, textarea:hover {
 }
 
 .dpiit-marquee-banner {
-  width: 100%;
-  overflow: hidden;
-  background: linear-gradient(to right, #0ea5e9, #2563eb);
+background-color: #000040;
   color: white;
+  text-align: center;
+  padding: 10px;
   font-size: 16px;
-  padding: 8px 0;
-  z-index: 2900;
-  position: relative;
-  box-sizing: border-box;
+  width: 100%;
+  z-index: 1900;
+  position: relative; /* changed from sticky/fixed */
 }
 
 .marquee-content {
