@@ -231,19 +231,26 @@
 
       
       <!-- ✅ Razorpay Payment Button -->
-     <section class="payment-section" style="text-align: center; margin: 40px 0;">
-  <h2 style="color: #000040; font-size: 24px; margin-bottom: 15px;">
-    🚗 Ready to Book Your Vehicle?
-  </h2>
-  <p style="margin-bottom: 20px; font-size: 16px;">
-    Make your secure initial payment through Razorpay and begin your Rent-to-Own journey today.
-  </p>
-  <form>
-    <script src="https://checkout.razorpay.com/v1/payment-button.js"
-      data-payment_button_id="pl_QsDea4PPmHPUY5" async>
-    </script>
-  </form>
-</section>
+  <!-- ✅ Razorpay Payment Buttons Side by Side -->
+<div class="payment-button-wrapper" style="margin-top: 30px;">
+  <h3 style="color:#000040; font-size: 20px; margin-bottom: 10px;">Ready to Get Started?</h3>
+  <p style="font-size: 16px; color:#333; margin-bottom: 15px;">Make a secure payment below</p>
+
+  <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+    <form>
+      <script src="https://checkout.razorpay.com/v1/payment-button.js"
+        data-payment_button_id="pl_QsDea4PPmHPUY5" async>
+      </script>
+    </form>
+
+    <form>
+      <script src="https://checkout.razorpay.com/v1/payment-button.js"
+        data-payment_button_id="pl_QsER4uKevZWqHu" async>
+      </script>
+    </form>
+  </div>
+</div>
+
 
     </div>
   </section>
