@@ -431,13 +431,20 @@ input[type="number"]:hover, input[type="text"]:hover, textarea:hover {
 .subheader {
   background-color: #000040;
   color: white;
-  text-align: center;
-  padding: 10px;
+  padding: 10px 0;
   font-size: 16px;
   width: 100%;
-  margin-top: .5cm; /* 👈 this pushes it down */
-  z-index: 1900;
-  position: relative; /* changed from sticky/fixed */
+  overflow: hidden;
+  position: relative;
+  z-index: 3900;
+  margin-top: 2cm;
+}
+
+.scrolling-text {
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 100%; /* Start off-screen to the right */
+  animation: scroll-left 15s linear infinite;
 }
 
 .subheader a {
@@ -445,4 +452,14 @@ input[type="number"]:hover, input[type="text"]:hover, textarea:hover {
   font-weight: bold;
   text-decoration: underline;
 }
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
 
