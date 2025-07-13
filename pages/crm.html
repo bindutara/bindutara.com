@@ -33,15 +33,16 @@
       padding: 6px;
       width: 100%;
     }
-    .add-btn {
+    .add-btn, .submit-btn {
       padding: 10px 20px;
       background: #000040;
       color: white;
       border: none;
       cursor: pointer;
       margin-bottom: 20px;
+      margin-right: 10px;
     }
-    .add-btn:hover {
+    .add-btn:hover, .submit-btn:hover {
       background: #333;
     }
   </style>
@@ -50,6 +51,7 @@
   <h1>Bindutara CRM - Order Tracker</h1>
 
   <button class="add-btn" onclick="addRow()">+ Add New Entry</button>
+  <button class="submit-btn" onclick="submitRows()">Submit All</button>
 
   <table id="crmTable">
     <thead>
@@ -93,37 +95,39 @@
   <script>
     function addRow() {
       const table = document.getElementById("crmTable").getElementsByTagName('tbody')[0];
-      const newRow = table.insertRow();
+      const newRow = table.rows[0].cloneNode(true);
+      const inputs = newRow.querySelectorAll("input, select");
+      inputs.forEach(input => input.value = "");
+      table.appendChild(newRow);
+    }
 
-      const nameCell = newRow.insertCell(0);
-      nameCell.innerHTML = '<input type="text" placeholder="Enter name">';
+    async function submitRows() {
+      const table = document.getElementById("crmTable").getElementsByTagName('tbody')[0];
+      for (let row of table.rows) {
+        const name = row.cells[0].querySelector("input").value;
+        const phone = row.cells[1].querySelector("input").value;
+        const status = row.cells[2].querySelector("select").value;
+        const payment = row.cells[3].querySelector("select").value;
+        const delivery = row.cells[4].querySelector("select").value;
 
-      const phoneCell = newRow.insertCell(1);
-      phoneCell.innerHTML = '<input type="text" placeholder="Enter phone">';
+        const data = {
+          name,
+          phone,
+          status,
+          payment,
+          delivery
+        };
 
-      const statusCell = newRow.insertCell(2);
-      statusCell.innerHTML = `
-        <select>
-          <option>Order Placed</option>
-          <option>Processed</option>
-          <option>Payment Done</option>
-        </select>`;
+        await fetch("https://script.google.com/macros/s/AKfycbx-SbKKpmXFx9HPTBE3Q8YW2GZwgShDwtk5NGTkn0xZO4-v7zH13bwI8V32yGc_sXQ/exec", {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+      }
 
-      const paymentCell = newRow.insertCell(3);
-      paymentCell.innerHTML = `
-        <select>
-          <option>Not Paid</option>
-          <option>Cash</option>
-          <option>Card</option>
-          <option>UPI</option>
-        </select>`;
-
-      const deliveryCell = newRow.insertCell(4);
-      deliveryCell.innerHTML = `
-        <select>
-          <option>Pending</option>
-          <option>Delivered</option>
-        </select>`;
+      alert("All rows submitted to Google Sheet!");
     }
   </script>
 </body>
