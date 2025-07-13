@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bindutara CRM</title>
+  <title>Bindutara CRM - Vertical Form</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -16,37 +16,42 @@
       text-align: center;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
+    .form-section {
       background: #fff;
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 8px;
     }
 
-    th, td {
-      border: 1px solid #ddd;
-      padding: 8px;
-      text-align: left;
+    .form-group {
+      margin-bottom: 15px;
     }
 
-    th {
-      background-color: #000040;
-      color: white;
-      font-size: 14px;
+    .form-group label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
     }
 
-    select, input[type="text"], input[type="number"] {
-      padding: 5px;
+    .form-group input,
+    .form-group select {
       width: 100%;
+      padding: 8px;
       box-sizing: border-box;
     }
 
-    .add-btn {
-      padding: 10px 20px;
-      background: #000040;
-      color: white;
+    .add-btn, .submit-btn {
+      padding: 12px 20px;
       border: none;
+      color: white;
       cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+
+    .add-btn {
+      background: #000040;
       margin-bottom: 20px;
     }
 
@@ -55,11 +60,7 @@
     }
 
     .submit-btn {
-      padding: 12px 24px;
       background: green;
-      color: white;
-      border: none;
-      cursor: pointer;
       display: block;
       margin: 0 auto;
     }
@@ -68,128 +69,135 @@
       background: darkgreen;
     }
 
-    @media screen and (max-width: 768px) {
-      table, tbody, tr, th, td {
-        font-size: 12px;
+    @media (max-width: 600px) {
+      .form-group label {
+        font-size: 14px;
       }
     }
   </style>
 </head>
 <body>
+
   <h1>Bindutara CRM - Order Tracker</h1>
 
-  <button class="add-btn" onclick="addRow()">+ Add New Entry</button>
+  <button class="add-btn" onclick="addForm()">+ Add New Entry</button>
 
   <form id="crmForm">
-    <table id="crmTable">
-      <thead>
-        <tr>
-          <th>Customer Name</th>
-          <th>Phone</th>
-          <th>Order Status</th>
-          <th>Payment Type</th>
-          <th>Delivery Status</th>
-          <th>Product Name</th>
-          <th>Cost</th>
-          <th>Qty</th>
-          <th>Order Value</th>
-          <th>Partial Paid</th>
-          <th>Due Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><input type="text" name="name" required></td>
-          <td><input type="text" name="phone" required></td>
-          <td>
-            <select name="status">
-              <option>Order Placed</option>
-              <option>Processed</option>
-              <option>Payment Done</option>
-            </select>
-          </td>
-          <td>
-            <select name="payment">
-              <option>Not Paid</option>
-              <option>Cash</option>
-              <option>Card</option>
-              <option>UPI</option>
-            </select>
-          </td>
-          <td>
-            <select name="delivery">
-              <option>Pending</option>
-              <option>Delivered</option>
-            </select>
-          </td>
-          <td><input type="text" name="productName" required></td>
-          <td><input type="number" name="productCost" required></td>
-          <td><input type="number" name="quantity" required></td>
-          <td><input type="number" name="orderValue" readonly></td>
-          <td><input type="number" name="partialPayment" value="0"></td>
-          <td><input type="number" name="dueAmount" readonly></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="form-section">
+      <div class="form-group">
+        <label>Customer Name</label>
+        <input type="text" name="name" required>
+      </div>
+      <div class="form-group">
+        <label>Phone</label>
+        <input type="text" name="phone" required>
+      </div>
+      <div class="form-group">
+        <label>Order Status</label>
+        <select name="status">
+          <option>Order Placed</option>
+          <option>Processed</option>
+          <option>Payment Done</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Payment Type</label>
+        <select name="payment">
+          <option>Not Paid</option>
+          <option>Cash</option>
+          <option>Card</option>
+          <option>UPI</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Delivery Status</label>
+        <select name="delivery">
+          <option>Pending</option>
+          <option>Delivered</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Product Name</label>
+        <input type="text" name="productName" required>
+      </div>
+      <div class="form-group">
+        <label>Product Cost</label>
+        <input type="number" name="productCost" required>
+      </div>
+      <div class="form-group">
+        <label>Quantity</label>
+        <input type="number" name="quantity" required>
+      </div>
+      <div class="form-group">
+        <label>Order Value</label>
+        <input type="number" name="orderValue" readonly>
+      </div>
+      <div class="form-group">
+        <label>Partial Payment</label>
+        <input type="number" name="partialPayment" value="0">
+      </div>
+      <div class="form-group">
+        <label>Due Amount</label>
+        <input type="number" name="dueAmount" readonly>
+      </div>
+    </div>
+
     <button type="submit" class="submit-btn">Submit</button>
   </form>
 
   <script>
-    function calculateRow(row) {
-      const cost = parseFloat(row.querySelector('[name="productCost"]').value) || 0;
-      const qty = parseFloat(row.querySelector('[name="quantity"]').value) || 0;
-      const paid = parseFloat(row.querySelector('[name="partialPayment"]').value) || 0;
+    function calculateValues(section) {
+      const cost = parseFloat(section.querySelector('[name="productCost"]').value) || 0;
+      const qty = parseFloat(section.querySelector('[name="quantity"]').value) || 0;
+      const paid = parseFloat(section.querySelector('[name="partialPayment"]').value) || 0;
 
-      const orderValue = cost * qty;
-      const due = orderValue - paid;
+      const total = cost * qty;
+      const due = total - paid;
 
-      row.querySelector('[name="orderValue"]').value = orderValue.toFixed(2);
-      row.querySelector('[name="dueAmount"]').value = due.toFixed(2);
+      section.querySelector('[name="orderValue"]').value = total.toFixed(2);
+      section.querySelector('[name="dueAmount"]').value = due.toFixed(2);
     }
 
-    function addRow() {
-      const table = document.querySelector("#crmTable tbody");
-      const row = table.rows[0].cloneNode(true);
-
-      // Clear inputs
-      [...row.querySelectorAll("input")].forEach(input => input.value = (input.type === "number" ? "0" : ""));
-      [...row.querySelectorAll("input[readonly]")].forEach(input => input.value = "");
-
-      table.appendChild(row);
+    function addForm() {
+      const form = document.querySelector(".form-section");
+      const clone = form.cloneNode(true);
+      [...clone.querySelectorAll("input")].forEach(input => {
+        input.value = input.name === "partialPayment" ? "0" : "";
+      });
+      [...clone.querySelectorAll("input[readonly]")].forEach(input => input.value = "");
+      document.getElementById("crmForm").insertBefore(clone, document.querySelector(".submit-btn"));
     }
 
-    document.querySelector("#crmTable").addEventListener("input", function (e) {
+    document.getElementById("crmForm").addEventListener("input", function(e) {
+      const section = e.target.closest(".form-section");
       if (["productCost", "quantity", "partialPayment"].includes(e.target.name)) {
-        const row = e.target.closest("tr");
-        calculateRow(row);
+        calculateValues(section);
       }
     });
 
-    document.getElementById("crmForm").addEventListener("submit", function (e) {
+    document.getElementById("crmForm").addEventListener("submit", function(e) {
       e.preventDefault();
+      const forms = document.querySelectorAll(".form-section");
 
-      const rows = Array.from(document.querySelectorAll("#crmTable tbody tr"));
-
-      // Example: replace this with actual integration (Airtable, backend, etc.)
-      rows.forEach(row => {
+      forms.forEach(section => {
         const data = {
-          name: row.querySelector('[name="name"]').value,
-          phone: row.querySelector('[name="phone"]').value,
-          status: row.querySelector('[name="status"]').value,
-          payment: row.querySelector('[name="payment"]').value,
-          delivery: row.querySelector('[name="delivery"]').value,
-          productName: row.querySelector('[name="productName"]').value,
-          cost: row.querySelector('[name="productCost"]').value,
-          quantity: row.querySelector('[name="quantity"]').value,
-          orderValue: row.querySelector('[name="orderValue"]').value,
-          partialPayment: row.querySelector('[name="partialPayment"]').value,
-          dueAmount: row.querySelector('[name="dueAmount"]').value,
+          name: section.querySelector('[name="name"]').value,
+          phone: section.querySelector('[name="phone"]').value,
+          status: section.querySelector('[name="status"]').value,
+          payment: section.querySelector('[name="payment"]').value,
+          delivery: section.querySelector('[name="delivery"]').value,
+          productName: section.querySelector('[name="productName"]').value,
+          productCost: section.querySelector('[name="productCost"]').value,
+          quantity: section.querySelector('[name="quantity"]').value,
+          orderValue: section.querySelector('[name="orderValue"]').value,
+          partialPayment: section.querySelector('[name="partialPayment"]').value,
+          dueAmount: section.querySelector('[name="dueAmount"]').value,
         };
 
-        console.log("To be submitted:", data); // Replace with fetch() call later
+        console.log("To be submitted:", data); // Replace with fetch() or API call
       });
 
-      alert("Data captured. Integrate with your CRM backend.");
+      alert("Data ready to be submitted. Connect to your backend.");
     });
   </script>
 </body>
