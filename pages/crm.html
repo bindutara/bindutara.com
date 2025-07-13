@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini CRM - Bindutara</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f9;
+      color: #000040;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: auto;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      background-color: #000040;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #3333aa;
+    }
+    table {
+      margin-top: 40px;
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    th {
+      background-color: #000040;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>Customer Order CRM</h1>
+  <form id="crmForm">
+    <label>Customer Name:</label>
+    <input type="text" id="name" required />
+
+    <label>Phone Number:</label>
+    <input type="text" id="phone" required />
+
+    <label>Vehicle Requested:</label>
+    <input type="text" id="vehicle" required />
+
+    <label>Status:</label>
+    <select id="status">
+      <option>Order Placed</option>
+      <option>Processed</option>
+      <option>Payment Done</option>
+      <option>Delivered</option>
+    </select>
+
+    <label>Payment Type:</label>
+    <select id="payment">
+      <option>Cash</option>
+      <option>Card</option>
+      <option>UPI</option>
+    </select>
+
+    <button type="submit">Add Entry</button>
+  </form>
+
+  <table id="crmTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Vehicle</th>
+        <th>Status</th>
+        <th>Payment Type</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const crmForm = document.getElementById('crmForm');
+    const tableBody = document.querySelector('#crmTable tbody');
+
+    crmForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
+      const vehicle = document.getElementById('vehicle').value;
+      const status = document.getElementById('status').value;
+      const payment = document.getElementById('payment').value;
+
+      const row = document.createElement('tr');
+      row.innerHTML = `<td>${name}</td><td>${phone}</td><td>${vehicle}</td><td>${status}</td><td>${payment}</td>`;
+
+      tableBody.appendChild(row);
+      crmForm.reset();
+    });
+  </script>
+</body>
+</html>
