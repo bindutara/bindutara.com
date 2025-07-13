@@ -1,141 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bindutara CRM</title>
-  <link rel="stylesheet" href="/css/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRM Dashboard</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f9f9f9;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
       padding: 20px;
-      color: #000040;
     }
     h1 {
       text-align: center;
-      margin-bottom: 30px;
-    }
-    form, table {
-      max-width: 900px;
-      margin: 0 auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-    }
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-    input, select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    button {
-      margin-top: 20px;
-      padding: 12px;
-      background: #000040;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
     }
     table {
       width: 100%;
-      margin-top: 40px;
       border-collapse: collapse;
+      margin: 20px 0;
+      background: #fff;
     }
     th, td {
-      border: 1px solid #ccc;
+      border: 1px solid #ddd;
       padding: 10px;
-      text-align: center;
+      text-align: left;
     }
     th {
       background-color: #000040;
       color: white;
     }
-    .status-select {
+    select, input[type=text] {
       padding: 6px;
-      border-radius: 4px;
+      width: 100%;
+    }
+    .add-btn {
+      padding: 10px 20px;
+      background: #000040;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+    .add-btn:hover {
+      background: #333;
     }
   </style>
 </head>
 <body>
-  <h1>Bindutara CRM Dashboard</h1>
+  <h1>Bindutara CRM - Order Tracker</h1>
 
-  <form id="orderForm">
-    <label>Customer Name:</label>
-    <input type="text" id="name" required />
+  <button class="add-btn" onclick="addRow()">+ Add New Entry</button>
 
-    <label>Phone Number:</label>
-    <input type="text" id="phone" required />
-
-    <label>Order Details:</label>
-    <input type="text" id="orderDetails" required />
-
-    <label>Payment Type:</label>
-    <select id="paymentType">
-      <option value="Cash">Cash</option>
-      <option value="Card">Card</option>
-      <option value="UPI">UPI</option>
-    </select>
-
-    <button type="submit">Add Order</button>
-  </form>
-
-  <table id="ordersTable">
+  <table id="crmTable">
     <thead>
       <tr>
-        <th>#</th>
-        <th>Name</th>
+        <th>Customer Name</th>
         <th>Phone</th>
-        <th>Order</th>
-        <th>Status</th>
-        <th>Payment</th>
+        <th>Order Status</th>
+        <th>Payment Type</th>
+        <th>Delivery Status</th>
       </tr>
     </thead>
-    <tbody></tbody>
+    <tbody>
+      <tr>
+        <td><input type="text" placeholder="Enter name"></td>
+        <td><input type="text" placeholder="Enter phone"></td>
+        <td>
+          <select>
+            <option>Order Placed</option>
+            <option>Processed</option>
+            <option>Payment Done</option>
+          </select>
+        </td>
+        <td>
+          <select>
+            <option>Not Paid</option>
+            <option>Cash</option>
+            <option>Card</option>
+            <option>UPI</option>
+          </select>
+        </td>
+        <td>
+          <select>
+            <option>Pending</option>
+            <option>Delivered</option>
+          </select>
+        </td>
+      </tr>
+    </tbody>
   </table>
 
   <script>
-    const form = document.getElementById('orderForm');
-    const tbody = document.querySelector('#ordersTable tbody');
-    let orderCount = 0;
+    function addRow() {
+      const table = document.getElementById("crmTable").getElementsByTagName('tbody')[0];
+      const newRow = table.insertRow();
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('name').value;
-      const phone = document.getElementById('phone').value;
-      const order = document.getElementById('orderDetails').value;
-      const payment = document.getElementById('paymentType').value;
+      const nameCell = newRow.insertCell(0);
+      nameCell.innerHTML = '<input type="text" placeholder="Enter name">';
 
-      const row = tbody.insertRow();
-      row.insertCell().textContent = ++orderCount;
-      row.insertCell().textContent = name;
-      row.insertCell().textContent = phone;
-      row.insertCell().textContent = order;
+      const phoneCell = newRow.insertCell(1);
+      phoneCell.innerHTML = '<input type="text" placeholder="Enter phone">';
 
-      const statusCell = row.insertCell();
-      const statusSelect = document.createElement('select');
-      statusSelect.className = 'status-select';
-      ['Order Placed', 'Processed', 'Payment Done', 'Delivered'].forEach(status => {
-        const opt = document.createElement('option');
-        opt.value = status;
-        opt.text = status;
-        statusSelect.appendChild(opt);
-      });
-      statusCell.appendChild(statusSelect);
+      const statusCell = newRow.insertCell(2);
+      statusCell.innerHTML = `
+        <select>
+          <option>Order Placed</option>
+          <option>Processed</option>
+          <option>Payment Done</option>
+        </select>`;
 
-      row.insertCell().textContent = payment;
+      const paymentCell = newRow.insertCell(3);
+      paymentCell.innerHTML = `
+        <select>
+          <option>Not Paid</option>
+          <option>Cash</option>
+          <option>Card</option>
+          <option>UPI</option>
+        </select>`;
 
-      form.reset();
-    });
+      const deliveryCell = newRow.insertCell(4);
+      deliveryCell.innerHTML = `
+        <select>
+          <option>Pending</option>
+          <option>Delivered</option>
+        </select>`;
+    }
   </script>
 </body>
 </html>
