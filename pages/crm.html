@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bindutara CRM - Order Tracker</title>
+  <title>Bindutara CRM</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -34,129 +34,133 @@
       color: white;
     }
 
-    select, input[type=text], input[type=number] {
+    select, input[type="text"], input[type="number"] {
       padding: 6px;
       width: 100%;
     }
 
-    .submit-btn {
-      padding: 12px 24px;
+    .add-btn {
+      padding: 10px 20px;
       background: #000040;
       color: white;
       border: none;
       cursor: pointer;
-      font-size: 16px;
-      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .add-btn:hover {
+      background: #333;
+    }
+
+    .submit-btn {
+      padding: 12px 24px;
+      background: green;
+      color: white;
+      border: none;
+      cursor: pointer;
       display: block;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0 auto;
     }
 
     .submit-btn:hover {
-      background-color: #333;
+      background: darkgreen;
     }
   </style>
 </head>
 <body>
-
   <h1>Bindutara CRM - Order Tracker</h1>
 
-  <table>
-    <tr>
-      <th>Customer Name</th>
-      <td><input type="text" id="name" placeholder="Enter name" /></td>
-    </tr>
-    <tr>
-      <th>Phone</th>
-      <td><input type="text" id="phone" placeholder="Enter phone" /></td>
-    </tr>
-    <tr>
-      <th>Product Name</th>
-      <td><input type="text" id="product" placeholder="Enter product" /></td>
-    </tr>
-    <tr>
-      <th>Quantity</th>
-      <td><input type="number" id="qty" value="1" onchange="calculateTotal()" /></td>
-    </tr>
-    <tr>
-      <th>Product Cost (₹)</th>
-      <td><input type="number" id="cost" value="0" onchange="calculateTotal()" /></td>
-    </tr>
-    <tr>
-      <th>Order Value (₹)</th>
-      <td><input type="number" id="value" readonly /></td>
-    </tr>
-    <tr>
-      <th>Order Status</th>
-      <td>
-        <select id="status">
-          <option>Order Placed</option>
-          <option>Processed</option>
-          <option>Payment Done</option>
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <th>Payment Type</th>
-      <td>
-        <select id="payment">
-          <option>Not Paid</option>
-          <option>Cash</option>
-          <option>Card</option>
-          <option>UPI</option>
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <th>Delivery Status</th>
-      <td>
-        <select id="delivery">
-          <option>Pending</option>
-          <option>Delivered</option>
-        </select>
-      </td>
-    </tr>
-  </table>
+  <button class="add-btn" onclick="addRow()">+ Add New Entry</button>
 
-  <button class="submit-btn" onclick="submitToSheet()">📩 Submit Entry</button>
+  <form id="crmForm">
+    <table id="crmTable">
+      <thead>
+        <tr>
+          <th>Customer Name</th>
+          <th>Phone</th>
+          <th>Order Status</th>
+          <th>Payment Type</th>
+          <th>Delivery Status</th>
+          <th>Product Name</th>
+          <th>Product Cost</th>
+          <th>Quantity</th>
+          <th>Order Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text" name="name" required></td>
+          <td><input type="text" name="phone" required></td>
+          <td>
+            <select name="status">
+              <option>Order Placed</option>
+              <option>Processed</option>
+              <option>Payment Done</option>
+            </select>
+          </td>
+          <td>
+            <select name="payment">
+              <option>Not Paid</option>
+              <option>Cash</option>
+              <option>Card</option>
+              <option>UPI</option>
+            </select>
+          </td>
+          <td>
+            <select name="delivery">
+              <option>Pending</option>
+              <option>Delivered</option>
+            </select>
+          </td>
+          <td><input type="text" name="productName" required></td>
+          <td><input type="number" name="productCost" required></td>
+          <td><input type="number" name="quantity" required></td>
+          <td><input type="number" name="orderValue" required></td>
+        </tr>
+      </tbody>
+    </table>
+    <button type="submit" class="submit-btn">Submit to Sheet</button>
+  </form>
 
   <script>
-    function calculateTotal() {
-      const qty = parseInt(document.getElementById("qty").value) || 0;
-      const cost = parseFloat(document.getElementById("cost").value) || 0;
-      document.getElementById("value").value = qty * cost;
+    function addRow() {
+      const table = document.querySelector("#crmTable tbody");
+      const row = table.rows[0].cloneNode(true);
+      [...row.querySelectorAll("input")].forEach(input => input.value = "");
+      table.appendChild(row);
     }
 
-    async function submitToSheet() {
-      const data = {
-        name: document.getElementById("name").value,
-        phone: document.getElementById("phone").value,
-        product: document.getElementById("product").value,
-        quantity: document.getElementById("qty").value,
-        cost: document.getElementById("cost").value,
-        value: document.getElementById("value").value,
-        status: document.getElementById("status").value,
-        payment: document.getElementById("payment").value,
-        delivery: document.getElementById("delivery").value
-      };
+    document.getElementById("crmForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const rows = Array.from(document.querySelectorAll("#crmTable tbody tr"));
+      for (const row of rows) {
+        const data = {
+          name: row.querySelector('[name="name"]').value,
+          phone: row.querySelector('[name="phone"]').value,
+          status: row.querySelector('[name="status"]').value,
+          payment: row.querySelector('[name="payment"]').value,
+          delivery: row.querySelector('[name="delivery"]').value,
+          productName: row.querySelector('[name="productName"]').value,
+          productCost: row.querySelector('[name="productCost"]').value,
+          quantity: row.querySelector('[name="quantity"]').value,
+          orderValue: row.querySelector('[name="orderValue"]').value,
+        };
 
-const response = await fetch("https://script.google.com/macros/s/AKfycbx-SbKKpmXFx9HPTBE3Q8YW2GZwgShDwtk5NGTkn0xZO4-v7zH13bwI8V32yGc_sXQ/exec", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" }
-      });
-
-      if (response.ok) {
-        alert("✅ Submitted to Google Sheet!");
-        document.querySelectorAll("input, select").forEach(el => {
-          if (el.id !== "value") el.value = "";
+        const response = await fetch("https://script.google.com/macros/s/AKfycbx-SbKKpmXFx9HPTBE3Q8YW2GZwgShDwtk5NGTkn0xZO4-v7zH13bwI8V32yGc_sXQ/exec", {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: { "Content-Type": "application/json" }
         });
-        document.getElementById("value").value = "";
-      } else {
-        alert("❌ Failed to submit.");
-      }
-    }
-  </script>
 
+        if (!response.ok) {
+          alert("Failed to submit one or more entries.");
+          return;
+        }
+      }
+
+      alert("All entries submitted successfully!");
+      document.getElementById("crmForm").reset();
+    });
+  </script>
 </body>
 </html>
