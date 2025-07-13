@@ -33,7 +33,7 @@ body::before {
 header {
   background: linear-gradient(to right, #000040, #000060);
   color: white;
-  padding: 15px 0;
+  padding: 10px 0;
   position: relative;
   z-index: 10;
 }
