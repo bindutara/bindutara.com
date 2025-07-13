@@ -437,7 +437,7 @@ input[type="number"]:hover, input[type="text"]:hover, textarea:hover {
   overflow: hidden;
   position: fixed;
   z-index: 999;
-  margin-top: 2cm;
+   top: 60px; /* ✅ Replaces margin-top */
 }
 
 .scrolling-text {
