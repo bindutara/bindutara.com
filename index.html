@@ -224,24 +224,32 @@
       <img src="images/ertiga-white.png" alt="Car Image" class="car-image" />
 
       
-      <!-- ✅ Razorpay Payment Button -->
+      <!-- ✅ My UPI Payment Button -->
   <!-- ✅ Razorpay Payment Buttons Side by Side -->
-<div class="payment-button-wrapper" style="margin-top: 30px;">
+      <div class="payment-button-wrapper" style="margin-top: 30px; text-align: center;">
   <h3 style="color:#000040; font-size: 20px; margin-bottom: 10px;">Ready to Get Started?</h3>
-  <p style="font-size: 16px; color:#333; margin-bottom: 15px;">Make a secure payment below</p>
+  <p style="font-size: 16px; color:#333; margin-bottom: 15px;">
+    Make a secure payment via UPI
+  </p>
 
-  <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
-    <form>
-      <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QsEaIZf6LlIGbD" async> 
-      </script>
-    </form>
+  <!-- UPI QR Code (You can generate your own via PhonePe/BHIM and replace the image) -->
+  <img src="https://upi-qr.in/api/qr?name=Bindutara&vpa=bindutara@ybl&amount=0&note=Nytrix%20Bindutara" 
+       alt="Scan to Pay via UPI" 
+       width="200" height="200" 
+       style="border:1px solid #ccc; padding:10px; border-radius:10px;">
 
-    <form>
-      <script src="https://checkout.razorpay.com/v1/payment-button.js"
-        data-payment_button_id="pl_QsER4uKevZWqHu" async>
-      </script>
-    </form>
-  </div>
+  <p style="margin-top: 15px; font-size: 16px;">
+    Or click to pay: 
+    <a href="upi://pay?pa=bindutara@ybl&pn=Nytrix%20Bindutara&tn=Payment&am=0" 
+       style="color: blue; text-decoration: underline;">
+      Pay via UPI App
+    </a>
+  </p>
+
+  <p style="font-size: 14px; color:#777; margin-top: 10px;">
+    UPI ID: <strong>bindutara@ybl</strong>
+  </p>
+</div>
 </div>
 
 
