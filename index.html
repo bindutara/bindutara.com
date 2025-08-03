@@ -225,30 +225,40 @@
 
       
       <!-- ✅ My UPI Payment Button -->
-  <!-- ✅ Razorpay Payment Buttons Side by Side -->
-      <div class="payment-button-wrapper" style="margin-top: 30px; text-align: center;">
-  <h3 style="color:#000040; font-size: 20px; margin-bottom: 10px;">Ready to Get Started?</h3>
-  <p style="font-size: 16px; color:#333; margin-bottom: 15px;">
-    Make a secure payment via UPI
-  </p>
+  <div class="payment-button-wrapper" style="margin: 40px auto; text-align: center; max-width: 500px;">
+  <h3 style="color:#000040; font-size: 24px; margin-bottom: 12px;">Ready to Get Started?</h3>
+  <p style="font-size: 16px; color:#444; margin-bottom: 20px;">Make a secure payment via UPI</p>
 
-  <!-- UPI QR Code (You can generate your own via PhonePe/BHIM and replace the image) -->
-  <img src="https://upi-qr.in/api/qr?name=Bindutara&vpa=bindutara@ybl&amount=0&note=Nytrix%20Bindutara" 
-       alt="Scan to Pay via UPI" 
-       width="200" height="200" 
-       style="border:1px solid #ccc; padding:10px; border-radius:10px;">
+  <!-- Pay Now Button -->
+  <a href="upi://pay?pa=bindutara@ybl&pn=Nytrix%20Bindutara&tn=Payment&am=0"
+     style="
+       display: inline-block;
+       padding: 14px 30px;
+       font-size: 18px;
+       background-color: #000040;
+       color: #fff;
+       border-radius: 8px;
+       text-decoration: none;
+       transition: background 0.3s ease;
+       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+     "
+     onmouseover="this.style.backgroundColor='#000066';"
+     onmouseout="this.style.backgroundColor='#000040';">
+    🔐 Pay Now via UPI
+  </a>
 
-  <p style="margin-top: 15px; font-size: 16px;">
-    Or click to pay: 
-    <a href="upi://pay?pa=bindutara@ybl&pn=Nytrix%20Bindutara&tn=Payment&am=0" 
-       style="color: blue; text-decoration: underline;">
-      Pay via UPI App
-    </a>
-  </p>
-
-  <p style="font-size: 14px; color:#777; margin-top: 10px;">
-    UPI ID: <strong>bindutara@ybl</strong>
-  </p>
+  <div style="margin-top: 25px;">
+    <img src="https://upi-qr.in/api/qr?name=Bindutara&vpa=bindutara@ybl&amount=0&note=Nytrix%20Bindutara"
+         alt="Scan to Pay via UPI"
+         width="180" height="180"
+         style="border:1px solid #ddd; padding:10px; border-radius:10px;">
+    <p style="font-size: 14px; color:#555; margin-top: 10px;">
+      Or scan this QR with any UPI app
+    </p>
+    <p style="font-size: 14px; color:#777;">
+      UPI ID: <strong>bindutara@ybl</strong>
+    </p>
+  </div>
 </div>
 </div>
 
