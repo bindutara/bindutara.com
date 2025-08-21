@@ -201,6 +201,56 @@
           </div>`;
       });
     }
+const SUGGESTION_MAP = {
+  "Civil / Property": [
+    "Collect and safely store all original property documents and sale deeds.",
+    "Serve a legal notice promptly if not already done.",
+    "Engage a civil lawyer experienced in property disputes.",
+    "Seek injunction relief to prevent disposal of property during litigation.",
+  ],
+  "Criminal / Bail": [
+    "Arrange reliable sureties before bail hearing.",
+    "Highlight cooperation with police and clean past record.",
+    "Prepare medical or family hardship grounds if relevant.",
+    "Ensure all bail conditions are understood and complied with.",
+  ],
+  "Family": [
+    "Attempt mediation to avoid prolonged litigation.",
+    "Keep documentary proof of marriage, assets, and children’s welfare.",
+    "Seek interim relief for maintenance or custody where applicable.",
+    "Explore counseling or alternate dispute resolution before trial.",
+  ],
+  "Corporate / Commercial": [
+    "Compile invoices, contracts, and delivery challans systematically.",
+    "Check arbitration clauses to decide forum of dispute.",
+    "Send a detailed legal notice with claim calculation.",
+    "Maintain all email/WhatsApp communications as evidence.",
+  ],
+  "Consumer": [
+    "Preserve invoices, receipts, and communication with service provider.",
+    "File a complaint in consumer forum with jurisdiction over supplier.",
+    "Document defects with photos, reports, or expert opinion.",
+    "Escalate to regulatory ombudsman if service provider ignores grievance.",
+  ],
+  "Insurance": [
+    "Keep policy documents and premium receipts handy.",
+    "Obtain surveyor/claim reports to strengthen claim.",
+    "File grievance with IRDAI if insurer rejects without valid reasons.",
+    "Ensure timely filing within limitation under Consumer Protection Act.",
+  ],
+  "Employment / Labour": [
+    "Preserve salary slips, appointment letters, and termination letter.",
+    "File a complaint with labour commissioner if negotiation fails.",
+    "Seek interim relief for unpaid wages.",
+    "Attempt conciliation or arbitration if available in contract.",
+  ],
+  "Tax / GST": [
+    "Respond to statutory notices promptly within timelines.",
+    "Keep all GST returns, invoices, and reconciliations updated.",
+    "File appeal against adverse orders within limitation period.",
+    "Engage a tax practitioner/CA for representation before tribunal.",
+  ],
+};
 
     function calculateMerit() {
       const caseType = document.getElementById("caseType").value;
@@ -225,9 +275,15 @@
         }
       });
 
-      if (merit < 40) suggestions.push("Consider settlement/ADR or gather stronger evidence.");
-      else if (merit < 70) suggestions.push("Case has moderate merits – prepare additional supporting documents.");
-      else suggestions.push("Proceed with filing – merits appear favourable.");
+      suggestions = [...(SUGGESTION_MAP[caseType] || [])];
+
+if (merit < 40) {
+  suggestions.unshift("Low merit detected – consider settlement/ADR or stronger evidence.");
+} else if (merit < 70) {
+  suggestions.unshift("Moderate merit – strengthen case with more documents and preparation.");
+} else {
+  suggestions.unshift("High merit – filing is favourable, but consult a lawyer before proceeding.");
+}
 
       // Show results
       document.getElementById("meritScore").innerText = Math.min(100, Math.round(merit)) + "%";
