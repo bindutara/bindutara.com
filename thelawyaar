@@ -1,0 +1,544 @@
+import React, { useMemo, useState } from "react";
+
+/**
+ * The Lawyaar – Case Merit Calculator (Single-file React component)
+ * ---------------------------------------------------------------
+ * - No external APIs required
+ * - Tailwind-ready UI (works even without Tailwind, just less pretty)
+ * - Clean, production-ready structure with types, validation, and scoring logic
+ * - Add this file to any React app; export default component renders the calculator
+ * - You can customize QUESTIONS and SCORING tables per practice area
+ */
+
+type CaseType =
+  | "Civil / Property"
+  | "Criminal / Bail"
+  | "Family"
+  | "Corporate / Commercial"
+  | "Consumer"
+  | "Insurance"
+  | "Employment / Labour"
+  | "Tax / GST";
+
+// ---------- CONFIG: QUESTIONS PER CASE TYPE ---------- //
+// Each question returns a value that the scoring engine consumes.
+// Keep keys stable; labels can be edited freely.
+const QUESTIONS: Record<
+  CaseType,
+  {
+    key: string;
+    label: string;
+    type: "boolean" | "select" | "number" | "text";
+    options?: { value: string; label: string }[];
+    helper?: string;
+  }[]
+> = {
+  "Civil / Property": [
+    {
+      key: "hasSaleDeed",
+      label: "Do you possess a registered deed/contract supporting your claim?",
+      type: "boolean",
+    },
+    {
+      key: "paymentProof",
+      label: "Do you have proof of payment/consideration (bank, draft, UPI, cheque)?",
+      type: "boolean",
+    },
+    {
+      key: "possession",
+      label: "Current possession status",
+      type: "select",
+      options: [
+        { value: "client", label: "Client in possession" },
+        { value: "opponent", label: "Opponent in possession" },
+        { value: "shared", label: "Shared / disputed" },
+      ],
+    },
+    {
+      key: "limitation",
+      label: "Is the cause of action within limitation? (generally 3 yrs for money/recovery)",
+      type: "boolean",
+    },
+    {
+      key: "noticesServed",
+      label: "Have legal notices been served with proof of delivery?",
+      type: "boolean",
+    },
+    {
+      key: "adverseDocs",
+      label: "Any adverse documents against you? (acknowledgments, receipts, waivers)",
+      type: "boolean",
+    },
+    {
+      key: "disputeValue",
+      label: "Approx. dispute amount (₹)",
+      type: "number",
+      helper: "Used for cost/time estimates",
+    },
+  ],
+  "Criminal / Bail": [
+    { key: "ipcBailable", label: "Offence bailable?", type: "boolean" },
+    {
+      key: "custodyDays",
+      label: "Days in custody (if any)",
+      type: "number",
+    },
+    {
+      key: "pastCriminalRecord",
+      label: "Past criminal record?",
+      type: "boolean",
+    },
+    {
+      key: "cooperation",
+      label: "Has the accused cooperated with investigation?",
+      type: "select",
+      options: [
+        { value: "high", label: "Fully cooperated" },
+        { value: "medium", label: "Partially cooperated" },
+        { value: "low", label: "Non-cooperative" },
+      ],
+    },
+    { key: "victimOpposes", label: "Victim strongly opposes bail?", type: "boolean" },
+  ],
+  Family: [
+    { key: "marriageProof", label: "Proof of marriage (certificate/photos/etc.)", type: "boolean" },
+    { key: "children", label: "Children involved?", type: "boolean" },
+    {
+      key: "violenceAllegations",
+      label: "Allegations of cruelty/violence?",
+      type: "select",
+      options: [
+        { value: "none", label: "None" },
+        { value: "alleged", label: "Alleged but weak" },
+        { value: "substantiated", label: "Substantiated with evidence" },
+      ],
+    },
+    { key: "assetsProof", label: "Proof of shared/joint assets or maintenance requirement?", type: "boolean" },
+    { key: "mediationTried", label: "Mediation attempted?", type: "boolean" },
+  ],
+  "Corporate / Commercial": [
+    { key: "writtenContract", label: "Written, signed contract in place?", type: "boolean" },
+    { key: "poInvoices", label: "POs/Invoices/Delivery challans available?", type: "boolean" },
+    { key: "acceptance", label: "Acceptance/acknowledgment of liability by opponent?", type: "boolean" },
+    { key: "limitation", label: "Within limitation (3 yrs typical)?", type: "boolean" },
+    {
+      key: "arbitrationClause",
+      label: "Arbitration clause present?",
+      type: "boolean",
+    },
+    { key: "disputeValue", label: "Dispute amount (₹)", type: "number" },
+  ],
+  Consumer: [
+    { key: "defectProof", label: "Proof of defect/deficiency (reports/photos/emails)?", type: "boolean" },
+    { key: "purchaseProof", label: "Proof of purchase (invoice/receipt/order)?", type: "boolean" },
+    { key: "serviceDenied", label: "Service provider denied or ignored grievance?", type: "boolean" },
+    { key: "noticesServed", label: "Legal notice sent?", type: "boolean" },
+    { key: "disputeValue", label: "Dispute value (₹)", type: "number" },
+  ],
+  Insurance: [
+    { key: "policyValid", label: "Was policy valid at time of incident?", type: "boolean" },
+    { key: "premiumPaid", label: "Premiums paid up to date?", type: "boolean" },
+    { key: "claimDocs", label: "Claim documents & proofs submitted?", type: "boolean" },
+    { key: "repudiationReasonable", label: "Insurer's repudiation/rejection appears reasonable?", type: "boolean" },
+    { key: "noticesServed", label: "Representation/notice to insurer sent?", type: "boolean" },
+    { key: "disputeValue", label: "Claim amount (₹)", type: "number" },
+  ],
+  "Employment / Labour": [
+    { key: "writtenEmployment", label: "Written employment contract/offer letter?", type: "boolean" },
+    { key: "salaryProof", label: "Salary slips/bank credits available?", type: "boolean" },
+    { key: "terminationReason", label: "Termination reason documented?", type: "boolean" },
+    { key: "internalRedressal", label: "Internal grievance/IC/conciliation attempted?", type: "boolean" },
+    { key: "noticesServed", label: "Legal notice sent?", type: "boolean" },
+  ],
+  "Tax / GST": [
+    { key: "noticeReceived", label: "Statutory notice received?", type: "boolean" },
+    { key: "replyFiled", label: "Reply filed within time?", type: "boolean" },
+    { key: "demandRaised", label: "Formal demand/order raised?", type: "boolean" },
+    { key: "appealWithinTime", label: "Appeal within limitation?", type: "boolean" },
+    { key: "documentsReady", label: "All returns/workings available?", type: "boolean" },
+  ],
+};
+
+// ---------- SCORING ENGINE ---------- //
+// Weights tuned per case type; you can calibrate with real outcomes over time.
+const BASE_WEIGHTS: Record<CaseType, Record<string, number>> = {
+  "Civil / Property": {
+    hasSaleDeed: 18,
+    paymentProof: 18,
+    possession: 8,
+    limitation: 16,
+    noticesServed: 10,
+    adverseDocs: -12,
+    disputeValue: 6,
+  },
+  "Criminal / Bail": {
+    ipcBailable: 28,
+    custodyDays: 6,
+    pastCriminalRecord: -18,
+    cooperation: 14,
+    victimOpposes: -10,
+  },
+  Family: {
+    marriageProof: 12,
+    children: 6,
+    violenceAllegations: -10,
+    assetsProof: 12,
+    mediationTried: 8,
+  },
+  "Corporate / Commercial": {
+    writtenContract: 18,
+    poInvoices: 14,
+    acceptance: 16,
+    limitation: 14,
+    arbitrationClause: 6,
+    disputeValue: 8,
+  },
+  Consumer: {
+    defectProof: 18,
+    purchaseProof: 16,
+    serviceDenied: 10,
+    noticesServed: 8,
+    disputeValue: 8,
+  },
+  Insurance: {
+    policyValid: 18,
+    premiumPaid: 12,
+    claimDocs: 18,
+    repudiationReasonable: -14,
+    noticesServed: 8,
+    disputeValue: 8,
+  },
+  "Employment / Labour": {
+    writtenEmployment: 14,
+    salaryProof: 18,
+    terminationReason: 10,
+    internalRedressal: 8,
+    noticesServed: 8,
+  },
+  "Tax / GST": {
+    noticeReceived: 10,
+    replyFiled: 16,
+    demandRaised: -6,
+    appealWithinTime: 16,
+    documentsReady: 10,
+  },
+};
+
+function normalizeNumber(n: number, max = 100): number {
+  if (Number.isNaN(n)) return 0;
+  return Math.max(0, Math.min(max, n));
+}
+
+function scoreSelect(k: string, v: string): number {
+  // Simple rubric for select fields
+  if (k === "possession") {
+    return v === "client" ? 8 : v === "shared" ? 4 : 0;
+  }
+  if (k === "cooperation") {
+    return v === "high" ? 14 : v === "medium" ? 8 : 0;
+  }
+  if (k === "violenceAllegations") {
+    return v === "none" ? 10 : v === "alleged" ? 2 : -10;
+  }
+  return 0;
+}
+
+function computeMerit(
+  caseType: CaseType,
+  answers: Record<string, any>
+): {
+  merit: number; // 0–100
+  risks: string[];
+  suggestions: string[];
+  durationMonths: [number, number];
+  costEstimate: [number, number];
+} {
+  const weights = BASE_WEIGHTS[caseType];
+  let raw = 0;
+  const risks: string[] = [];
+  const suggestions: string[] = [];
+
+  for (const [k, w] of Object.entries(weights)) {
+    const v = answers[k];
+    if (v === undefined || v === null || v === "") continue;
+
+    if (typeof v === "boolean") {
+      raw += v ? w : 0;
+      if (!v && w > 0) risks.push(`${labelFor(caseType, k)}: missing/negative`);
+      if (!v && k === "limitation") suggestions.push("Check limitation & condonation grounds immediately");
+    } else if (typeof v === "number") {
+      // Scale dispute value contribution using log curve (more money -> slightly higher weight)
+      if (k === "custodyDays") {
+        raw += Math.max(0, 6 - Math.min(6, v / 5)); // more days -> slightly harder
+        if (v > 0) risks.push(`Custody for ${v} day(s)`);
+      } else if (k.toLowerCase().includes("dispute") || k.toLowerCase().includes("amount")) {
+        const scaled = Math.min(8, Math.log10(Math.max(1, v)));
+        raw += scaled;
+      } else {
+        raw += Math.min(w, v);
+      }
+    } else if (typeof v === "string") {
+      raw += scoreSelect(k, v);
+      if (k === "possession" && v !== "client") risks.push(`Possession: ${v}`);
+      if (k === "cooperation" && v === "low") risks.push("Non-cooperation may hurt bail");
+      if (k === "violenceAllegations" && v !== "none") risks.push("Allegations present – gather rebuttal evidence");
+    }
+  }
+
+  // Normalize raw to 0–100 range heuristically
+  const MAX_POSSIBLE = 100; // conceptual cap
+  let merit = Math.round(normalizeNumber(raw, MAX_POSSIBLE));
+  merit = Math.max(0, Math.min(100, merit));
+
+  // Add global heuristics
+  if (answers["adverseDocs"]) {
+    merit = Math.max(0, merit - 12);
+    risks.push("Adverse documents on record");
+  }
+
+  // Duration & Cost heuristics per court type (simplified; adjust per data later)
+  const baseDurations: Record<CaseType, [number, number]> = {
+    "Civil / Property": [18, 36],
+    "Criminal / Bail": [0.5, 2],
+    Family: [12, 24],
+    "Corporate / Commercial": [12, 24],
+    Consumer: [6, 18],
+    Insurance: [6, 18],
+    "Employment / Labour": [6, 18],
+    "Tax / GST": [6, 24],
+  };
+
+  const baseCosts: Record<CaseType, [number, number]> = {
+    "Civil / Property": [50000, 200000],
+    "Criminal / Bail": [15000, 75000],
+    Family: [30000, 150000],
+    "Corporate / Commercial": [50000, 300000],
+    Consumer: [10000, 75000],
+    Insurance: [15000, 100000],
+    "Employment / Labour": [15000, 80000],
+    "Tax / GST": [20000, 150000],
+  };
+
+  let duration = baseDurations[caseType];
+  let costs = baseCosts[caseType];
+
+  // Adjust duration by merit (higher merit -> shorter expected timeline)
+  const meritFactor = 1 + (50 - merit) / 200; // 0.75x to 1.25x roughly
+  duration = [
+    Math.max(0.25, Math.round(duration[0] * meritFactor)),
+    Math.max(0.5, Math.round(duration[1] * meritFactor)),
+  ];
+
+  // Add suggestions based on low merit
+  if (merit < 40) suggestions.push("Consider settlement/ADR or gather stronger evidence before filing");
+  if (merit >= 70) suggestions.push("Proceed with filing; merits appear favourable subject to counsel review");
+
+  return {
+    merit,
+    risks: Array.from(new Set(risks)),
+    suggestions: Array.from(new Set(suggestions)),
+    durationMonths: duration as [number, number],
+    costEstimate: costs,
+  };
+}
+
+function labelFor(caseType: CaseType, key: string): string {
+  const q = QUESTIONS[caseType].find((x) => x.key === key);
+  return q ? q.label : key;
+}
+
+// ---------- UI COMPONENT ---------- //
+export default function CaseMeritCalculator() {
+  const [caseType, setCaseType] = useState<CaseType>("Civil / Property");
+  const [answers, setAnswers] = useState<Record<string, any>>({});
+  const [showResult, setShowResult] = useState(false);
+
+  const questions = useMemo(() => QUESTIONS[caseType], [caseType]);
+  const result = useMemo(() => computeMerit(caseType, answers), [caseType, answers]);
+
+  function reset() {
+    setAnswers({});
+    setShowResult(false);
+  }
+
+  return (
+    <div className="min-h-screen w-full p-6 md:p-10 bg-gray-50 text-gray-900">
+      <div className="max-w-5xl mx-auto space-y-6">
+        <header className="flex items-center justify-between">
+          <h1 className="text-2xl md:text-3xl font-bold">The Lawyaar · Case Merit Calculator</h1>
+          <div className="text-sm opacity-70">v1.0 · heuristic (not legal advice)</div>
+        </header>
+
+        <section className="grid md:grid-cols-3 gap-4 items-end">
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium mb-1">Case Type</label>
+            <select
+              className="w-full rounded-xl border p-3 shadow-sm bg-white"
+              value={caseType}
+              onChange={(e) => {
+                setCaseType(e.target.value as CaseType);
+                setAnswers({});
+                setShowResult(false);
+              }}
+            >
+              {(
+                [
+                  "Civil / Property",
+                  "Criminal / Bail",
+                  "Family",
+                  "Corporate / Commercial",
+                  "Consumer",
+                  "Insurance",
+                  "Employment / Labour",
+                  "Tax / GST",
+                ] as CaseType[]
+              ).map((ct) => (
+                <option key={ct} value={ct}>
+                  {ct}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <button
+            onClick={() => setShowResult(true)}
+            className="rounded-2xl px-5 py-3 bg-black text-white shadow hover:shadow-md transition"
+          >
+            Calculate Merit
+          </button>
+        </section>
+
+        <section className="grid md:grid-cols-2 gap-6">
+          <div className="space-y-4">
+            <h2 className="text-lg font-semibold">Inputs</h2>
+            <div className="space-y-3">
+              {questions.map((q) => (
+                <div key={q.key} className="p-4 rounded-2xl bg-white shadow-sm border">
+                  <label className="block text-sm font-medium mb-1">{q.label}</label>
+                  {q.helper && (
+                    <div className="text-xs text-gray-500 mb-2">{q.helper}</div>
+                  )}
+                  {q.type === "boolean" && (
+                    <select
+                      className="w-full rounded-lg border p-2"
+                      value={answers[q.key] ?? ""}
+                      onChange={(e) =>
+                        setAnswers((a) => ({ ...a, [q.key]: e.target.value === "true" }))
+                      }
+                    >
+                      <option value="">Select an option</option>
+                      <option value="true">Yes</option>
+                      <option value="false">No</option>
+                    </select>
+                  )}
+                  {q.type === "select" && (
+                    <select
+                      className="w-full rounded-lg border p-2"
+                      value={answers[q.key] ?? ""}
+                      onChange={(e) => setAnswers((a) => ({ ...a, [q.key]: e.target.value }))}
+                    >
+                      <option value="">Select…</option>
+                      {q.options?.map((opt) => (
+                        <option key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                  {q.type === "number" && (
+                    <input
+                      type="number"
+                      className="w-full rounded-lg border p-2"
+                      value={answers[q.key] ?? ""}
+                      onChange={(e) =>
+                        setAnswers((a) => ({ ...a, [q.key]: Number(e.target.value) }))
+                      }
+                    />
+                  )}
+                  {q.type === "text" && (
+                    <textarea
+                      className="w-full rounded-lg border p-2"
+                      rows={3}
+                      value={answers[q.key] ?? ""}
+                      onChange={(e) => setAnswers((a) => ({ ...a, [q.key]: e.target.value }))}
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={reset}
+                className="rounded-xl px-4 py-2 border bg-white shadow-sm"
+              >
+                Reset
+              </button>
+              <button
+                onClick={() => setShowResult(true)}
+                className="rounded-xl px-4 py-2 bg-black text-white shadow"
+              >
+                Calculate
+              </button>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <h2 className="text-lg font-semibold">Results</h2>
+            <div className="p-5 rounded-2xl bg-white border shadow-sm">
+              <div className="text-sm mb-1 opacity-70">Merit Score</div>
+              <div className="text-4xl font-bold">{showResult ? result.merit : "—"}%</div>
+              <div className="mt-3 text-sm">
+                <strong>Expected Duration:</strong> {showResult ? `${result.durationMonths[0]}–${result.durationMonths[1]} months` : "—"}
+              </div>
+              <div className="mt-1 text-sm">
+                <strong>Estimated Legal Costs:</strong> {showResult ? `₹${result.costEstimate[0].toLocaleString()} – ₹${result.costEstimate[1].toLocaleString()}` : "—"}
+              </div>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-white border shadow-sm">
+              <div className="text-sm font-semibold mb-2">Key Risks</div>
+              {showResult ? (
+                result.risks.length ? (
+                  <ul className="list-disc pl-5 space-y-1 text-sm">
+                    {result.risks.map((r, i) => (
+                      <li key={i}>{r}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className="text-sm opacity-70">No major risks detected from inputs</div>
+                )
+              ) : (
+                <div className="text-sm opacity-70">—</div>
+              )}
+            </div>
+
+            <div className="p-5 rounded-2xl bg-white border shadow-sm">
+              <div className="text-sm font-semibold mb-2">Suggestions</div>
+              {showResult ? (
+                result.suggestions.length ? (
+                  <ul className="list-disc pl-5 space-y-1 text-sm">
+                    {result.suggestions.map((s, i) => (
+                      <li key={i}>{s}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className="text-sm opacity-70">—</div>
+                )
+              ) : (
+                <div className="text-sm opacity-70">—</div>
+              )}
+            </div>
+
+            <div className="text-xs text-gray-500">
+              *This tool provides a heuristic score based on user inputs and common legal factors. It is not legal advice. Final strategy and filing decisions must be reviewed by a licensed advocate with full documents.
+            </div>
+          </div>
+        </section>
+
+        <footer className="pt-4 border-t text-xs text-gray-500">
+          © {new Date().getFullYear()} The Lawyaar · Case Merit Calculator
+        </footer>
+      </div>
+    </div>
+  );
+}
