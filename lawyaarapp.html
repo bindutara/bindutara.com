@@ -1,0 +1,209 @@
+<!--
+TheLawyaar Mobile Prototype (Extended - Full Service Catalog)
+File: thelawyaar-prototype.html
+
+Features:
+1) First page role selection: “I am a Lawyer” / “I am a Litigant”.
+2) Login/Signup with Google option.
+3) Categorized service flows for litigants with detailed sections.
+4) Parallel support store for lawyers with professional services & AI tools.
+5) Shipping, payment page, merit calculator link.
+6) Bottom navigation: Home, Bookings, Wallet, Profile.
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TheLawyaar — Prototype</title>
+  <style>
+    :root{--bg:#f5f7fb;--card:#fff;--primary:#1a237e;--accent:#ff7a00;--muted:#6b7280}
+    *{box-sizing:border-box;font-family:Inter, system-ui, Arial, sans-serif}
+    body{margin:0;background:var(--bg);color:#111}
+    .app{max-width:420px;margin:18px auto;padding:12px}
+    .card{background:var(--card);border-radius:12px;padding:16px;box-shadow:0 6px 18px rgba(20,20,50,0.06)}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+    .brand{font-weight:700;font-size:20px;color:var(--primary)}
+    .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(180deg,var(--primary),#3b7dff);display:flex;align-items:center;justify-content:center;color:#fff}
+    .btn{display:inline-block;padding:12px 16px;border-radius:10px;background:var(--primary);color:#fff;border:none;width:100%;font-weight:600;margin-top:8px;cursor:pointer}
+    .btn.ghost{background:#fff;color:var(--primary);border:1px solid rgba(10,10,10,0.05)}
+    .input{width:100%;padding:12px;border-radius:8px;border:1px solid #e6e9ef;margin-bottom:10px}
+    .list{display:flex;flex-direction:column;gap:10px}
+    .list .item{padding:14px;border-radius:10px;background:#fff;border:1px solid #eef2ff;display:flex;align-items:center;gap:12px;cursor:pointer}
+    .plan{padding:12px;border-radius:10px;background:#fff;border:1px solid #ddd;margin-bottom:10px}
+    footer.bottom-nav{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);width:420px;max-width:95vw;display:flex;justify-content:space-around;gap:8px}
+    footer.bottom-nav button{flex:1;padding:10px;border-radius:10px;background:#fff;border:1px solid #ccc;cursor:pointer}
+  </style>
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="card">
+      <div class="brand">TheLawyaar</div>
+      <div class="avatar">L</div>
+    </header>
+
+    <main id="main" class="card"></main>
+
+    <footer class="bottom-nav">
+      <button onclick="renderHome()">Home</button>
+      <button onclick="renderBookings()">Bookings</button>
+      <button onclick="renderWallet()">Wallet</button>
+      <button onclick="renderProfile()">Profile</button>
+    </footer>
+  </div>
+
+  <script>
+    const main=document.getElementById('main');
+    let user=null; let cart={}; let bookings=[]; let role=null;
+
+    function renderRoleSelect(){
+      main.innerHTML=`<h2>Welcome to TheLawyaar</h2>
+        <p>Select your role:</p>
+        <button class='btn' onclick="setRole('litigant')">I am a Litigant</button>
+        <button class='btn' onclick="setRole('lawyer')">I am a Lawyer</button>`;
+    }
+    function setRole(r){role=r; renderLogin();}
+
+    function renderLogin(){
+      main.innerHTML=`<h2>Login</h2>
+        <input class='input' id='loginUser' placeholder='Email or Phone' />
+        <input class='input' id='loginPass' type='password' placeholder='Password' />
+        <button class='btn' onclick='doLogin()'>Login</button>
+        <button class='btn ghost' onclick='renderSignup()'>Sign Up</button>
+        <button class='btn' onclick='googleLogin()'>Login with Google</button>`;
+    }
+    function renderSignup(){
+      main.innerHTML=`<h2>Create Account</h2>
+        <input class='input' placeholder='Full Name' />
+        <input class='input' placeholder='Email' />
+        <input class='input' placeholder='Phone' />
+        <input class='input' type='password' placeholder='Password' />
+        <button class='btn' onclick='doSignup()'>Sign Up</button>
+        <button class='btn ghost' onclick='renderLogin()'>Back to Login</button>`;
+    }
+    function doLogin(){user={name:document.getElementById('loginUser').value||'User',role:role}; renderHome();}
+    function doSignup(){alert('Account created. Please login.'); renderLogin();}
+    function googleLogin(){user={name:'Google User',role:role}; renderHome();}
+
+    function renderHome(){
+      if(!user) return renderRoleSelect();
+      if(user.role==='litigant'){
+        main.innerHTML=`<h2>Hello ${user.name}</h2><p>Select a service:</p>
+          <div class="list">
+            <div class="item" onclick="showCategory('documentation')">📜 Documentation & Registration</div>
+            <div class="item" onclick="showCategory('notary')">🖊️ Notary & Attestation</div>
+            <div class="item" onclick="showCategory('litigation')">⚖️ Court & Litigation</div>
+            <div class="item" onclick="showCategory('adr')">🤝 Alternate Dispute Resolution</div>
+            <div class="item" onclick="showCategory('criminal')">🚨 Criminal & Bail</div>
+            <div class="item" onclick="showCategory('drafting')">✉️ Drafting & Notices</div>
+            <div class="item" onclick="showCategory('corporate')">🏢 Corporate Law</div>
+            <div class="item" onclick="showCategory('compliance')">📝 Compliance & Regulatory</div>
+            <div class="item" onclick="showCategory('specialized')">🔍 Specialized Legal Services</div>
+            <div class="item" onclick="showCategory('advisory')">💡 Advisory & Consultancy</div>
+            <div class="item" onclick="showCategory('tech')">🤖 Tech-Driven Legal Services</div>
+            <div class="item" onclick="showCategory('training')">📚 Training & Knowledge</div>
+            <div class="item" onclick="showCategory('shipping')">📦 Legal Kits (Shippable)</div>
+          </div>
+          <div style='margin-top:20px;text-align:center'><a href='https://bindutara.com/thelawyaar.html' target='_blank' class='btn'>Merit Calculator</a></div>`;
+      } else {
+        main.innerHTML=`<h2>Hello ${user.name}</h2><p>Lawyer Support Services:</p>
+          <div class="list">
+            <div class="item" onclick="showLawyerSupport('ai')">🤖 AI Legal Research</div>
+            <div class="item" onclick="showLawyerSupport('drafting')">🖋️ Document Drafting</div>
+            <div class="item" onclick="showLawyerSupport('tools')">⚙️ Practice Tools</div>
+            <div class="item" onclick="showLawyerSupport('compliance')">📝 Compliance Assistance</div>
+            <div class="item" onclick="showLawyerSupport('training')">📚 Training & Knowledge Hub</div>
+            <div class="item" onclick="showLawyerSupport('membership')">💼 Membership Plans</div>
+          </div>`;
+      }
+    }
+
+    function showCategory(cat){
+      const catalog={
+        documentation:[{name:'Contract Drafting',price:999},{name:'Property Registration',price:4999}],
+        notary:[{name:'Notary Attestation',price:499},{name:'Apostille Services',price:1999}],
+        litigation:[{name:'Civil Case Filing',price:2999},{name:'Criminal Defence',price:4999}],
+        adr:[{name:'Mediation Session',price:2499},{name:'Arbitration',price:9999}],
+        criminal:[{name:'Bail Application',price:1999},{name:'Criminal Appeal',price:3999}],
+        drafting:[{name:'Legal Notice',price:1499},{name:'Defamation Notice',price:2499}],
+        corporate:[{name:'Company Incorporation',price:6999},{name:'M&A Documentation',price:14999}],
+        compliance:[{name:'GST Filing',price:1499},{name:'Labour Law Compliance',price:2999}],
+        specialized:[{name:'Cyber Law Case',price:3999},{name:'RERA Dispute',price:5999}],
+        advisory:[{name:'Consultation',price:799},{name:'Legal Audit',price:4999}],
+        tech:[{name:'AI Chat Consultation',price:0},{name:'AI Legal Clerk',price:2999}],
+        training:[{name:'Legal Awareness Program',price:999},{name:'AI Drafting Workshop',price:1999}]
+      };
+      renderPlans(cat,catalog[cat]||[]);
+    }
+
+    function showLawyerSupport(type){
+      const catalog={
+        ai:[{name:'AI Research - Single Query',price:299},{name:'AI Research - Monthly',price:1999}],
+        drafting:[{name:'Complex Drafting Support',price:4999},{name:'Template Pack',price:1499}],
+        tools:[{name:'Case Management Tool',price:4999},{name:'Analytics Dashboard',price:7999}],
+        compliance:[{name:'ROC Filings',price:2999},{name:'Tax Compliance Support',price:3999}],
+        training:[{name:'Knowledge Hub Subscription',price:1999},{name:'Litigation Workshop',price:2499}],
+        membership:[{name:'Basic Plan',price:999},{name:'Super Premium Plan',price:9999}]
+      };
+      renderPlans(type,catalog[type]||[]);
+    }
+
+    function renderPlans(cat,plans){
+      main.innerHTML=`<h3>${cat} Plans</h3>`;
+      plans.forEach(p=>{
+        main.innerHTML+=`<div class='plan'><strong>${p.name}</strong><div>₹${p.price}</div><button class='btn' onclick="checkout('${p.name}',${p.price})">Select</button></div>`;
+      });
+      main.innerHTML+=`<button class='btn ghost' onclick='renderHome()'>Back</button>`;
+    }
+
+    function renderShipping(){
+      main.innerHTML=`<h3>Order Legal Kit</h3>
+        <input class='input' placeholder='Full Name' />
+        <input class='input' placeholder='Ship To Address' />
+        <input class='input' placeholder='City' />
+        <input class='input' placeholder='Postal Code' />
+        <input class='input' placeholder='Phone Number' />
+        <div style='margin-top:8px'>Charge: ₹499</div>
+        <button class='btn' onclick="checkout('Legal Kit',499)">Proceed to Pay</button>
+        <button class='btn ghost' onclick='renderHome()'>Back</button>`;
+    }
+
+    function checkout(name,price){
+      cart={id:'ORD'+Math.floor(Math.random()*90000+10000),item:name,price:price};
+      main.innerHTML=`<h3>Payment</h3>
+        <p>Order ID: ${cart.id}</p>
+        <p>Item: ${cart.item}</p>
+        <p>Amount: ₹${cart.price}</p>
+        <div class='list'>
+          <div class='item' onclick="setPay('UPI')">🔵 UPI</div>
+          <div class='item' onclick="setPay('Card')">💳 Card</div>
+          <div class='item' onclick="setPay('Wallet')">👛 Wallet</div>
+          <div class='item' onclick="setPay('Netbanking')">🏦 Netbanking</div>
+        </div>
+        <button class='btn' onclick='completePayment()'>Pay Now</button>
+        <button class='btn ghost' onclick='renderHome()'>Cancel</button>`;
+    }
+    function setPay(m){cart.method=m; alert('Payment method set: '+m)}
+
+    function completePayment(){
+      alert('Payment successful. Thank you!');
+      bookings.push(cart);
+      renderHome();
+    }
+
+    function renderBookings(){
+      if(bookings.length===0){main.innerHTML=`<h3>Your Bookings</h3><div style='color:var(--muted)'>No bookings yet</div>`; return;}
+      main.innerHTML=`<h3>Your Bookings</h3>`;
+      bookings.forEach(b=>{main.innerHTML+=`<div class='plan'><strong>${b.item}</strong><div>₹${b.price}</div><div>Order: ${b.id}</div></div>`});
+    }
+
+    function renderWallet(){main.innerHTML=`<h3>Wallet</h3><div style='color:var(--muted)'>Balance ₹0</div>`}
+    function renderProfile(){main.innerHTML=`<h3>Profile</h3><div>Name: ${user?.name||'Guest'}</div><div>Role: ${user?.role||'-'}</div><button class='btn ghost' onclick='logout()'>Logout</button>`}
+    function logout(){user=null; bookings=[]; cart={}; role=null; renderRoleSelect();}
+
+    // Start at role selection
+    renderRoleSelect();
+  </script>
+</body>
+</html>
