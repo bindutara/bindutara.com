@@ -1,463 +1,452 @@
-  /* Global Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="en">  
+<head>
 
-/* Body Base */
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background: url('../images/business-bg.jpg') no-repeat center center fixed;
-  background-size: cover;
-  color: #000040;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bindutara Enterprises</title>
+  <link rel="stylesheet" href="css/style.css" />
 
-/* Background Overlay */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.5); /* 50% transparency */
-  z-index: -1;
-}
+  <!-- ✅ Favicon -->
+  <link rel="icon" href="../images/bindutara-favicon.ico" type="image/x-icon" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../images/favicon-192.png" />
+  <link rel="apple-touch-icon" href="../images/favicon-192.png" />
 
-/* Navigation Styles */
-header {
-  background: linear-gradient(to right, #000040, #000060);
-  color: white;
-  padding: 10px 0;
-  position: relative;
-  z-index: 10;
-}
+  <!-- ✅ Optional: Manifest for PWA or mobile homescreen -->
+  <link rel="manifest" href="/manifest.json" />
 
-.nav-container {
-  background-color: #000040;
-  color: white;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
+  <!-- ✅ Tab color in Android Chrome -->
+  <meta name="theme-color" content="#000000" />
+</head>
+  <script>
+  const originalTitle = document.title;
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+      document.title = "✨ Come Back to Bindutara!";
+    } else {
+      document.title = originalTitle;
+    }
+  });
+  </script>
+  
 
-.nav-container a {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-}
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: #ffffff;
+      color: #000;
+      overflow-x: hidden;
+    }
 
-.logo a {
-  font-size: 24px;
-  font-weight: 900;
-  text-decoration: none;
-  color: white;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
-  transform: perspective(1px) translateZ(0);
-  transition: all 0.3s ease;
-}
+    header {
+      background: #ffffff;
+      color: #000;
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 999;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
 
-.logo a:hover {
-  transform: scale(1.05) rotateX(10deg);
-  color: #ffa500;
-  text-shadow: 2px 2px 10px rgba(255, 165, 0, 0.6);
-}
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: #000;
+      cursor: pointer;
+      transition: transform 0.3s ease, text-shadow 0.3s ease;
+      text-shadow: 1px 1px 0 #999, 2px 2px 0 #ccc, 3px 3px 0 #eee;
+    }
 
-nav {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  flex-wrap: wrap;
-}
+    .logo:hover {
+      transform: scale(1.1) rotateX(5deg) rotateY(5deg);
+      text-shadow: 1px 1px 0 #888, 2px 2px 0 #bbb, 3px 3px 0 #ddd;
+    }
 
-nav a {
-  color: white;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s;
-}
+    nav {
+      display: flex;
+      gap: 24px;
+    }
 
-nav a:hover {
-  color: #ff7e00;
-}
+    nav a {
+      color: #000;
+      text-decoration: none;
+      position: relative;
+      font-size: 16px;
+      padding: 4px 0;
+    }
 
-.hamburger {
-  display: none;
-  font-size: 26px;
-  color: white;
-  cursor: pointer;
-}
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      height: 2px;
+      width: 0;
+      background-color: #000;
+      transition: width 0.3s ease;
+    }
 
-/* Hero Section */
-.hero {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 40px 20px;
-}
+    nav a:hover::after {
+      width: 100%;
+    }
 
-.hero-content {
-  background: rgba(255, 255, 255, 0.92);
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  max-width: 900px;
-  width: 100%;
-  animation: fadeInUp 0.6s ease;
-  display: block;
-  color: #000040;
-}
+    .hamburger {
+      display: none;
+      font-size: 26px;
+      cursor: pointer;
+      color: #000;
+    }
+   .hero {
+      padding-top: 120px;
+      padding-bottom: 60px;
+      background: #f9f9f9;
+    }
+    .hero-content {
+      max-width: 800px;
+      margin: auto;
+      padding: 40px 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+  .hero-content h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    .hero-content p {
+      font-size: 18px;
+      margin: 10px 0;
+      color: #333;
+    }
+    .apply-btn {
+      display: inline-block;
+      background: #000;
+      color: #fff;
+      font-weight: bold;
+      padding: 12px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 16px;
+      margin-top: 20px;
+      transition: all 0.3s ease;
+    }
+    .apply-btn:hover {
+      background-color: #333;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+    footer {
+      background: #000;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
 
-.hero-content h1,
-.hero-content h2 {
-  color: #000040;
-  margin-bottom: 10px;
-}
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        padding: 10px 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        z-index: 1000;
+      }
+      nav.show {
+        display: flex;
+      }
+      .hamburger {
+        display: block;
+      }
+      .hero-content {
+        margin: 20px;
+        padding: 30px 16px;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+      }
+      .hero-content p {
+        width: 100%;
+        max-width: 600px;
+      }
+      .hero-content h1 {
+        font-size: 28px;
+      }
+      .hero-content p {
+        font-size: 16px;
+      }
+      .apply-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+    }
+    @media (max-width: 480px) {
+      .hero-content h1 {
+        font-size: 24px;
+      }
+      .hero-content p {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+  
+<body>
+  
+<div id="header"></div>
 
-.hero-content h2 {
-  margin-top: 30px;
-  font-size: 20px;
-}
 
-.hero-content p {
-  margin-bottom: 12px;
-  line-height: 1.6;
-}
+  <!-- ✅ DPIIT Scrolling Marquee as subheader -->
+<div class="subheader">
+  <div class="scrolling-text">
+     🚀 DPIIT Recognized Startup – Nytrix Bindutara Enterprises Pvt Ltd – Empowering Gig Drivers through Rent-to-Own Vehicles! 🚗 <a href="pages/contact.html">Contact us today!</a>
+  </div>
+</div>
 
-.hero-content ul {
-  margin-bottom: 12px;
-  padding-left: 20px;
-}
+  
+<section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>RENT TO OWN</h1>
+        <p>Drive your own success story with our transparent and flexible rent-to-own plan. Empowering you to own your vehicle in just 5 years.</p>
+        <a href="https://docs.google.com/forms/d/1t46RUW6gnsw4ZryACJj6bk07Mfy_oh2xcoa4P0VLJ44" target="_blank" class="apply-btn">Join Us</a>
+      </div>
+      <img src="images/ertiga-white.png" alt="Car Image" class="car-image" />
 
-.hero-content strong {
-  display: inline-block;
-  min-width: 90px;
-}
+      
+      <!-- ✅ My UPI Payment Button -->
+  <div class="payment-button-wrapper" style="margin: 40px auto; text-align: center; max-width: 500px;">
+  <h3 style="color:#000040; font-size: 24px; margin-bottom: 12px;">Ready to Get Started?</h3>
+  <p style="font-size: 16px; color:#444; margin-bottom: 20px;">Make a secure payment via UPI</p>
 
-.hero-content p:has(strong) {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  align-items: flex-start;
-}
+  <!-- Pay Now Button -->
+  <a href="upi://pay?pa=bindutara@ybl&pn=Nytrix%20Bindutara&tn=Payment&am=0"
+     style="
+       display: inline-block;
+       padding: 14px 30px;
+       font-size: 18px;
+       background-color: #000040;
+       color: #fff;
+       border-radius: 8px;
+       text-decoration: none;
+       transition: background 0.3s ease;
+       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+     "
+     onmouseover="this.style.backgroundColor='#000066';"
+     onmouseout="this.style.backgroundColor='#000040';">
+    🔐 Book Now / Pay Dues
+  </a>
 
-.hero-content p strong {
-  flex-shrink: 0;
-}
+  </div>
+</div>
+</div>
 
-/* Button Styles */
-.btn, .apply-btn {
-  background: linear-gradient(to bottom, #ff7e00, #e65c00);
-  color: white;
-  padding: 12px 24px;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  margin-top: 20px;
-  display: inline-block;
-}
 
-.btn:hover, .apply-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
-}
+<!-- ✅ Compact Key Features & Benefits -->
+  </div> </section> <section class="features-section">
+<!-- ✅ Mobile-Friendly & Compact Features -->
+<section style="padding:40px 20px; background:#ffffff; font-family:Arial, sans-serif;">
+  <h2 style="text-align:center; font-size:26px; margin-bottom:24px; color:#000040;">
+    🌟 Key Features & Benefits
+  </h2>
 
-/* Input Fields */
-input[type="number"], input[type="text"], textarea {
-  width: 80%;
-  padding: 10px;
-  margin: 10px 0;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
+  <div style="
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap:16px;
+    max-width:1000px;
+    margin:auto;
+  ">
 
-/* Result Box */
-.results {
-  text-align: left;
-  margin-top: 20px;
-  font-size: 16px;
-}
+    <div style="background:#fff; border-radius:12px; padding:16px; box-shadow:0 3px 8px rgba(0,0,0,0.1); text-align:center;">
+      <h3 style="font-size:18px; color:#000040; margin-bottom:6px;">💰 Affordable</h3>
+      <p style="font-size:14px; color:#444; margin:0;">Low deposit, no heavy upfront cost.</p>
+    </div>
 
-/* Footer */
-footer {
-  background-color: #000040;
-  color: white;
-  text-align: center;
-  padding: 15px 10px;
-  margin-top: auto;
-  z-index: 2;
-}
+    <div style="background:#fff; border-radius:12px; padding:16px; box-shadow:0 3px 8px rgba(0,0,0,0.1); text-align:center;">
+      <h3 style="font-size:18px; color:#000040; margin-bottom:6px;">📱 Gig Ready</h3>
+      <p style="font-size:14px; color:#444; margin:0;">Ola, Uber, Rapido, InDrive & more.</p>
+    </div>
 
-/* Scroll-to-top Button */
-#scrollTopBtn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #000040;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 20px;
-  cursor: pointer;
-  display: none;
-  z-index: 999;
-}
+    <div style="background:#fff; border-radius:12px; padding:16px; box-shadow:0 3px 8px rgba(0,0,0,0.1); text-align:center;">
+      <h3 style="font-size:18px; color:#000040; margin-bottom:6px;">📅 Flexible Payment</h3>
+      <p style="font-size:14px; color:#444; margin:0;">Daily, Weekly, or Monthly cycles.</p>
+    </div>
 
-#scrollTopBtn:hover {
-  background: #e65c00;
-}
+    <div style="background:#fff; border-radius:12px; padding:16px; box-shadow:0 3px 8px rgba(0,0,0,0.1); text-align:center;">
+      <h3 style="font-size:18px; color:#000040; margin-bottom:6px;">🧾 Ownership</h3>
+      <p style="font-size:14px; color:#444; margin:0;">Transfer after final installment.</p>
+    </div>
 
-/* Fade In Animation */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(40px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+    <div style="background:#fff; border-radius:12px; padding:16px; box-shadow:0 3px 8px rgba(0,0,0,0.1); text-align:center;">
+      <h3 style="font-size:18px; color:#000040; margin-bottom:6px;">🛡️ Insured</h3>
+      <p style="font-size:14px; color:#444; margin:0;">Valid insurance, fitness & PUC.</p>
+    </div>
 
-/* Racing Animation for Car */
-@keyframes raceIn {
-  0% {
-    opacity: 0;
-    transform: translateX(100%) scale(0.6) rotate(5deg);
+    <div style="background:#fff; border-radius:12px; padding:16px; box-shadow:0 3px 8px rgba(0,0,0,0.1); text-align:center;">
+      <h3 style="font-size:18px; color:#000040; margin-bottom:6px;">⏳ Exit Option</h3>
+      <p style="font-size:14px; color:#444; margin:0;">Cashback after lock-in period.</p>
+    </div>
+
+  </div>
+
+  <!-- ✅ Join Now Button -->
+  <div style="text-align:center; margin-top:30px;">
+    <a href="https://docs.google.com/spreadsheets/d/your-sheet-id" target="_blank" 
+       style="background:#000040; color:#fff; padding:12px 28px; border-radius:8px; text-decoration:none; font-size:16px; font-weight:bold; display:inline-block;">
+      🚀 Join Now
+    </a>
+  </div>
+</section>
+
+
+</section>
+
+<!-- ✅ Rent-to-Own Packages -->
+<section class="packages-section" style="padding:60px 20px; background:#f8faff;">
+  <h2 style="text-align:center; font-size:34px; margin-bottom:40px; color:#000040;">
+    🚗 Rent-to-Own Packages – Hyundai Aura S CNG
+  </h2>
+
+  <div class="scrolling-packages" style="
+    display:flex;
+    gap:24px;
+    overflow-x:auto;
+    scroll-behavior:smooth;
+    padding-bottom:20px;
+  ">
+
+    <!-- Package 1: Daily All Days -->
+    <div class="package-card" style="
+      min-width:340px;
+      background:#fff;
+      border-radius:18px;
+      padding:28px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.1);
+      flex-shrink:0;
+    ">
+      <h3 style="font-size:24px; margin-bottom:12px; color:#000040;">Daily Plan – All Days</h3>
+      <p style="font-size:32px; font-weight:bold; margin:0; color:#111;">₹1,200 <span style="font-size:16px;">/day</span></p>
+      <p style="color:#666; margin:6px 0 14px;">5 years (1,825 days) | Lock-in: 6 months</p>
+
+      <ul style="line-height:1.7; color:#333; padding-left:20px; margin-bottom:20px;">
+        <li>Vehicle: <b>Hyundai Aura S CNG</b> (White)</li>
+        <li>Fuel: Petrol + CNG (Mileage ~22 km/kg CNG)</li>
+        <li>Avg. Cost ≈ <b>₹4.5–₹5.0 per km</b></li>
+        <li>No upfront purchase cost</li>
+        <li>Insurance + Road Tax included</li>
+        <li>Ownership transfer after completion</li>
+        <li>Refundable Security Deposit: ₹20,000 – ₹50,000</li>
+      </ul>
+
+      <a href="https://docs.google.com/forms/d/1t46RUW6gnsw4ZryACJj6bk07Mfy_oh2xcoa4P0VLJ44" target="_blank" style="
+        display:block;
+        text-align:center;
+        background:#000040;
+        color:#fff;
+        font-weight:bold;
+        padding:14px 0;
+        border-radius:10px;
+        text-decoration:none;
+      ">📋 Join Now</a>
+    </div>
+
+    <!-- Package 2: 6 Days Plan -->
+    <div class="package-card" style="
+      min-width:340px;
+      background:#eaf2ff;
+      border-radius:18px;
+      padding:28px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.15);
+      flex-shrink:0;
+      border:2px solid #000040;
+    ">
+      <h3 style="font-size:24px; margin-bottom:12px; color:#000040;">6 Days/Week Plan</h3>
+      <p style="font-size:32px; font-weight:bold; margin:0; color:#111;">₹1,400 <span style="font-size:16px;">/day</span></p>
+      <p style="color:#666; margin:6px 0 14px;">26 days/month for 5 years (1,565 Payments) | Lock-in: 6 months</p>
+
+      <ul style="line-height:1.7; color:#333; padding-left:20px; margin-bottom:20px;">
+        <li>Weekly off: 1 day (4 holidays/month)</li>
+        <li>Total tenure: Max 1,825 days (1,565 Payments)</li>
+        <li>No upfront purchase cost</li>
+        <li>Avg. Cost ≈ <b>₹4.7–₹5.2 per km</b></li>
+        <li>Ownership transfer after completion</li>
+        <li>Insurance, Fitness & Road Tax included</li>
+        <li>Refundable Security Deposit: ₹20,000 – ₹50,000</li>
+      </ul>
+
+      <a href="https://docs.google.com/forms/d/1t46RUW6gnsw4ZryACJj6bk07Mfy_oh2xcoa4P0VLJ44" target="_blank" style="
+        display:block;
+        text-align:center;
+        background:#000040;
+        color:#fff;
+        font-weight:bold;
+        padding:14px 0;
+        border-radius:10px;
+        text-decoration:none;
+      ">📋 Join Now</a>
+    </div>
+
+   
+
+  </div>
+</section>
+
+
+  
+ 
+<div id="footer"></div>
+
+ <script>
+  async function loadComponent(id, url) {
+    const res = await fetch(url);
+    const html = await res.text();
+    document.getElementById(id).innerHTML = html;
   }
-  100% {
-    opacity: 1;
-    transform: translateX(0) scale(1) rotate(0);
-  }
-}
+  loadComponent("header", "/components/header.html");
+  loadComponent("footer", "/components/footer.html");
+</script>
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .hamburger {
-    display: block;
-    font-size: 26px;
-    color: white;
-    cursor: pointer;
-  }
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById("nav-links");
+      nav.classList.toggle("show");
+    }
+  </script>
+    <script>
+  let lastScrollTop = 0;
+  const header = document.getElementById('main-header');
+  const nav = document.getElementById('nav-container');
 
-  #nav-links {
-    display: none;
-    flex-direction: column;
-    background: white; /* ✅ Light background */
-    width: 100%;
-    margin-top: 10px;
-    border-radius: 0 0 8px 8px;
-    padding: 10px 0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
+  window.addEventListener('scroll', function () {
+    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-  #nav-links.show {
-    display: flex;
-  }
+    if (currentScroll < lastScrollTop) {
+      // Scrolling up
+      header.classList.add('transparent');
+      nav.classList.add('transparent');
+    } else {
+      // Scrolling down or top
+      header.classList.remove('transparent');
+      nav.classList.remove('transparent');
+    }
 
-  #nav-links a {
-    color: #000040; /* ✅ Dark navy text */
-    padding: 12px 20px;
-    width: 100%;
-    text-align: left;
-    font-weight: 600;
-    font-size: 16px;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-  }
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Avoid negative
+  });
+      if (currentScroll < lastScrollTop && currentScroll > 100) {
 
-  #nav-links a:hover {
-    background-color: #f2f2f2;
-    color: #e65c00;
-  }
-  #nav-links a.active {
-  border-bottom: 2px solid white;
-  font-weight: bold;
-  }
+</script>
+  
 
-  .hero-content {
-    flex-direction: column;
-    padding: 20px;
-  }
-
-  input[type="number"], input[type="text"], textarea {
-    width: 100%;
-  }
-
-  .hero-content p:has(strong) {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .hero-content p strong {
-    margin-bottom: 4px;
-  }
-}
-.features-section {
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 20px;
-  padding: 60px 30px;
-  margin: 80px auto;
-  max-width: 1100px;
-  backdrop-filter: blur(15px);
-  box-shadow: 0 0 30px rgba(0, 64, 255, 0.15);
-  animation: fadeInUp 1.2s ease-out;
-  transform-style: preserve-3d;
-  perspective: 1000px;
-  transition: transform 0.3s ease;
-}
-
-.features-section:hover {
-  animation: bounceRotate 0.8s ease forwards;
-}
-
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
-}
-
-.feature-card {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 25px 20px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  font-family: 'Segoe UI', 'Poppins', sans-serif;
-  font-size: 1.05rem;
-  color: #000040;
-  font-weight: 500;
-  line-height: 1.6;
-  position: relative;
-  overflow: hidden;
-  border-left: 5px solid #ff7e00;
-}
-
-.feature-card::before {
-  content: attr(data-icon);
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  font-size: 24px;
-  opacity: 0.2;
-  transform: rotate(-10deg);
-}
-
-.feature-card:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 10px 25px rgba(0, 64, 255, 0.2);
-}
-.feature-card:hover::before {
-  opacity: 0.4;
-  transform: rotate(0deg) scale(1.1);
-}
-.features-section:hover {
-  transform: rotateX(3deg) rotateY(-3deg) scale(1.01);
-  box-shadow: 0 0 40px rgba(0, 120, 255, 0.5);
-}
-
-.section-title {
-  text-align: center;
-  font-size: 2.2rem;
-  color: #ffffff;
-  margin-bottom: 30px;
-  text-shadow: 0 0 10px rgba(0, 140, 255, 0.7);
-  font-weight: bold;
-}
-
-
-.features-list li {
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 30px 20px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  text-align: left;
-  border-left: 5px solid #000080;
-  position: relative;
-  overflow: hidden;
-  color: #000040;
-  font-size: 1.05rem;
-  font-weight: 500;
-}
-
-.features-list li:hover {
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
-  transform: translateY(-6px);
-}
-
-.features-section {
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 20px;
-  padding: 50px 30px;
-  margin: 60px auto;
-  max-width: 900px;
-  backdrop-filter: blur(15px);
-  box-shadow: 0 0 25px rgba(0, 64, 255, 0.2);
-  animation: fadeInUp 1.2s ease-out;
-  transform-style: preserve-3d;
-  perspective: 1000px;
-  transition: transform 0.3s ease;
-  /* flex-direction: column; → only if used with display:flex */
-}
-
-.features-section:hover {
-  animation: bounceRotate 0.8s ease forwards;
-}
-a:focus, button:focus {
-  outline: 2px dashed #ffa500;
-  outline-offset: 3px;
-}
-@keyframes bounceRotate {
-  0% { transform: rotateX(0deg) rotateY(0deg); }
-  50% { transform: rotateX(5deg) rotateY(-5deg) scale(1.03); }
-  100% { transform: rotateX(3deg) rotateY(-3deg) scale(1.01); }
-}
-html {
-  scroll-behavior: smooth;
-}
-input[type="number"]:hover, input[type="text"]:hover, textarea:hover {
-  border-color: #000080;
-}
-
-
-.subheader {
-  background-color: #000040;
-  color: white;
-  padding: 8px 0;
-  font-size: 16px;
-  width: 100%;
-  overflow: hidden;
-  position: fixed;
-  z-index: 999;
-   top: 60px; /* ✅ Replaces margin-top */
-}
-
-.scrolling-text {
-  display: inline-block;
-  white-space: nowrap;
-  padding-left: 100%; /* Start off-screen to the right */
-  animation: scroll-left 15s linear infinite;
-}
-
-.subheader a {
-  color: #ffd700;
-  font-weight: bold;
-  text-decoration: underline;
-}
-
-@keyframes scroll-left {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
+</body>
+</html>
