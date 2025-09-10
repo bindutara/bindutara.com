@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bindutara Enterprises</title>
+  <title>bindutara.com</title>
   
   <!-- Favicon -->
   <link rel="icon" href="../images/bindutara-favicon.ico" type="image/x-icon" />
@@ -455,6 +455,125 @@
       background: #1e40af;
     }
 
+    /* Content Sections */
+    .content-section {
+      padding: 80px 0;
+      background: white;
+    }
+
+    .content-section:nth-child(even) {
+      background: #f9fafb;
+    }
+
+    .content-section h2 {
+      font-size: 32px;
+      font-weight: bold;
+      color: #1e3a8a;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .content-section h3 {
+      font-size: 24px;
+      font-weight: bold;
+      color: #374151;
+      margin: 32px 0 16px;
+    }
+
+    .content-section h4 {
+      font-size: 20px;
+      font-weight: bold;
+      color: #4b5563;
+      margin: 24px 0 12px;
+    }
+
+    .content-section p {
+      color: #6b7280;
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+
+    .content-section ul {
+      color: #6b7280;
+      margin: 16px 0;
+      padding-left: 24px;
+    }
+
+    .content-section li {
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+
+    .vision-mission {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      margin: 48px 0;
+    }
+
+    .vision-card, .mission-card {
+      background: white;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      border: 1px solid #e5e7eb;
+    }
+
+    .core-values {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin: 32px 0;
+    }
+
+    .value-card {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      border-left: 4px solid #1e3a8a;
+    }
+
+    .value-card h4 {
+      color: #1e3a8a;
+      margin-bottom: 8px;
+    }
+
+    .terms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 32px;
+      margin: 32px 0;
+    }
+
+    .terms-card {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      border: 1px solid #e5e7eb;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid #bfdbfe;
+      margin: 24px 0;
+    }
+
+    .contact-info {
+      background: #f3f4f6;
+      padding: 24px;
+      border-radius: 12px;
+      margin: 32px 0;
+    }
+
+    .contact-info p {
+      margin-bottom: 8px;
+      color: #374151;
+    }
+
     /* Footer */
     footer {
       background: #000;
@@ -536,6 +655,37 @@
       .logo {
         font-size: 20px;
       }
+
+      .content-section {
+        padding: 60px 0;
+      }
+
+      .content-section h2 {
+        font-size: 28px;
+      }
+
+      .vision-mission {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .core-values {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .terms-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .vision-card, .mission-card {
+        padding: 24px;
+      }
+
+      .value-card, .terms-card {
+        padding: 20px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -579,13 +729,15 @@
   <header id="header">
     <div class="header-content">
       <div class="logo">
-        <h1>Bindutara Enterprises</h1>
+        <h1>bindutara.com</h1>
       </div>
       
       <nav class="nav-desktop">
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#services">Services</a>
+        <a href="#terms">Terms</a>
+        <a href="#privacy">Privacy</a>
         <a href="#contact">Contact</a>
       </nav>
       
@@ -597,6 +749,8 @@
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#services">Services</a>
+        <a href="#terms">Terms</a>
+        <a href="#privacy">Privacy</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
@@ -747,10 +901,365 @@
     </div>
   </section>
 
+  <!-- About Section -->
+  <section class="content-section" id="about">
+    <div class="container">
+      <h2 class="scroll-animate">About bindutara.com</h2>
+      
+      <div class="vision-mission">
+        <div class="vision-card scroll-animate">
+          <h3>🚀 Vision Statement</h3>
+          <p><strong>"Empowering livelihoods and redefining mobility."</strong></p>
+          <p>To become India's most trusted mobility partner by empowering gig workers with affordable, accessible, and sustainable vehicle ownership solutions.</p>
+        </div>
+        
+        <div class="mission-card scroll-animate">
+          <h3>🎯 Mission Statement</h3>
+          <p><strong>"Affordable ownership, sustainable livelihood."</strong></p>
+          <p>Our mission is to democratize commercial mobility by offering rent-to-own vehicles, financial inclusion, and technology-driven fleet management. We aim to reduce barriers for drivers, create livelihood opportunities, and scale a no-refusal transport network that ensures reliability for both drivers and passengers.</p>
+        </div>
+      </div>
+
+      <h3>🌟 Core Values</h3>
+      <div class="core-values">
+        <div class="value-card scroll-animate">
+          <h4>Empowerment</h4>
+          <p>We enable drivers to achieve financial independence and long-term asset ownership.</p>
+        </div>
+        <div class="value-card scroll-animate">
+          <h4>Integrity</h4>
+          <p>We build trust with drivers, partners, and stakeholders through fairness and transparency.</p>
+        </div>
+        <div class="value-card scroll-animate">
+          <h4>Innovation</h4>
+          <p>We harness technology and new models to make mobility more inclusive and efficient.</p>
+        </div>
+        <div class="value-card scroll-animate">
+          <h4>Sustainability</h4>
+          <p>We commit to eco-friendly transport solutions, with a roadmap toward EV adoption.</p>
+        </div>
+      </div>
+
+      <div class="highlight-box scroll-animate">
+        <h3>What We Do</h3>
+        <p>We provide commercial vehicle leasing and rent-to-own solutions for gig economy drivers and small fleet operators, enabling them to access vehicles without heavy upfront costs.</p>
+        
+        <h4>How We Do It</h4>
+        <ul>
+          <li>By offering daily/weekly/monthly flexible plans tailored to drivers' earning cycles</li>
+          <li>By ensuring zero commission during the lease period</li>
+          <li>By supporting operations with a CRM system and custom mobile app for transparency, payment tracking, and service history</li>
+          <li>By combining driver-first contracts (fair maintenance, ownership transfer after term) with strong financial discipline</li>
+        </ul>
+
+        <h4>Why We Do It</h4>
+        <p><strong>Because we believe in empowering livelihoods and redefining mobility.</strong> Our mission is to help gig workers and driver-partners become vehicle owners, increase their earnings, and improve financial inclusion—while creating a scalable, tech-enabled fleet ecosystem in India.</p>
+      </div>
+
+      <h3>Pride of Ownership</h3>
+      <p>For most drivers in the gig economy, a car is not just a vehicle — it's their livelihood. Yet, because of high rentals and commissions, many never truly own the car they drive.</p>
+      <p>At bindutara.com, we change that. Our rent-to-own model ensures that every monthly payment is not just an expense, but a step towards ownership.</p>
+      
+      <div class="core-values">
+        <div class="value-card">
+          <h4>Dignity & Self-Respect</h4>
+          <p>The confidence of saying "This car is mine."</p>
+        </div>
+        <div class="value-card">
+          <h4>Financial Security</h4>
+          <p>An asset in their name, not just endless rent.</p>
+        </div>
+        <div class="value-card">
+          <h4>Family Stability</h4>
+          <p>A vehicle that can serve the household, not just the platform.</p>
+        </div>
+        <div class="value-card">
+          <h4>Empowerment</h4>
+          <p>A sense of independence from exploitative rental and commission systems.</p>
+        </div>
+      </div>
+
+      <div class="contact-info">
+        <h4>Get in Touch</h4>
+        <p><strong>Email:</strong> bindutarapvtltd@gmail.com</p>
+        <p><strong>Phone:</strong> +91-7890722782 / +91-9883542610</p>
+        <p><strong>Address:</strong> 828 M.L. Gupta Road, Kolkata, West Bengal, India</p>
+        <p><strong>Website:</strong> www.bindutara.com</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Terms and Conditions Section -->
+  <section class="content-section" id="terms">
+    <div class="container">
+      <h2 class="scroll-animate">Terms and Conditions</h2>
+      
+      <div class="highlight-box scroll-animate">
+        <p><strong>Nytrix Bindutara Enterprises Pvt. Ltd.</strong> ("bindutara.com", "Company", "we", "us", or "our"). These Terms and Conditions ("Terms") govern your relationship with bindutara.com in connection with the vehicle rental, lease, and rent-to-own services offered through our platform and agreements.</p>
+        <p><strong>By signing any agreement, using our services, or engaging in any transaction with bindutara.com, you ("Customer", "you", "your") agree to be bound by these Terms in full.</strong></p>
+      </div>
+
+      <div class="terms-grid">
+        <div class="terms-card scroll-animate">
+          <h3>1. Nature of the Agreement</h3>
+          <p>bindutara.com offers vehicles under a structured long-term rent-to-own plan typically lasting 60 months (5 years) divided into multiple 11 months contracts. Renewal is not automatic — must be confirmed by a signed "Renewal Addendum" for each term.</p>
+          <p>Under this plan, the customer pays a recurring rental/lease, which may be daily, weekly, or monthly, as defined in the customer's signed agreement. These payments contribute toward eventual ownership of the vehicle.</p>
+          <p>The vehicle remains the legal property of bindutara.com until the full term is completed and all dues, including any outstanding amounts or penalties, are paid.</p>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>2. Contract Term and Ownership Transfer</h3>
+          <p>The standard rental term is 60 months, unless otherwise stated in the specific contract signed between the customer and the company.</p>
+          <p>Upon completion of all scheduled payments and any applicable charges (including foreclosure, penalties, or legal fees), ownership of the vehicle will be transferred to the customer.</p>
+          <p>The responsibility and cost of name transfer in the registration and associated government records shall lie solely with the customer.</p>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>3. Payment Terms</h3>
+          <p>Payment options shall be defined in the agreement and may be: Daily, Weekly, or Monthly.</p>
+          <p>The mode and schedule of payments will be selected at the start of the contract and cannot be altered without written approval from the company.</p>
+          <p>Failure to pay on time may result in late fees, service interruptions, vehicle seizure, or contract termination.</p>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>4. Commercial Use and Liability</h3>
+          <p>Vehicles are intended for use in commercial passenger transport services, including but not limited to: Ola, Uber, Yatri Sathi, InDrive, Rapido, Red Taxi, Suttle.</p>
+          <p>Customers must comply with all state and central transport regulations, including passenger safety and commercial driving license requirements.</p>
+          <p>The company is not liable for customer misuse, passenger disputes, traffic violations, or negligence.</p>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>5. Customer Obligations</h3>
+          <p>Customers are expected to:</p>
+          <ul>
+            <li>Keep the vehicle in good working condition</li>
+            <li>Conduct routine maintenance</li>
+            <li>Avoid misuse or unauthorized modifications</li>
+            <li>Not sublease the vehicle</li>
+          </ul>
+          <p>All costs for wear-and-tear, maintenance, and operational fuel are borne by the customer unless otherwise stated in the specific contract.</p>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>6. Insurance Requirements</h3>
+          <p>The customer shall be responsible for ensuring that the third-party insurance for the vehicle is renewed before its expiry in compliance with applicable motor vehicle laws.</p>
+          <p>Failure to renew insurance may result in legal penalties and contract suspension.</p>
+          <p><strong>Health Insurance:</strong> The lessee must maintain an active personal health insurance policy with a minimum coverage of ₹2,00,000 throughout the duration of the lease.</p>
+          <p><strong>Life Insurance:</strong> The Lessee shall maintain a valid term life insurance policy with a minimum coverage of ₹5,00,000 for the entire duration of this Agreement.</p>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>7. Security Deposit</h3>
+          <p>The Lessee shall pay the Company a total security deposit of ₹20,000 (Rupees Twenty Thousand only) as a refundable, non-interest-bearing deposit.</p>
+          <p>Upon successful completion of lock-in period and full agreement tenure, after deduction of any amounts due towards damages, penalties, outstanding payments, or other contractual obligations, the Company shall refund the security deposit within thirty (30) working days.</p>
+          <p>The security deposit shall not, under any circumstances, be adjusted against rental payments during the term of this Agreement.</p>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>8. Early Surrender and Cashback</h3>
+          <p>If the Customer voluntarily surrenders the contract after completing a minimum of 730 fully paid days without default, and within a total of 835 days from the start date, the Company shall pay a cashback of ₹200 per paid day.</p>
+          <p>This cashback is applicable only in the event of early surrender after 730 full paid days. If the Customer surrenders before completing 730 full paid days, no cashback shall be provided.</p>
+          <p>If the Customer surrenders the contract at any time, no future claim to ownership of the vehicle shall be entertained.</p>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>9. Breach and Termination</h3>
+          <p>The Company may immediately terminate the agreement without notice if:</p>
+          <ul>
+            <li>Any clause in these Terms is breached</li>
+            <li>Fraud is detected</li>
+            <li>Payments are defaulted</li>
+            <li>Illegal use is identified</li>
+          </ul>
+          <p>If the customer cancels the contract, a cancellation penalty will apply, all balance rent and fees must be paid, and the vehicle returned in acceptable condition.</p>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>10. Dispute Resolution</h3>
+          <p>Any disputes shall be attempted to be resolved amicably, followed by arbitration under the Indian Arbitration and Conciliation Act. Jurisdiction shall be in Kolkata, West Bengal, India.</p>
+        </div>
+      </div>
+
+      <div class="contact-info">
+        <h4>Contact Us</h4>
+        <p><strong>Email:</strong> bindutarapvtltd@gmail.com</p>
+        <p><strong>Phone:</strong> +91-7890722782 / +91-9883542610</p>
+        <p><strong>Address:</strong> 828 M.L. Gupta Road, Kolkata, West Bengal, India</p>
+        <p><strong>Website:</strong> www.bindutara.com</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy Policy Section -->
+  <section class="content-section" id="privacy">
+    <div class="container">
+      <h2 class="scroll-animate">Privacy Policy</h2>
+      
+      <div class="highlight-box scroll-animate">
+        <p><strong>Effective Date:</strong> August 21, 2025</p>
+        <p>Nytrix Bindutara Enterprises Pvt. Ltd. ("Bindutara", "we", "us", or "our") is committed to protecting your personal information. This Privacy Policy outlines how we collect, use, share, and protect your data when you interact with our website, app, and services.</p>
+      </div>
+
+      <div class="terms-grid">
+        <div class="terms-card scroll-animate">
+          <h3>2. Information We Collect</h3>
+          <h4>Personal Identification:</h4>
+          <p>Name, Date of Birth, Aadhaar, PAN, Driver's License, Photograph</p>
+          
+          <h4>Contact Details:</h4>
+          <p>Phone Number, Email Address, Address, WhatsApp Contact</p>
+          
+          <h4>Financial Information:</h4>
+          <p>Bank Account Number, UPI ID, income information</p>
+          
+          <h4>Employment Information:</h4>
+          <p>Gig platform details, driving schedules</p>
+          
+          <h4>Vehicle Data:</h4>
+          <p>GPS location, usage logs, fuel/charge, maintenance</p>
+          
+          <h4>Device Information:</h4>
+          <p>IP Address, Device Type, Cookies, Browser</p>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>3. How We Use Your Data</h3>
+          <ul>
+            <li>Onboarding drivers and verifying identity</li>
+            <li>Managing contracts and payments</li>
+            <li>Tracking vehicle performance</li>
+            <li>Sending reminders, updates, and promotional messages</li>
+            <li>Legal and regulatory compliance</li>
+          </ul>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>4. Sharing of Information</h3>
+          <p>We do not sell your data. We may share it with:</p>
+          <ul>
+            <li>Payment partners</li>
+            <li>Insurance agencies</li>
+            <li>GPS vendors</li>
+            <li>Legal/regulatory authorities</li>
+            <li>During mergers/acquisitions</li>
+          </ul>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>5. Data Security</h3>
+          <p>We implement encryption, access control, 2FA, and regular audits to protect your information. However, no system is fully immune to risks.</p>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>6. Data Retention</h3>
+          <p>We retain your data for as long as required by law or necessary for service continuity, up to 7 years in most cases.</p>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>7. Your Rights</h3>
+          <ul>
+            <li>Access your data</li>
+            <li>Request corrections or deletion</li>
+            <li>Withdraw consent for promotions</li>
+            <li>Complain to regulatory authorities (when appointed)</li>
+          </ul>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>8. Children's Privacy</h3>
+          <p>Our services are not intended for individuals under 18 years of age.</p>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>9. Cookies and Tracking</h3>
+          <p>We use cookies and analytical tools to improve user experience. You can disable cookies in your browser settings.</p>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>10. Updates</h3>
+          <p>This policy may change without prior notice. Updates will be posted on our website with the revised date.</p>
+        </div>
+      </div>
+
+      <div class="contact-info">
+        <h4>Privacy Concerns? Contact Us</h4>
+        <p><strong>Email:</strong> bindutarapvtltd@gmail.com</p>
+        <p><strong>Phone:</strong> +91-7890722782</p>
+        <p><strong>Address:</strong> 828 M.L. Gupta Road, Kolkata, West Bengal, India</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Refund and Cancellation Policy Section -->
+  <section class="content-section">
+    <div class="container">
+      <h2 class="scroll-animate">Refund and Cancellation Policy</h2>
+      
+      <div class="highlight-box scroll-animate">
+        <p><strong>Effective Date:</strong> August 21, 2025</p>
+        <p><strong>Important Notice:</strong> Please read this policy carefully before signing any agreement or making payments.</p>
+      </div>
+
+      <div class="terms-grid">
+        <div class="terms-card scroll-animate">
+          <h3>No Cancellation Post Signup</h3>
+          <p>Once the customer has signed the agreement and payment has been made for onboarding, processing, or initial rental, <strong>no cancellation will be entertained under any circumstances.</strong> This applies regardless of whether the vehicle has been assigned, delivered, or used.</p>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>No Refund After Contract Execution</h3>
+          <p>After the rent-to-own contract is signed and activated, all payments made (security deposit, processing fees, daily/monthly rental, etc.) are <strong>non-refundable.</strong> Customers are expected to complete the full contract term as agreed unless otherwise stated in the specific contract.</p>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>Refund Eligibility (Limited Exceptions)</h3>
+          <p>Refunds will only be considered in rare, valid exceptions including:</p>
+          <ul>
+            <li>Vehicle unavailability from the company's end before onboarding</li>
+            <li>Duplicate payment errors reported within 24 hours of the transaction</li>
+            <li>Advance payments made by mistake before agreement signing (subject to case review)</li>
+          </ul>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>Refund Processing Timeline</h3>
+          <p>In case of a valid refund eligibility, the refund process may take a <strong>minimum of 7 working days and up to 30 working days</strong> from the date of confirmation by our customer support team. The refund will be credited to the original payment mode only.</p>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>Contract Completion</h3>
+          <p>At the end of the contract term (or full repayment as per agreement), no separate refund is applicable. The customer is entitled to ownership transfer of the vehicle after all dues are cleared, but any rent paid throughout the term remains non-refundable.</p>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>Early Termination or Foreclosure</h3>
+          <p>If the customer initiates early contract termination or foreclosure, all payments made till date (rent, deposit, processing, interest) shall be treated as consumed. <strong>No refund shall be processed.</strong> Foreclosure must be done as per clause mentioned in your agreement, with all outstanding dues settled.</p>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>Security Deposit Adjustments</h3>
+          <p>If a security deposit is collected and contract is completed successfully, the deposit may be adjusted toward name transfer or final dues. If the vehicle is returned with damage or dues pending, deductions will apply. <strong>No interest is paid on deposits.</strong></p>
+        </div>
+
+        <div class="terms-card scroll-animate">
+          <h3>Dispute and Final Authority</h3>
+          <p>Any refund or exception is subject to management's internal review and discretion. bindutara.com reserves the right to decline refund requests if found inconsistent with policy terms. All disputes shall be resolved under Kolkata jurisdiction.</p>
+        </div>
+      </div>
+
+      <div class="contact-info">
+        <h4>Refund Queries Contact</h4>
+        <p><strong>Email:</strong> bindutarapvtltd@gmail.com</p>
+        <p><strong>Phone:</strong> +91-7890722782 / +91-9883542610</p>
+        <p><strong>Address:</strong> 828 M.L. Gupta Road, Kolkata, West Bengal, India</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer id="contact">
     <div class="container">
-      <h3>Bindutara Enterprises</h3>
+      <h3>bindutara.com</h3>
       <p class="subtitle">Empowering Gig Drivers through Rent-to-Own Vehicles</p>
       <p class="copyright">© 2024 Nytrix Bindutara Enterprises Pvt Ltd. All rights reserved.</p>
     </div>
@@ -761,7 +1270,7 @@
     const originalTitle = document.title;
     document.addEventListener('visibilitychange', function() {
       if (document.hidden) {
-        document.title = "✨ Come Back to Bindutara!";
+        document.title = "✨ Come Back to bindutara.com!";
       } else {
         document.title = originalTitle;
       }
