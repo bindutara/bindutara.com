@@ -1381,6 +1381,155 @@
 
       </section>
 
+
+
+
+Terms.tsx:
+
+```tsx
+import React from 'react';
+import { Card } from './ui/card';
+
+const termsData = [
+  {
+    title: '1. Nature of the Agreement',
+    content: 'bindutara.com offers vehicles under a structured long-term rent-to-own plan typically lasting 60 months (5 years) divided into multiple 11 months contracts. The vehicle remains the legal property of bindutara.com until the full term is completed.',
+  },
+  {
+    title: '2. Payment Terms',
+    content: 'Payment options shall be defined in the agreement and may be: Daily, Weekly, or Monthly. Failure to pay on time may result in late fees, service interruptions, vehicle seizure, or contract termination.',
+  },
+  {
+    title: '3. Security Deposit',
+    content: 'The Lessee shall pay the Company a total security deposit of ₹20,000 as a refundable, non-interest-bearing deposit. Upon successful completion, the deposit will be refunded within 30 working days.',
+  },
+  {
+    title: '4. Insurance Requirements',
+    content: 'The customer shall be responsible for ensuring that the third-party insurance for the vehicle is renewed before its expiry. Health Insurance (₹2,00,000) and Life Insurance (₹5,00,000) are required.',
+  },
+  {
+    title: '5. Early Surrender',
+    content: 'If the Customer voluntarily surrenders the contract after completing a minimum of 730 fully paid days, the Company shall pay a cashback of ₹200 per paid day.',
+  },
+  {
+    title: '6. Commercial Use',
+    content: 'Vehicles are intended for use in commercial passenger transport services, including Ola, Uber, Yatri Sathi, InDrive, Rapido, Red Taxi, Suttle.',
+  },
+];
+
+export function Terms() {
+  return (
+    <section id="terms" className="py-20">
+      <div className="max-w-6xl mx-auto px-4">
+        <h2 className="text-4xl font-bold text-center text-blue-900 mb-12">
+          Terms and Conditions
+        </h2>
+        
+        <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-300 mb-8 p-8">
+          <p className="text-gray-700">
+            <strong>Nytrix Bindutara Enterprises Pvt. Ltd.</strong> ("bindutara.com", "Company", "we", "us", or "our"). 
+            These Terms and Conditions ("Terms") govern your relationship with bindutara.com in connection with the vehicle rental, 
+            lease, and rent-to-own services offered through our platform and agreements.
+          </p>
+          <p className="mt-4 text-gray-700">
+            <strong>By signing any agreement, using our services, or engaging in any transaction with bindutara.com, 
+            you ("Customer", "you", "your") agree to be bound by these Terms in full.</strong>
+          </p>
+        </Card>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {termsData.map((term, index) => (
+            <Card key={index} className="p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+              <h3 className="text-lg font-bold text-blue-900 mb-4">
+                {term.title}
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                {term.content}
+              </p>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+Privacy.tsx:
+
+```tsx
+import React from 'react';
+import { Card } from './ui/card';
+
+const privacyData = [
+  {
+    title: 'Information We Collect',
+    content: 'Personal Identification: Name, Date of Birth, Aadhaar, PAN, Driver\'s License, Photograph. Contact Details: Phone Number, Email Address, Address. Financial Information: Bank Account Number, UPI ID, income information.',
+  },
+  {
+    title: 'How We Use Your Data',
+    content: 'Onboarding drivers and verifying identity, Managing contracts and payments, Tracking vehicle performance, Sending reminders and updates, Legal and regulatory compliance.',
+  },
+  {
+    title: 'Data Security',
+    content: 'We implement encryption, access control, 2FA, and regular audits to protect your information. However, no system is fully immune to risks.',
+  },
+  {
+    title: 'Your Rights',
+    content: 'Access your data, Request corrections or deletion, Withdraw consent for promotions, Complain to regulatory authorities (when appointed).',
+  },
+  {
+    title: 'Data Retention',
+    content: 'We retain your data for as long as required by law or necessary for service continuity, up to 7 years in most cases.',
+  },
+  {
+    title: 'Sharing of Information',
+    content: 'We do not sell your data. We may share it with payment partners, insurance agencies, GPS vendors, legal/regulatory authorities, during mergers/acquisitions.',
+  },
+];
+
+export function Privacy() {
+  return (
+    <section id="privacy" className="py-20 bg-gradient-to-br from-blue-50 to-indigo-50">
+      <div className="max-w-6xl mx-auto px-4">
+        <h2 className="text-4xl font-bold text-center text-blue-900 mb-12">
+          Privacy Policy
+        </h2>
+        
+        <Card className="bg-white shadow-xl mb-8 p-8">
+          <p className="text-gray-700">
+            <strong>Effective Date:</strong> August 21, 2025
+          </p>
+          <p className="mt-2 text-gray-700">
+            Nytrix Bindutara Enterprises Pvt. Ltd. ("Bindutara", "we", "us", or "our") is committed to protecting your personal information. 
+            This Privacy Policy outlines how we collect, use, share, and protect your data when you interact with our website, app, and services.
+          </p>
+        </Card>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {privacyData.map((item, index) => (
+            <Card key={index} className="p-6 bg-white hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+              <h3 className="text-lg font-bold text-blue-900 mb-4">
+                {item.title}
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                {item.content}
+              </p>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+
+
+
+
+    
+    
   <!-- Terms and Conditions Section -->
   <section class="content-section" id="terms">
     <div class="container">
