@@ -1,1355 +1,1496 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>bindutara.com</title>
-  
-  <!-- Favicon -->
-  <link rel="icon" href="../images/bindutara-favicon.ico" type="image/x-icon" />
-  <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="../images/favicon-192.png" />
-  <link rel="apple-touch-icon" href="../images/favicon-192.png" />
-  
-  <!-- Manifest for PWA -->
-  <link rel="manifest" href="/manifest.json" />
-  
-  <!-- Tab color in Android Chrome -->
-  <meta name="theme-color" content="#000000" />
-  
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      background: #ffffff;
-      color: #000;
-      overflow-x: hidden;
-      line-height: 1.6;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    /* Header Styles */
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
-      background: #ffffff;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-
-    header.scrolled {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    }
-
-    .header-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 80px;
-      padding: 0 20px;
-    }
-
-    .logo {
-      font-size: 28px;
-      font-weight: bold;
-      color: #000;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    .logo:hover {
-      transform: scale(1.05);
-    }
-
-    .nav-desktop {
-      display: flex;
-      gap: 32px;
-    }
-
-    .nav-desktop a {
-      color: #000;
-      text-decoration: none;
-      font-size: 16px;
-      font-weight: 500;
-      position: relative;
-      transition: color 0.2s ease;
-    }
-
-    .nav-desktop a:hover {
-      color: #666;
-    }
-
-    .nav-desktop a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #000;
-      transition: width 0.3s ease;
-    }
-
-    .nav-desktop a:hover::after {
-      width: 100%;
-    }
-
-    .menu-button {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-      padding: 8px;
-      border-radius: 8px;
-      transition: background 0.2s ease;
-    }
-
-    .menu-button:hover {
-      background: #f3f4f6;
-    }
-
-    .nav-mobile {
-      display: none;
-      flex-direction: column;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border-radius: 12px;
-      margin: 8px 20px;
-      padding: 16px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-      max-height: 0;
-      overflow: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .nav-mobile.show {
-      display: flex;
-      max-height: 300px;
-      padding: 16px;
-    }
-
-    .nav-mobile a {
-      color: #000;
-      text-decoration: none;
-      padding: 12px 0;
-      border-bottom: 1px solid #f3f4f6;
-      transition: color 0.2s ease;
-    }
-
-    .nav-mobile a:last-child {
-      border-bottom: none;
-    }
-
-    .nav-mobile a:hover {
-      color: #666;
-    }
-
-    /* Marquee Styles */
-    .marquee-container {
-      background: linear-gradient(to right, #2563eb, #9333ea);
-      color: white;
-      padding: 8px 0;
-      margin-top: 80px;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-
-    .marquee-text {
-      display: inline-block;
-      animation: marquee 20s linear infinite;
-      font-size: 16px;
-      font-weight: 500;
-    }
-
-    .marquee-text a {
-      color: white;
-      text-decoration: underline;
-      margin-left: 8px;
-    }
-
-    .marquee-text a:hover {
-      text-decoration: none;
-    }
-
-    @keyframes marquee {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
-
-    /* Hero Section */
-    .hero {
-      background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
-      padding: 60px 0 80px;
-    }
-
-    .hero-card {
-      background: white;
-      border-radius: 24px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-      overflow: hidden;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    .hero-content {
-      padding: 48px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: center;
-    }
-
-    .hero-text h1 {
-      font-size: 48px;
-      font-weight: bold;
-      color: #111827;
-      margin-bottom: 24px;
-      line-height: 1.2;
-    }
-
-    .hero-text p {
-      font-size: 20px;
-      color: #6b7280;
-      margin-bottom: 32px;
-      line-height: 1.6;
-    }
-
-    .cta-button {
-      display: inline-block;
-      background: #000;
-      color: white;
-      padding: 16px 32px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 16px;
-      transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
-    }
-
-    .cta-button:hover {
-      background: #374151;
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    }
-
-    .hero-image {
-      position: relative;
-    }
-
-    .hero-image img {
-      width: 100%;
-      height: auto;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    }
-
-    /* UPI Payment Section */
-    .upi-section {
-      margin-top: 48px;
-      padding: 32px;
-      background: linear-gradient(to right, #dbeafe, #e0e7ff);
-      border-radius: 16px;
-      border: 1px solid #bfdbfe;
-      text-align: center;
-    }
-
-    .upi-section h3 {
-      font-size: 24px;
-      font-weight: bold;
-      color: #111827;
-      margin-bottom: 12px;
-    }
-
-    .upi-section p {
-      color: #6b7280;
-      margin-bottom: 24px;
-    }
-
-    .upi-button {
-      background: #1e3a8a;
-      color: white;
-      padding: 14px 32px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: bold;
-      display: inline-block;
-      transition: all 0.3s ease;
-    }
-
-    .upi-button:hover {
-      background: #1e40af;
-      box-shadow: 0 8px 20px rgba(30, 58, 138, 0.3);
-    }
-
-    /* Features Section */
-    .features {
-      padding: 80px 0;
-      background: white;
-    }
-
-    .features h2 {
-      font-size: 36px;
-      font-weight: bold;
-      text-align: center;
-      color: #1e3a8a;
-      margin-bottom: 48px;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-      max-width: 1200px;
-      margin: 0 auto 40px;
-    }
-
-    .feature-card {
-      background: white;
-      padding: 32px;
-      border-radius: 16px;
-      text-align: center;
-      border: 1px solid #f3f4f6;
-      transition: all 0.3s ease;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    }
-
-    .feature-card .icon {
-      font-size: 36px;
-      margin-bottom: 16px;
-    }
-
-    .feature-card h3 {
-      font-size: 20px;
-      font-weight: bold;
-      color: #1e3a8a;
-      margin-bottom: 12px;
-    }
-
-    .feature-card p {
-      color: #6b7280;
-      font-size: 14px;
-    }
-
-    .features-cta {
-      text-align: center;
-      margin-top: 40px;
-    }
-
-    /* Packages Section */
-    .packages {
-      padding: 80px 0;
-      background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
-    }
-
-    .packages h2 {
-      font-size: 36px;
-      font-weight: bold;
-      text-align: center;
-      color: #1e3a8a;
-      margin-bottom: 48px;
-    }
-
-    .packages-scroll {
-      display: flex;
-      gap: 24px;
-      overflow-x: auto;
-      padding-bottom: 24px;
-      scroll-snap-type: x mandatory;
-    }
-
-    .package-card {
-      min-width: 360px;
-      background: white;
-      border-radius: 20px;
-      padding: 32px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-      flex-shrink: 0;
-      scroll-snap-align: start;
-      transition: transform 0.3s ease;
-    }
-
-    .package-card:hover {
-      transform: translateY(-4px);
-    }
-
-    .package-card.featured {
-      background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
-      border: 2px solid #1e3a8a;
-    }
-
-    .package-card h3 {
-      font-size: 24px;
-      font-weight: bold;
-      color: #1e3a8a;
-      margin-bottom: 16px;
-    }
-
-    .package-price {
-      margin-bottom: 16px;
-    }
-
-    .package-price .amount {
-      font-size: 36px;
-      font-weight: bold;
-      color: #111827;
-    }
-
-    .package-price .period {
-      color: #6b7280;
-      margin-left: 8px;
-    }
-
-    .package-duration {
-      color: #6b7280;
-      font-size: 14px;
-      margin-bottom: 24px;
-    }
-
-    .package-features {
-      list-style: none;
-      margin-bottom: 32px;
-    }
-
-    .package-features li {
-      color: #374151;
-      font-size: 14px;
-      margin-bottom: 8px;
-      line-height: 1.5;
-    }
-
-    .package-button {
-      width: 100%;
-      background: #1e3a8a;
-      color: white;
-      padding: 16px;
-      border-radius: 12px;
-      text-decoration: none;
-      text-align: center;
-      font-weight: bold;
-      display: block;
-      transition: all 0.3s ease;
-    }
-
-    .package-button:hover {
-      background: #1e40af;
-    }
-
-    /* Content Sections */
-    .content-section {
-      padding: 80px 0;
-      background: white;
-    }
-
-    .content-section:nth-child(even) {
-      background: #f9fafb;
-    }
-
-    .content-section h2 {
-      font-size: 32px;
-      font-weight: bold;
-      color: #1e3a8a;
-      margin-bottom: 32px;
-      text-align: center;
-    }
-
-    .content-section h3 {
-      font-size: 24px;
-      font-weight: bold;
-      color: #374151;
-      margin: 32px 0 16px;
-    }
-
-    .content-section h4 {
-      font-size: 20px;
-      font-weight: bold;
-      color: #4b5563;
-      margin: 24px 0 12px;
-    }
-
-    .content-section p {
-      color: #6b7280;
-      margin-bottom: 16px;
-      line-height: 1.7;
-    }
-
-    .content-section ul {
-      color: #6b7280;
-      margin: 16px 0;
-      padding-left: 24px;
-    }
-
-    .content-section li {
-      margin-bottom: 8px;
-      line-height: 1.6;
-    }
-
-    .vision-mission {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 32px;
-      margin: 48px 0;
-    }
-
-    .vision-card, .mission-card {
-      background: white;
-      padding: 32px;
-      border-radius: 16px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-      border: 1px solid #e5e7eb;
-    }
-
-    .core-values {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 24px;
-      margin: 32px 0;
-    }
-
-    .value-card {
-      background: white;
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-      border-left: 4px solid #1e3a8a;
-    }
-
-    .value-card h4 {
-      color: #1e3a8a;
-      margin-bottom: 8px;
-    }
-
-    .terms-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      gap: 32px;
-      margin: 32px 0;
-    }
-
-    .terms-card {
-      background: white;
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-      border: 1px solid #e5e7eb;
-    }
-
-    .highlight-box {
-      background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
-      padding: 24px;
-      border-radius: 12px;
-      border: 1px solid #bfdbfe;
-      margin: 24px 0;
-    }
-
-    .contact-info {
-      background: #f3f4f6;
-      padding: 24px;
-      border-radius: 12px;
-      margin: 32px 0;
-    }
-
-    .contact-info p {
-      margin-bottom: 8px;
-      color: #374151;
-    }
-
-    /* Footer */
-    footer {
-      background: #000;
-      color: white;
-      padding: 48px 0;
-      text-align: center;
-    }
-
-    footer h3 {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 16px;
-    }
-
-    footer .subtitle {
-      color: #9ca3af;
-      margin-bottom: 16px;
-    }
-
-    footer .copyright {
-      color: #6b7280;
-      font-size: 14px;
-    }
-
-    /* Mobile Responsive */
-    @media (max-width: 768px) {
-      .nav-desktop {
-        display: none;
-      }
-
-      .menu-button {
-        display: block;
-      }
-
-      .hero-content {
-        grid-template-columns: 1fr;
-        padding: 32px 24px;
-        gap: 32px;
-      }
-
-      .hero-text h1 {
-        font-size: 32px;
-      }
-
-      .hero-text p {
-        font-size: 18px;
-      }
-
-      .features-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-
-      .features h2 {
-        font-size: 28px;
-      }
-
-      .packages h2 {
-        font-size: 28px;
-      }
-
-      .package-card {
-        min-width: 300px;
-      }
-
-      .marquee-text {
-        font-size: 14px;
-      }
-
-      .header-content {
-        height: 70px;
-        padding: 0 16px;
-      }
-
-      .marquee-container {
-        margin-top: 70px;
-      }
-
-      .logo {
-        font-size: 20px;
-      }
-
-      .content-section {
-        padding: 60px 0;
-      }
-
-      .content-section h2 {
-        font-size: 28px;
-      }
-
-      .vision-mission {
-        grid-template-columns: 1fr;
-        gap: 24px;
-      }
-
-      .core-values {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-
-      .terms-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
-      }
-
-      .vision-card, .mission-card {
-        padding: 24px;
-      }
-
-      .value-card, .terms-card {
-        padding: 20px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .hero-text h1 {
-        font-size: 28px;
-      }
-
-      .hero-text p {
-        font-size: 16px;
-      }
-
-      .package-card {
-        min-width: 280px;
-      }
-
-      .hero-content {
-        padding: 24px 16px;
-      }
-
-      .upi-section {
-        padding: 24px 16px;
-      }
-    }
-
-    /* Scroll animations */
-    .scroll-animate {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.6s ease;
-    }
-
-    .scroll-animate.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bindutara.com - Rent to Own Vehicles for Gig Drivers</title>
+    <meta name="description" content="DPIIT recognized startup offering rent-to-own Hyundai Aura S CNG vehicles for gig drivers. Transparent pricing, flexible payment plans, complete maintenance included.">
+    <meta name="keywords" content="rent to own cars, gig drivers, Hyundai Aura CNG, vehicle ownership, Ola Uber cars, commercial vehicles">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 50;
+            transition: all 0.3s ease;
+            background-color: #ffffff;
+        }
+
+        .header.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #000;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+        }
+
+        .nav-desktop {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-desktop a {
+            color: #000;
+            text-decoration: none;
+            position: relative;
+            transition: color 0.2s ease;
+        }
+
+        .nav-desktop a:hover {
+            color: #666;
+        }
+
+        .nav-desktop a:hover::after {
+            width: 100%;
+        }
+
+        .nav-desktop a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #000;
+            transition: width 0.3s ease;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: #000;
+            transition: all 0.3s ease;
+            margin: 2px 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background-color: #fff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            z-index: 40;
+        }
+
+        .mobile-menu.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 16px 20px;
+            color: #000;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s ease;
+        }
+
+        .mobile-menu a:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* Marquee Banner */
+        .marquee-banner {
+            background: linear-gradient(90deg, #2563eb, #7c3aed);
+            color: white;
+            padding: 8px 0;
+            margin-top: 80px;
+            overflow: hidden;
+        }
+
+        .marquee-text {
+            animation: marquee 15s linear infinite;
+            white-space: nowrap;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .marquee-text a {
+            color: white;
+            text-decoration: underline;
+            margin-left: 8px;
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            color: #1e3a8a;
+            margin-bottom: 48px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+            padding: 80px 0;
+        }
+
+        .hero-content {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            padding: 60px;
+            margin: 40px 0;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 48px;
+            font-weight: bold;
+            color: #111827;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .hero-text p {
+            font-size: 20px;
+            color: #6b7280;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .hero-image {
+            text-align: center;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background-color: #000;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #374151;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-blue {
+            background-color: #1e3a8a;
+            color: white;
+        }
+
+        .btn-blue:hover {
+            background-color: #1e40af;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(30, 58, 138, 0.3);
+        }
+
+        .btn-green {
+            background-color: #059669;
+            color: white;
+        }
+
+        .btn-green:hover {
+            background-color: #047857;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(5, 150, 105, 0.3);
+        }
+
+        /* UPI Payment Section */
+        .upi-section {
+            background: linear-gradient(90deg, #dbeafe, #e0e7ff);
+            border: 1px solid #3b82f6;
+            border-radius: 12px;
+            padding: 32px;
+            margin-top: 48px;
+            text-align: center;
+        }
+
+        .upi-section h3 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #111827;
+            margin-bottom: 12px;
+        }
+
+        .upi-section p {
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .card-content {
+            padding: 24px;
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .grid-cols-1 { grid-template-columns: 1fr; }
+        .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 32px 24px;
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* Packages Section */
+        .packages-section {
+            background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+        }
+
+        .packages-container {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            padding-bottom: 24px;
+            scroll-snap-type: x mandatory;
+        }
+
+        .package-card {
+            min-width: 360px;
+            flex-shrink: 0;
+            scroll-snap-align: start;
+        }
+
+        .package-card.featured {
+            background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+            border: 2px solid #1e3a8a;
+        }
+
+        .package-price {
+            font-size: 36px;
+            font-weight: bold;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .package-price span {
+            font-size: 16px;
+            color: #6b7280;
+            margin-left: 8px;
+        }
+
+        .package-features {
+            list-style: none;
+            margin: 24px 0;
+        }
+
+        .package-features li {
+            padding: 4px 0;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        /* Maintenance Section */
+        .maintenance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .maintenance-summary {
+            background: linear-gradient(90deg, #f0fdf4, #dbeafe);
+            border: 1px solid #10b981;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .maintenance-card h3 {
+            font-size: 14px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .maintenance-card .frequency {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .maintenance-card .cost {
+            font-size: 12px;
+            color: #059669;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .maintenance-card .notes {
+            font-size: 11px;
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(90deg, #10b981, #3b82f6);
+            color: white;
+            padding: 16px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .comparison-table th.bindutara {
+            background: #059669;
+        }
+
+        .comparison-table td {
+            padding: 16px;
+            text-align: center;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+
+        .comparison-table tr:nth-child(odd) {
+            background-color: white;
+        }
+
+        .comparison-table td:first-child {
+            background: linear-gradient(90deg, #f0fdf4, #dbeafe);
+            font-weight: 600;
+            text-align: left;
+            color: #111827;
+        }
+
+        .comparison-table td.bindutara-col {
+            background-color: #f0fdf4;
+        }
+
+        .check-icon {
+            width: 24px;
+            height: 24px;
+            background-color: #10b981;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        .cross-icon {
+            width: 24px;
+            height: 24px;
+            background-color: #d1d5db;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        /* Floating Buttons */
+        .floating-buttons {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .floating-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .floating-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .scroll-top-btn {
+            background-color: #2563eb;
+            color: white;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px);
+        }
+
+        .scroll-top-btn.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .whatsapp-btn {
+            background-color: #10b981;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-btn:hover {
+            animation: none;
+        }
+
+        .tooltip {
+            position: absolute;
+            right: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #111827;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            margin-right: 12px;
+        }
+
+        .floating-btn:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #000;
+            color: white;
+            padding: 48px 0;
+            text-align: center;
+        }
+
+        .footer h3 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+
+        .footer p {
+            color: #9ca3af;
+            margin-bottom: 16px;
+        }
+
+        .footer .copyright {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* Animations */
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-desktop {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .header-content {
+                height: 64px;
+            }
+
+            .marquee-banner {
+                margin-top: 64px;
+            }
+
+            .hero-content {
+                padding: 32px 24px;
+                margin: 20px 0;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .hero-text h1 {
+                font-size: 32px;
+            }
+
+            .hero-text p {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .section {
+                padding: 48px 0;
+            }
+
+            .grid-cols-2,
+            .grid-cols-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .packages-container {
+                gap: 16px;
+            }
+
+            .package-card {
+                min-width: 320px;
+            }
+
+            .comparison-table {
+                font-size: 12px;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 8px 4px;
+            }
+
+            .floating-buttons {
+                bottom: 16px;
+                right: 16px;
+            }
+
+            .floating-btn {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .hero-content {
+                padding: 24px 16px;
+            }
+
+            .hero-text h1 {
+                font-size: 28px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+
+            .package-card {
+                min-width: 280px;
+            }
+
+            .maintenance-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .font-bold { font-weight: bold; }
+        .font-semibold { font-weight: 600; }
+        .text-blue-900 { color: #1e3a8a; }
+        .text-gray-600 { color: #6b7280; }
+        .text-gray-700 { color: #374151; }
+        .text-green-600 { color: #059669; }
+        .text-red-600 { color: #dc2626; }
+        .bg-white { background-color: white; }
+        .bg-blue-50 { background-color: #eff6ff; }
+        .bg-gray-50 { background-color: #f9fafb; }
+        .mb-2 { margin-bottom: 8px; }
+        .mb-3 { margin-bottom: 12px; }
+        .mb-4 { margin-bottom: 16px; }
+        .mb-6 { margin-bottom: 24px; }
+        .mb-8 { margin-bottom: 32px; }
+        .mb-12 { margin-bottom: 48px; }
+        .mt-8 { margin-top: 32px; }
+        .mt-10 { margin-top: 40px; }
+        .p-4 { padding: 16px; }
+        .p-6 { padding: 24px; }
+        .max-w-4xl { max-width: 896px; }
+        .max-w-6xl { max-width: 1152px; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .space-y-4 > * + * { margin-top: 16px; }
+        .space-y-6 > * + * { margin-top: 24px; }
+        .w-full { width: 100%; }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
 </head>
-
 <body>
-  <!-- Header -->
-  <header id="header">
-    <div class="header-content">
-      <div class="logo">
-        <h1>bindutara.com</h1>
-      </div>
-      
-      <nav class="nav-desktop">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#terms">Terms</a>
-        <a href="#privacy">Privacy</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      
-      <button class="menu-button" id="menuButton" aria-label="Toggle menu">
-        <span id="menuIcon">☰</span>
-      </button>
-      
-      <nav class="nav-mobile" id="mobileNav">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#terms">Terms</a>
-        <a href="#privacy">Privacy</a>
-        <a href="#contact">Contact</a>
-      </nav>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-content">
+            <a href="#home" class="logo">Bindutara.com</a>
+            
+            <nav class="nav-desktop">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <nav class="mobile-menu" id="mobileMenu">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Scrolling Marquee Banner -->
+    <div class="marquee-banner">
+        <div class="marquee-text">
+            🚀 DPIIT Recognized Startup – Nytrix Bindutara Enterprises Pvt Ltd – Empowering Gig Drivers through Rent-to-Own Vehicles! 🚗 
+            <a href="#contact">Contact us today!</a>
+        </div>
     </div>
-  </header>
 
-  <!-- Scrolling Marquee Subheader -->
-  <div class="marquee-container">
-    <div class="marquee-text">
-      🚀 DPIIT Recognized Startup – Nytrix Bindutara Enterprises Pvt Ltd – Empowering Gig Drivers through Rent-to-Own Vehicles! 🚗 
-      <a href="#contact">Contact us today!</a>
-    </div>
-  </div>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-grid">
+                    <div class="hero-text">
+                        <h1>RENT TO OWN</h1>
+                        <p>Drive your own success story with our transparent and flexible rent-to-own plan. Empowering you to own your vehicle in just 5 years.</p>
+                        <a href="https://docs.google.com/forms/d/1t46RUW6gnsw4ZryACJj6bk07Mfy_oh2xcoa4P0VLJ44" target="_blank" class="btn btn-primary">Join Us Today</a>
+                    </div>
+                    <div class="hero-image">
+                        <img src="https://images.unsplash.com/photo-1671691279941-71773546ab76?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3aGl0ZSUyMHNlZGFuJTIwY2FyJTIwaHl1bmRhaXxlbnwxfHx8fDE3NTc1MDM0MTB8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="White Hyundai Aura" />
+                    </div>
+                </div>
 
-  <!-- Hero Section -->
-  <section class="hero" id="home">
-    <div class="container">
-      <div class="hero-card scroll-animate">
-        <div class="hero-content">
-          <div class="hero-text">
-            <h1>RENT TO OWN</h1>
-            <p>Drive your own success story with our transparent and flexible rent-to-own plan. Empowering you to own your vehicle in just 5 years.</p>
-            <a href="https://docs.google.com/forms/d/1t46RUW6gnsw4ZryACJj6bk07Mfy_oh2xcoa4P0VLJ44" target="_blank" rel="noopener noreferrer" class="cta-button">
-              Join Us Today
-            </a>
-          </div>
-          <div class="hero-image">
-            <img src="https://images.unsplash.com/photo-1671691279941-71773546ab76?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3aGl0ZSUyMHNlZGFuJTIwY2FyJTIwaHl1bmRhaXxlbnwxfHx8fDE3NTc1MDM0MTB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" alt="White Hyundai Aura" />
-          </div>
+                <div class="upi-section">
+                    <h3>Ready to Get Started?</h3>
+                    <p>Make a secure payment via UPI</p>
+                    <a href="upi://pay?pa=bindutara@ybl&pn=Nytrix%20Bindutara&tn=Payment&am=0" class="btn btn-blue">🔐 Book Now / Pay Dues</a>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <!-- UPI Payment Section -->
-        <div class="upi-section">
-          <h3>Ready to Get Started?</h3>
-          <p>Make a secure payment via UPI</p>
-          <a href="upi://pay?pa=bindutara@ybl&pn=Nytrix%20Bindutara&tn=Payment&am=0" class="upi-button">
-            🔐 Book Now / Pay Dues
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+    <!-- Key Features Section -->
+    <section id="services" class="section">
+        <div class="container">
+            <h2 class="section-title">🌟 Key Features & Benefits</h2>
+            
+            <div class="features-grid">
+                <div class="card feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Affordable</h3>
+                    <p>Low deposit, no heavy upfront cost.</p>
+                </div>
+                <div class="card feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Gig Ready</h3>
+                    <p>Ola, Uber, Rapido, InDrive & more.</p>
+                </div>
+                <div class="card feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3>Flexible Payment</h3>
+                    <p>Daily, Weekly, or Monthly cycles.</p>
+                </div>
+                <div class="card feature-card">
+                    <div class="feature-icon">🧾</div>
+                    <h3>Ownership</h3>
+                    <p>Transfer after final installment.</p>
+                </div>
+                <div class="card feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Insured</h3>
+                    <p>Valid insurance, fitness & PUC.</p>
+                </div>
+                <div class="card feature-card">
+                    <div class="feature-icon">⏳</div>
+                    <h3>Exit Option</h3>
+                    <p>Cashback after lock-in period.</p>
+                </div>
+            </div>
 
-  <!-- Key Features Section -->
-  <section class="features" id="services">
-    <div class="container">
-      <h2 class="scroll-animate">🌟 Key Features & Benefits</h2>
-      
-      <div class="features-grid">
-        <div class="feature-card scroll-animate">
-          <div class="icon">💰</div>
-          <h3>Affordable</h3>
-          <p>Low deposit, no heavy upfront cost.</p>
+            <div class="text-center mt-10">
+                <a href="https://docs.google.com/forms/d/1t46RUW6gnsw4ZryACJj6bk07Mfy_oh2xcoa4P0VLJ44" target="_blank" class="btn btn-blue">🚀 Join Now</a>
+            </div>
         </div>
-        
-        <div class="feature-card scroll-animate">
-          <div class="icon">📱</div>
-          <h3>Gig Ready</h3>
-          <p>Ola, Uber, Rapido, InDrive & more.</p>
-        </div>
-        
-        <div class="feature-card scroll-animate">
-          <div class="icon">📅</div>
-          <h3>Flexible Payment</h3>
-          <p>Daily, Weekly, or Monthly cycles.</p>
-        </div>
-        
-        <div class="feature-card scroll-animate">
-          <div class="icon">🧾</div>
-          <h3>Ownership</h3>
-          <p>Transfer after final installment.</p>
-        </div>
-        
-        <div class="feature-card scroll-animate">
-          <div class="icon">🛡️</div>
-          <h3>Insured</h3>
-          <p>Valid insurance, fitness & PUC.</p>
-        </div>
-        
-        <div class="feature-card scroll-animate">
-          <div class="icon">⏳</div>
-          <h3>Exit Option</h3>
-          <p>Cashback after lock-in period.</p>
-        </div>
-      </div>
+    </section>
 
-      <div class="features-cta">
-        <a href="https://docs.google.com/forms/d/1t46RUW6gnsw4ZryACJj6bk07Mfy_oh2xcoa4P0VLJ44" target="_blank" rel="noopener noreferrer" class="cta-button">
-          🚀 Join Now
+    <!-- Packages Section -->
+    <section class="section packages-section">
+        <div class="container">
+            <h2 class="section-title">🚗 Rent-to-Own Packages – Hyundai Aura S CNG</h2>
+
+            <div class="packages-container">
+                <!-- Package 1: Daily All Days -->
+                <div class="card package-card">
+                    <div class="card-content">
+                        <h3 class="text-blue-900 font-bold mb-3">Daily Plan – All Days</h3>
+                        <div class="package-price">₹1,200<span>/day</span></div>
+                        <p class="text-gray-600 mb-4">5 years (1,825 days) | Lock-in: 6 months</p>
+
+                        <ul class="package-features">
+                            <li>• Vehicle: <strong>Hyundai Aura S CNG</strong> (White)</li>
+                            <li>• Fuel: Petrol + CNG (Mileage ~22 km/kg CNG)</li>
+                            <li>• Avg. Cost ≈ <strong>₹4.5–₹5.0 per km</strong></li>
+                            <li>• No upfront purchase cost</li>
+                            <li>• Insurance + Road Tax included</li>
+                            <li>• Ownership transfer after completion</li>
+                            <li>• Refundable Security Deposit: ₹20,000 – ₹50,000</li>
+                        </ul>
+
+                        <a href="https://docs.google.com/forms/d/1t46RUW6gnsw4ZryACJj6bk07Mfy_oh2xcoa4P0VLJ44" target="_blank" class="btn btn-blue w-full">📋 Join Now</a>
+                    </div>
+                </div>
+
+                <!-- Package 2: 6 Days Plan -->
+                <div class="card package-card featured">
+                    <div class="card-content">
+                        <h3 class="text-blue-900 font-bold mb-3">6 Days/Week Plan</h3>
+                        <div class="package-price">₹1,400<span>/day</span></div>
+                        <p class="text-gray-600 mb-4">26 days/month for 5 years (1,565 Payments) | Lock-in: 6 months</p>
+
+                        <ul class="package-features">
+                            <li>• Weekly off: 1 day (4 holidays/month)</li>
+                            <li>• Total tenure: Max 1,825 days (1,565 Payments)</li>
+                            <li>• No upfront purchase cost</li>
+                            <li>• Avg. Cost ≈ <strong>₹4.7–₹5.2 per km</strong></li>
+                            <li>• Ownership transfer after completion</li>
+                            <li>• Insurance, Fitness & Road Tax included</li>
+                            <li>• Refundable Security Deposit: ₹20,000 – ₹50,000</li>
+                        </ul>
+
+                        <a href="https://docs.google.com/forms/d/1t46RUW6gnsw4ZryACJj6bk07Mfy_oh2xcoa4P0VLJ44" target="_blank" class="btn btn-blue w-full">📋 Join Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Maintenance & Documentation Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">🔧 Complete Maintenance & Documentation Covered</h2>
+            
+            <div class="maintenance-summary">
+                <p class="font-bold mb-2">Total Estimated Annual Cost: ₹1,26,000 – ₹1,65,000</p>
+                <p class="text-blue-900 font-semibold">Monthly Average: ₹13,750</p>
+                <p class="text-gray-600 mt-2">*All maintenance costs included in your rent-to-own plan</p>
+                <p class="text-red-600 font-semibold" style="font-size: 12px; margin-top: 4px;">**Disclaimer: All costs mentioned are indicative and approximate only. Actual costs may vary based on usage, market conditions, and service provider rates.</p>
+            </div>
+
+            <div class="maintenance-grid">
+                <div class="card maintenance-card">
+                    <div class="card-content">
+                        <h3>Insurance (Commercial)</h3>
+                        <div class="frequency">Frequency: Yearly</div>
+                        <div class="cost">Cost: ₹18,000–22,000</div>
+                        <div class="notes">Includes 3rd party + own damage (zero dep recommended)</div>
+                    </div>
+                </div>
+
+                <div class="card maintenance-card">
+                    <div class="card-content">
+                        <h3>Road Tax (Lifetime)</h3>
+                        <div class="frequency">Frequency: One-time (5 yrs)</div>
+                        <div class="cost">Cost: ₹15,000</div>
+                        <div class="notes">Fixed annual tax for commercial cab</div>
+                    </div>
+                </div>
+
+                <div class="card maintenance-card">
+                    <div class="card-content">
+                        <h3>Fitness Certificate (CF)</h3>
+                        <div class="frequency">Frequency: Every 2 years</div>
+                        <div class="cost">Cost: ₹3,000–4,000</div>
+                        <div class="notes">₹3,000-4,000 per CF cycle → average per year</div>
+                    </div>
+                </div>
+
+                <div class="card maintenance-card">
+                    <div class="card-content">
+                        <h3>Pollution Certificate</h3>
+                        <div class="frequency">Frequency: Every 6 months</div>
+                        <div class="cost">Cost: ₹1,000/year</div>
+                        <div class="notes">Mandatory for commercial use</div>
+                    </div>
+                </div>
+
+                <div class="card maintenance-card">
+                    <div class="card-content">
+                        <h3>Servicing & Labour</h3>
+                        <div class="frequency">Frequency: Every 10-15k km</div>
+                        <div class="cost">Cost: ₹36,000–48,000</div>
+                        <div class="notes">6 services/yr at ₹6,000–8,000 each</div>
+                    </div>
+                </div>
+
+                <div class="card maintenance-card">
+                    <div class="card-content">
+                        <h3>CNG Kit Maintenance</h3>
+                        <div class="frequency">Frequency: Annual tuning + parts</div>
+                        <div class="cost">Cost: ₹6,000–10,000</div>
+                        <div class="notes">Pressure valve, injector cleanup, filter replacement</div>
+                    </div>
+                </div>
+
+                <div class="card maintenance-card">
+                    <div class="card-content">
+                        <h3>Tyre Replacement</h3>
+                        <div class="frequency">Frequency: Every 40,000 km</div>
+                        <div class="cost">Cost: ₹20,000–28,000</div>
+                        <div class="notes">1.5 sets/yr (₹16,000/set)</div>
+                    </div>
+                </div>
+
+                <div class="card maintenance-card">
+                    <div class="card-content">
+                        <h3>Battery Replacement</h3>
+                        <div class="frequency">Frequency: Every 3 years</div>
+                        <div class="cost">Cost: ₹4,500–6,000</div>
+                        <div class="notes">₹4,500–6,000 ÷ 3 yrs</div>
+                    </div>
+                </div>
+
+                <div class="card maintenance-card">
+                    <div class="card-content">
+                        <h3>Clutch Overhaul</h3>
+                        <div class="frequency">Frequency: Every 50,000–60,000 km</div>
+                        <div class="cost">Cost: ₹7,000–8,000</div>
+                        <div class="notes">≈ once/yr at this usage</div>
+                    </div>
+                </div>
+
+                <div class="card maintenance-card">
+                    <div class="card-content">
+                        <h3>Oil & Fluids (engine, gear, brake)</h3>
+                        <div class="frequency">Frequency: Every 10-15k km</div>
+                        <div class="cost">Cost: ₹9,000</div>
+                        <div class="notes">6 changes/yr at ₹1,500</div>
+                    </div>
+                </div>
+
+                <div class="card maintenance-card">
+                    <div class="card-content">
+                        <h3>Brake Pads + Suspension</h3>
+                        <div class="frequency">Frequency: 2–3 years</div>
+                        <div class="cost">Cost: ₹6,000–10,000</div>
+                        <div class="notes">Higher due to 60k km/yr</div>
+                    </div>
+                </div>
+
+                <div class="card maintenance-card">
+                    <div class="card-content">
+                        <h3>Misc. Repairs (wipers, bulbs, AC)</h3>
+                        <div class="frequency">Frequency: Random</div>
+                        <div class="cost">Cost: ₹5,000–10,000</div>
+                        <div class="notes">Contingency/hidden wear</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8">
+                <div class="card" style="background: linear-gradient(90deg, #1e3a8a, #7c3aed); color: white;">
+                    <div class="card-content text-center">
+                        <h3 class="font-bold mb-4">✅ Why Choose Our Maintenance-Included Plan?</h3>
+                        <div class="grid grid-cols-3 gap-4" style="font-size: 14px;">
+                            <div>
+                                <p class="font-semibold mb-2">🔧 No Hidden Costs</p>
+                                <p>All maintenance covered in your daily rent</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold mb-2">📋 Complete Documentation</p>
+                                <p>Insurance, RC, fitness, pollution - all handled</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold mb-2">🛡️ Peace of Mind</p>
+                                <p>Focus on earning, we handle the rest</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Competitor Comparison Section -->
+    <section class="section" style="background: linear-gradient(135deg, #f0fdf4, #dbeafe, #e0e7ff);">
+        <div class="container">
+            <h2 class="section-title">📊 Features Comparison with Competitors</h2>
+            
+            <div class="max-w-6xl mx-auto">
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Features</th>
+                                <th class="bindutara">
+                                    <div style="display: flex; flex-direction: column; align-items: center;">
+                                        <div style="width: 32px; height: 32px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+                                            <span style="color: #059669; font-weight: bold;">✓</span>
+                                        </div>
+                                        <span>Bindutara.com</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div style="display: flex; flex-direction: column; align-items: center;">
+                                        <div style="width: 32px; height: 32px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+                                            <span style="color: #6b7280;">A</span>
+                                        </div>
+                                        <span>Competitor A</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div style="display: flex; flex-direction: column; align-items: center;">
+                                        <div style="width: 32px; height: 32px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+                                            <span style="color: #6b7280;">B</span>
+                                        </div>
+                                        <span>Competitor B</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div style="display: flex; flex-direction: column; align-items: center;">
+                                        <div style="width: 32px; height: 32px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+                                            <span style="color: #6b7280;">C</span>
+                                        </div>
+                                        <span>Competitor C</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div style="display: flex; flex-direction: column; align-items: center;">
+                                        <div style="width: 32px; height: 32px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+                                            <span style="color: #6b7280;">D</span>
+                                        </div>
+                                        <span>Competitor D</span>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Rent-to-Own Option</td>
+                                <td class="bindutara-col"><span class="check-icon">✓</span></td>
+                                <td><span class="cross-icon">—</span></td>
+                                <td><span class="check-icon">✓</span></td>
+                                <td><span class="cross-icon">—</span></td>
+                                <td><span class="check-icon">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td>CNG Vehicles Available</td>
+                                <td class="bindutara-col"><span class="check-icon">✓</span></td>
+                                <td><span class="check-icon">✓</span></td>
+                                <td><span class="check-icon">✓</span></td>
+                                <td><span class="check-icon">✓</span></td>
+                                <td><span class="check-icon">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td>Maintenance Included</td>
+                                <td class="bindutara-col"><span class="check-icon">✓</span></td>
+                                <td><span class="check-icon">✓</span></td>
+                                <td><span class="cross-icon">—</span></td>
+                                <td><span class="check-icon">✓</span></td>
+                                <td><span class="cross-icon">—</span></td>
+                            </tr>
+                            <tr>
+                                <td>Complete Transparency</td>
+                                <td class="bindutara-col"><span class="check-icon">✓</span></td>
+                                <td><span class="cross-icon">—</span></td>
+                                <td><span class="cross-icon">—</span></td>
+                                <td><span class="cross-icon">—</span></td>
+                                <td><span class="cross-icon">—</span></td>
+                            </tr>
+                            <tr>
+                                <td>Flexible Payment Plans</td>
+                                <td class="bindutara-col"><span class="check-icon">✓</span></td>
+                                <td><span class="check-icon">✓</span></td>
+                                <td><span class="check-icon">✓</span></td>
+                                <td><span class="cross-icon">—</span></td>
+                                <td><span class="check-icon">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td>Complete Documentation</td>
+                                <td class="bindutara-col"><span class="check-icon">✓</span></td>
+                                <td><span class="check-icon">✓</span></td>
+                                <td><span class="cross-icon">—</span></td>
+                                <td><span class="check-icon">✓</span></td>
+                                <td><span class="cross-icon">—</span></td>
+                            </tr>
+                            <tr>
+                                <td>24/7 Support</td>
+                                <td class="bindutara-col"><span class="check-icon">✓</span></td>
+                                <td><span class="cross-icon">—</span></td>
+                                <td><span class="check-icon">✓</span></td>
+                                <td><span class="cross-icon">—</span></td>
+                                <td><span class="check-icon">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td>Lock-in Period (6 months)</td>
+                                <td class="bindutara-col"><span class="check-icon">✓</span></td>
+                                <td><span class="cross-icon">—</span></td>
+                                <td><span class="cross-icon">—</span></td>
+                                <td><span class="cross-icon">—</span></td>
+                                <td><span class="cross-icon">—</span></td>
+                            </tr>
+                            <tr>
+                                <td>DPIIT Recognized Startup</td>
+                                <td class="bindutara-col"><span class="check-icon">✓</span></td>
+                                <td><span class="cross-icon">—</span></td>
+                                <td><span class="cross-icon">—</span></td>
+                                <td><span class="cross-icon">—</span></td>
+                                <td><span class="cross-icon">—</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-8 text-center">
+                    <div class="card" style="background: linear-gradient(90deg, #059669, #3b82f6); color: white;">
+                        <div class="card-content">
+                            <h3 class="font-bold mb-4">🏆 Why Bindutara.com Leads the Market</h3>
+                            <div class="grid grid-cols-2 gap-4" style="font-size: 14px;">
+                                <div>
+                                    <p class="font-semibold mb-2">🎯 Unique Value Proposition</p>
+                                    <p>Only platform offering true rent-to-own with complete transparency</p>
+                                </div>
+                                <div>
+                                    <p class="font-semibold mb-2">🛡️ Government Recognition</p>
+                                    <p>DPIIT certified startup with transparent business practices</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Bindutara.com</h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="grid grid-cols-2 gap-8 mb-12">
+                    <div class="card" style="background: linear-gradient(135deg, #dbeafe, #e0e7ff); border-color: #3b82f6;">
+                        <div class="card-content">
+                            <h3 class="text-blue-900 font-bold mb-4">🚀 Our Vision</h3>
+                            <p class="text-gray-700 mb-3 font-semibold">"Empowering livelihoods and redefining mobility."</p>
+                            <p class="text-gray-600">
+                                To become India's most trusted mobility partner by empowering gig workers with affordable, 
+                                accessible, and sustainable vehicle ownership solutions.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card" style="background: linear-gradient(135deg, #e0e7ff, #dbeafe); border-color: #7c3aed;">
+                        <div class="card-content">
+                            <h3 class="text-blue-900 font-bold mb-4">🎯 Our Mission</h3>
+                            <p class="text-gray-700 mb-3 font-semibold">"Affordable ownership, sustainable livelihood."</p>
+                            <p class="text-gray-600">
+                                Our mission is to democratize commercial mobility by offering rent-to-own vehicles, 
+                                financial inclusion, and technology-driven fleet management.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); border: 1px solid #e5e7eb;">
+                    <div class="card-content">
+                        <h3 class="text-blue-900 font-bold mb-6 text-center">🌟 Core Values</h3>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">Empowerment</h4>
+                                    <p class="text-gray-600" style="font-size: 14px;">We enable drivers to achieve financial independence and long-term asset ownership.</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">Integrity</h4>
+                                    <p class="text-gray-600" style="font-size: 14px;">We build trust with drivers, partners, and stakeholders through fairness and transparency.</p>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">Innovation</h4>
+                                    <p class="text-gray-600" style="font-size: 14px;">We harness technology and new models to make mobility more inclusive and efficient.</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">Sustainability</h4>
+                                    <p class="text-gray-600" style="font-size: 14px;">We commit to eco-friendly transport solutions, with a roadmap toward EV adoption.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 text-center">
+                    <div class="card" style="background: linear-gradient(90deg, #dbeafe, #e0e7ff); border-color: #3b82f6;">
+                        <div class="card-content">
+                            <p class="text-gray-700 mb-4">
+                                <strong>Pride of Ownership:</strong> For most drivers in the gig economy, a car is not just a vehicle — it's their livelihood. 
+                                At Bindutara.com, we change that by ensuring every payment is a step towards ownership.
+                            </p>
+                            <p class="text-blue-900 font-semibold">
+                                "Every kilometer driven brings our drivers closer to ownership — and the pride that comes with it."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section" style="background: linear-gradient(135deg, #dbeafe, #e0e7ff);">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="card" style="box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);">
+                        <div class="card-content">
+                            <h3 class="text-blue-900 font-bold mb-6">Contact Information</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">📧 Email</h4>
+                                    <p class="text-gray-600">bindutarapvtltd@gmail.com</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">📞 Phone</h4>
+                                    <p class="text-gray-600">+91-7890722782 / +91-9883542610</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">🏢 Address</h4>
+                                    <p class="text-gray-600">828 M.L. Gupta Road, Kolkata, West Bengal, India</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">🌐 Website</h4>
+                                    <p class="text-gray-600">www.bindutara.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);">
+                        <div class="card-content">
+                            <h3 class="text-blue-900 font-bold mb-6">Ready to Start?</h3>
+                            <p class="text-gray-600 mb-6">
+                                Join hundreds of drivers who have already started their journey to vehicle ownership. 
+                                Fill out our application form to get started today!
+                            </p>
+                            
+                            <div class="space-y-4">
+                                <a href="https://docs.google.com/forms/d/1t46RUW6gnsw4ZryACJj6bk07Mfy_oh2xcoa4P0VLJ44" target="_blank" class="btn btn-blue w-full">📋 Apply Now</a>
+                                <a href="upi://pay?pa=bindutara@ybl&pn=Nytrix%20Bindutara&tn=Payment&am=0" class="btn btn-green w-full">💳 Make Payment</a>
+                            </div>
+
+                            <div class="mt-6 p-4 bg-blue-50" style="border-radius: 8px;">
+                                <p style="font-size: 14px; color: #1e40af;">
+                                    <strong>DPIIT Recognized Startup</strong><br />
+                                    Nytrix Bindutara Enterprises Pvt Ltd is a certified startup under the Government of India's DPIIT program.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <button class="floating-btn scroll-top-btn" id="scrollTopBtn" onclick="scrollToTop()">
+            <span style="font-size: 24px;">↑</span>
+            <div class="tooltip">Back to top</div>
+        </button>
+
+        <a href="https://wa.me/919883542610" target="_blank" class="floating-btn whatsapp-btn">
+            <span style="font-size: 24px;">💬</span>
+            <div class="tooltip">Chat with us on WhatsApp</div>
         </a>
-      </div>
     </div>
-  </section>
 
-  <!-- Packages Section -->
-  <section class="packages">
-    <div class="container">
-      <h2 class="scroll-animate">🚗 Rent-to-Own Packages – Hyundai Aura S CNG</h2>
-
-      <div class="packages-scroll">
-        <!-- Package 1: Daily All Days -->
-        <div class="package-card scroll-animate">
-          <h3>Daily Plan – All Days</h3>
-          <div class="package-price">
-            <span class="amount">₹1,200</span>
-            <span class="period">/day</span>
-          </div>
-          <p class="package-duration">5 years (1,825 days) | Lock-in: 6 months</p>
-
-          <ul class="package-features">
-            <li>• Vehicle: <strong>Hyundai Aura S CNG</strong> (White)</li>
-            <li>• Fuel: Petrol + CNG (Mileage ~22 km/kg CNG)</li>
-            <li>• Avg. Cost ≈ <strong>₹4.5–₹5.0 per km</strong></li>
-            <li>• No upfront purchase cost</li>
-            <li>• Insurance + Road Tax included</li>
-            <li>• Ownership transfer after completion</li>
-            <li>• Refundable Security Deposit: ₹20,000 – ₹50,000</li>
-          </ul>
-
-          <a href="https://docs.google.com/forms/d/1t46RUW6gnsw4ZryACJj6bk07Mfy_oh2xcoa4P0VLJ44" target="_blank" rel="noopener noreferrer" class="package-button">
-            📋 Join Now
-          </a>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <h3>Bindutara.com</h3>
+            <p>Empowering Gig Drivers through Rent-to-Own Vehicles</p>
+            <p class="copyright">© 2025 Nytrix Bindutara Enterprises Pvt Ltd. All rights reserved.</p>
         </div>
+    </footer>
 
-        <!-- Package 2: 6 Days Plan -->
-        <div class="package-card featured scroll-animate">
-          <h3>6 Days/Week Plan</h3>
-          <div class="package-price">
-            <span class="amount">₹1,400</span>
-            <span class="period">/day</span>
-          </div>
-          <p class="package-duration">26 days/month for 5 years (1,565 Payments) | Lock-in: 6 months</p>
+    <script>
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const header = document.getElementById('header');
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
 
-          <ul class="package-features">
-            <li>• Weekly off: 1 day (4 holidays/month)</li>
-            <li>• Total tenure: Max 1,825 days (1,565 Payments)</li>
-            <li>• No upfront purchase cost</li>
-            <li>• Avg. Cost ≈ <strong>₹4.7–₹5.2 per km</strong></li>
-            <li>• Ownership transfer after completion</li>
-            <li>• Insurance, Fitness & Road Tax included</li>
-            <li>• Refundable Security Deposit: ₹20,000 – ₹50,000</li>
-          </ul>
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenuBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
 
-          <a href="https://docs.google.com/forms/d/1t46RUW6gnsw4ZryACJj6bk07Mfy_oh2xcoa4P0VLJ44" target="_blank" rel="noopener noreferrer" class="package-button">
-            📋 Join Now
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+        // Close mobile menu when clicking on links
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
 
-  <!-- About Section -->
-  <section class="content-section" id="about">
-    <div class="container">
-      <h2 class="scroll-animate">About bindutara.com</h2>
-      
-      <div class="vision-mission">
-        <div class="vision-card scroll-animate">
-          <h3>🚀 Vision Statement</h3>
-          <p><strong>"Empowering livelihoods and redefining mobility."</strong></p>
-          <p>To become India's most trusted mobility partner by empowering gig workers with affordable, accessible, and sustainable vehicle ownership solutions.</p>
-        </div>
-        
-        <div class="mission-card scroll-animate">
-          <h3>🎯 Mission Statement</h3>
-          <p><strong>"Affordable ownership, sustainable livelihood."</strong></p>
-          <p>Our mission is to democratize commercial mobility by offering rent-to-own vehicles, financial inclusion, and technology-driven fleet management. We aim to reduce barriers for drivers, create livelihood opportunities, and scale a no-refusal transport network that ensures reliability for both drivers and passengers.</p>
-        </div>
-      </div>
+        // Header scroll effect and scroll to top button
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 10) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
 
-      <h3>🌟 Core Values</h3>
-      <div class="core-values">
-        <div class="value-card scroll-animate">
-          <h4>Empowerment</h4>
-          <p>We enable drivers to achieve financial independence and long-term asset ownership.</p>
-        </div>
-        <div class="value-card scroll-animate">
-          <h4>Integrity</h4>
-          <p>We build trust with drivers, partners, and stakeholders through fairness and transparency.</p>
-        </div>
-        <div class="value-card scroll-animate">
-          <h4>Innovation</h4>
-          <p>We harness technology and new models to make mobility more inclusive and efficient.</p>
-        </div>
-        <div class="value-card scroll-animate">
-          <h4>Sustainability</h4>
-          <p>We commit to eco-friendly transport solutions, with a roadmap toward EV adoption.</p>
-        </div>
-      </div>
+            // Show/hide scroll to top button
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
 
-      <div class="highlight-box scroll-animate">
-        <h3>What We Do</h3>
-        <p>We provide commercial vehicle leasing and rent-to-own solutions for gig economy drivers and small fleet operators, enabling them to access vehicles without heavy upfront costs.</p>
-        
-        <h4>How We Do It</h4>
-        <ul>
-          <li>By offering daily/weekly/monthly flexible plans tailored to drivers' earning cycles</li>
-          <li>By ensuring zero commission during the lease period</li>
-          <li>By supporting operations with a CRM system and custom mobile app for transparency, payment tracking, and service history</li>
-          <li>By combining driver-first contracts (fair maintenance, ownership transfer after term) with strong financial discipline</li>
-        </ul>
-
-        <h4>Why We Do It</h4>
-        <p><strong>Because we believe in empowering livelihoods and redefining mobility.</strong> Our mission is to help gig workers and driver-partners become vehicle owners, increase their earnings, and improve financial inclusion—while creating a scalable, tech-enabled fleet ecosystem in India.</p>
-      </div>
-
-      <h3>Pride of Ownership</h3>
-      <p>For most drivers in the gig economy, a car is not just a vehicle — it's their livelihood. Yet, because of high rentals and commissions, many never truly own the car they drive.</p>
-      <p>At bindutara.com, we change that. Our rent-to-own model ensures that every monthly payment is not just an expense, but a step towards ownership.</p>
-      
-      <div class="core-values">
-        <div class="value-card">
-          <h4>Dignity & Self-Respect</h4>
-          <p>The confidence of saying "This car is mine."</p>
-        </div>
-        <div class="value-card">
-          <h4>Financial Security</h4>
-          <p>An asset in their name, not just endless rent.</p>
-        </div>
-        <div class="value-card">
-          <h4>Family Stability</h4>
-          <p>A vehicle that can serve the household, not just the platform.</p>
-        </div>
-        <div class="value-card">
-          <h4>Empowerment</h4>
-          <p>A sense of independence from exploitative rental and commission systems.</p>
-        </div>
-      </div>
-
-      <div class="contact-info">
-        <h4>Get in Touch</h4>
-        <p><strong>Email:</strong> bindutarapvtltd@gmail.com</p>
-        <p><strong>Phone:</strong> +91-7890722782 / +91-9883542610</p>
-        <p><strong>Address:</strong> 828 M.L. Gupta Road, Kolkata, West Bengal, India</p>
-        <p><strong>Website:</strong> www.bindutara.com</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Terms and Conditions Section -->
-  <section class="content-section" id="terms">
-    <div class="container">
-      <h2 class="scroll-animate">Terms and Conditions</h2>
-      
-      <div class="highlight-box scroll-animate">
-        <p><strong>Nytrix Bindutara Enterprises Pvt. Ltd.</strong> ("bindutara.com", "Company", "we", "us", or "our"). These Terms and Conditions ("Terms") govern your relationship with bindutara.com in connection with the vehicle rental, lease, and rent-to-own services offered through our platform and agreements.</p>
-        <p><strong>By signing any agreement, using our services, or engaging in any transaction with bindutara.com, you ("Customer", "you", "your") agree to be bound by these Terms in full.</strong></p>
-      </div>
-
-      <div class="terms-grid">
-        <div class="terms-card scroll-animate">
-          <h3>1. Nature of the Agreement</h3>
-          <p>bindutara.com offers vehicles under a structured long-term rent-to-own plan typically lasting 60 months (5 years) divided into multiple 11 months contracts. Renewal is not automatic — must be confirmed by a signed "Renewal Addendum" for each term.</p>
-          <p>Under this plan, the customer pays a recurring rental/lease, which may be daily, weekly, or monthly, as defined in the customer's signed agreement. These payments contribute toward eventual ownership of the vehicle.</p>
-          <p>The vehicle remains the legal property of bindutara.com until the full term is completed and all dues, including any outstanding amounts or penalties, are paid.</p>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>2. Contract Term and Ownership Transfer</h3>
-          <p>The standard rental term is 60 months, unless otherwise stated in the specific contract signed between the customer and the company.</p>
-          <p>Upon completion of all scheduled payments and any applicable charges (including foreclosure, penalties, or legal fees), ownership of the vehicle will be transferred to the customer.</p>
-          <p>The responsibility and cost of name transfer in the registration and associated government records shall lie solely with the customer.</p>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>3. Payment Terms</h3>
-          <p>Payment options shall be defined in the agreement and may be: Daily, Weekly, or Monthly.</p>
-          <p>The mode and schedule of payments will be selected at the start of the contract and cannot be altered without written approval from the company.</p>
-          <p>Failure to pay on time may result in late fees, service interruptions, vehicle seizure, or contract termination.</p>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>4. Commercial Use and Liability</h3>
-          <p>Vehicles are intended for use in commercial passenger transport services, including but not limited to: Ola, Uber, Yatri Sathi, InDrive, Rapido, Red Taxi, Suttle.</p>
-          <p>Customers must comply with all state and central transport regulations, including passenger safety and commercial driving license requirements.</p>
-          <p>The company is not liable for customer misuse, passenger disputes, traffic violations, or negligence.</p>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>5. Customer Obligations</h3>
-          <p>Customers are expected to:</p>
-          <ul>
-            <li>Keep the vehicle in good working condition</li>
-            <li>Conduct routine maintenance</li>
-            <li>Avoid misuse or unauthorized modifications</li>
-            <li>Not sublease the vehicle</li>
-          </ul>
-          <p>All costs for wear-and-tear, maintenance, and operational fuel are borne by the customer unless otherwise stated in the specific contract.</p>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>6. Insurance Requirements</h3>
-          <p>The customer shall be responsible for ensuring that the third-party insurance for the vehicle is renewed before its expiry in compliance with applicable motor vehicle laws.</p>
-          <p>Failure to renew insurance may result in legal penalties and contract suspension.</p>
-          <p><strong>Health Insurance:</strong> The lessee must maintain an active personal health insurance policy with a minimum coverage of ₹2,00,000 throughout the duration of the lease.</p>
-          <p><strong>Life Insurance:</strong> The Lessee shall maintain a valid term life insurance policy with a minimum coverage of ₹5,00,000 for the entire duration of this Agreement.</p>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>7. Security Deposit</h3>
-          <p>The Lessee shall pay the Company a total security deposit of ₹20,000 (Rupees Twenty Thousand only) as a refundable, non-interest-bearing deposit.</p>
-          <p>Upon successful completion of lock-in period and full agreement tenure, after deduction of any amounts due towards damages, penalties, outstanding payments, or other contractual obligations, the Company shall refund the security deposit within thirty (30) working days.</p>
-          <p>The security deposit shall not, under any circumstances, be adjusted against rental payments during the term of this Agreement.</p>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>8. Early Surrender and Cashback</h3>
-          <p>If the Customer voluntarily surrenders the contract after completing a minimum of 730 fully paid days without default, and within a total of 835 days from the start date, the Company shall pay a cashback of ₹200 per paid day.</p>
-          <p>This cashback is applicable only in the event of early surrender after 730 full paid days. If the Customer surrenders before completing 730 full paid days, no cashback shall be provided.</p>
-          <p>If the Customer surrenders the contract at any time, no future claim to ownership of the vehicle shall be entertained.</p>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>9. Breach and Termination</h3>
-          <p>The Company may immediately terminate the agreement without notice if:</p>
-          <ul>
-            <li>Any clause in these Terms is breached</li>
-            <li>Fraud is detected</li>
-            <li>Payments are defaulted</li>
-            <li>Illegal use is identified</li>
-          </ul>
-          <p>If the customer cancels the contract, a cancellation penalty will apply, all balance rent and fees must be paid, and the vehicle returned in acceptable condition.</p>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>10. Dispute Resolution</h3>
-          <p>Any disputes shall be attempted to be resolved amicably, followed by arbitration under the Indian Arbitration and Conciliation Act. Jurisdiction shall be in Kolkata, West Bengal, India.</p>
-        </div>
-      </div>
-
-      <div class="contact-info">
-        <h4>Contact Us</h4>
-        <p><strong>Email:</strong> bindutarapvtltd@gmail.com</p>
-        <p><strong>Phone:</strong> +91-7890722782 / +91-9883542610</p>
-        <p><strong>Address:</strong> 828 M.L. Gupta Road, Kolkata, West Bengal, India</p>
-        <p><strong>Website:</strong> www.bindutara.com</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Privacy Policy Section -->
-  <section class="content-section" id="privacy">
-    <div class="container">
-      <h2 class="scroll-animate">Privacy Policy</h2>
-      
-      <div class="highlight-box scroll-animate">
-        <p><strong>Effective Date:</strong> August 21, 2025</p>
-        <p>Nytrix Bindutara Enterprises Pvt. Ltd. ("Bindutara", "we", "us", or "our") is committed to protecting your personal information. This Privacy Policy outlines how we collect, use, share, and protect your data when you interact with our website, app, and services.</p>
-      </div>
-
-      <div class="terms-grid">
-        <div class="terms-card scroll-animate">
-          <h3>2. Information We Collect</h3>
-          <h4>Personal Identification:</h4>
-          <p>Name, Date of Birth, Aadhaar, PAN, Driver's License, Photograph</p>
-          
-          <h4>Contact Details:</h4>
-          <p>Phone Number, Email Address, Address, WhatsApp Contact</p>
-          
-          <h4>Financial Information:</h4>
-          <p>Bank Account Number, UPI ID, income information</p>
-          
-          <h4>Employment Information:</h4>
-          <p>Gig platform details, driving schedules</p>
-          
-          <h4>Vehicle Data:</h4>
-          <p>GPS location, usage logs, fuel/charge, maintenance</p>
-          
-          <h4>Device Information:</h4>
-          <p>IP Address, Device Type, Cookies, Browser</p>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>3. How We Use Your Data</h3>
-          <ul>
-            <li>Onboarding drivers and verifying identity</li>
-            <li>Managing contracts and payments</li>
-            <li>Tracking vehicle performance</li>
-            <li>Sending reminders, updates, and promotional messages</li>
-            <li>Legal and regulatory compliance</li>
-          </ul>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>4. Sharing of Information</h3>
-          <p>We do not sell your data. We may share it with:</p>
-          <ul>
-            <li>Payment partners</li>
-            <li>Insurance agencies</li>
-            <li>GPS vendors</li>
-            <li>Legal/regulatory authorities</li>
-            <li>During mergers/acquisitions</li>
-          </ul>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>5. Data Security</h3>
-          <p>We implement encryption, access control, 2FA, and regular audits to protect your information. However, no system is fully immune to risks.</p>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>6. Data Retention</h3>
-          <p>We retain your data for as long as required by law or necessary for service continuity, up to 7 years in most cases.</p>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>7. Your Rights</h3>
-          <ul>
-            <li>Access your data</li>
-            <li>Request corrections or deletion</li>
-            <li>Withdraw consent for promotions</li>
-            <li>Complain to regulatory authorities (when appointed)</li>
-          </ul>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>8. Children's Privacy</h3>
-          <p>Our services are not intended for individuals under 18 years of age.</p>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>9. Cookies and Tracking</h3>
-          <p>We use cookies and analytical tools to improve user experience. You can disable cookies in your browser settings.</p>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>10. Updates</h3>
-          <p>This policy may change without prior notice. Updates will be posted on our website with the revised date.</p>
-        </div>
-      </div>
-
-      <div class="contact-info">
-        <h4>Privacy Concerns? Contact Us</h4>
-        <p><strong>Email:</strong> bindutarapvtltd@gmail.com</p>
-        <p><strong>Phone:</strong> +91-7890722782</p>
-        <p><strong>Address:</strong> 828 M.L. Gupta Road, Kolkata, West Bengal, India</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Refund and Cancellation Policy Section -->
-  <section class="content-section">
-    <div class="container">
-      <h2 class="scroll-animate">Refund and Cancellation Policy</h2>
-      
-      <div class="highlight-box scroll-animate">
-        <p><strong>Effective Date:</strong> August 21, 2025</p>
-        <p><strong>Important Notice:</strong> Please read this policy carefully before signing any agreement or making payments.</p>
-      </div>
-
-      <div class="terms-grid">
-        <div class="terms-card scroll-animate">
-          <h3>No Cancellation Post Signup</h3>
-          <p>Once the customer has signed the agreement and payment has been made for onboarding, processing, or initial rental, <strong>no cancellation will be entertained under any circumstances.</strong> This applies regardless of whether the vehicle has been assigned, delivered, or used.</p>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>No Refund After Contract Execution</h3>
-          <p>After the rent-to-own contract is signed and activated, all payments made (security deposit, processing fees, daily/monthly rental, etc.) are <strong>non-refundable.</strong> Customers are expected to complete the full contract term as agreed unless otherwise stated in the specific contract.</p>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>Refund Eligibility (Limited Exceptions)</h3>
-          <p>Refunds will only be considered in rare, valid exceptions including:</p>
-          <ul>
-            <li>Vehicle unavailability from the company's end before onboarding</li>
-            <li>Duplicate payment errors reported within 24 hours of the transaction</li>
-            <li>Advance payments made by mistake before agreement signing (subject to case review)</li>
-          </ul>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>Refund Processing Timeline</h3>
-          <p>In case of a valid refund eligibility, the refund process may take a <strong>minimum of 7 working days and up to 30 working days</strong> from the date of confirmation by our customer support team. The refund will be credited to the original payment mode only.</p>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>Contract Completion</h3>
-          <p>At the end of the contract term (or full repayment as per agreement), no separate refund is applicable. The customer is entitled to ownership transfer of the vehicle after all dues are cleared, but any rent paid throughout the term remains non-refundable.</p>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>Early Termination or Foreclosure</h3>
-          <p>If the customer initiates early contract termination or foreclosure, all payments made till date (rent, deposit, processing, interest) shall be treated as consumed. <strong>No refund shall be processed.</strong> Foreclosure must be done as per clause mentioned in your agreement, with all outstanding dues settled.</p>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>Security Deposit Adjustments</h3>
-          <p>If a security deposit is collected and contract is completed successfully, the deposit may be adjusted toward name transfer or final dues. If the vehicle is returned with damage or dues pending, deductions will apply. <strong>No interest is paid on deposits.</strong></p>
-        </div>
-
-        <div class="terms-card scroll-animate">
-          <h3>Dispute and Final Authority</h3>
-          <p>Any refund or exception is subject to management's internal review and discretion. bindutara.com reserves the right to decline refund requests if found inconsistent with policy terms. All disputes shall be resolved under Kolkata jurisdiction.</p>
-        </div>
-      </div>
-
-      <div class="contact-info">
-        <h4>Refund Queries Contact</h4>
-        <p><strong>Email:</strong> bindutarapvtltd@gmail.com</p>
-        <p><strong>Phone:</strong> +91-7890722782 / +91-9883542610</p>
-        <p><strong>Address:</strong> 828 M.L. Gupta Road, Kolkata, West Bengal, India</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer id="contact">
-    <div class="container">
-      <h3>bindutara.com</h3>
-      <p class="subtitle">Empowering Gig Drivers through Rent-to-Own Vehicles</p>
-      <p class="copyright">© 2024 Nytrix Bindutara Enterprises Pvt Ltd. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script>
-    // Title change on visibility
-    const originalTitle = document.title;
-    document.addEventListener('visibilitychange', function() {
-      if (document.hidden) {
-        document.title = "✨ Come Back to bindutara.com!";
-      } else {
-        document.title = originalTitle;
-      }
-    });
-
-    // Mobile menu toggle
-    const menuButton = document.getElementById('menuButton');
-    const mobileNav = document.getElementById('mobileNav');
-    const menuIcon = document.getElementById('menuIcon');
-    let isMenuOpen = false;
-
-    menuButton.addEventListener('click', function() {
-      isMenuOpen = !isMenuOpen;
-      if (isMenuOpen) {
-        mobileNav.classList.add('show');
-        menuIcon.textContent = '✕';
-      } else {
-        mobileNav.classList.remove('show');
-        menuIcon.textContent = '☰';
-      }
-    });
-
-    // Close mobile menu when clicking on links
-    const mobileLinks = mobileNav.querySelectorAll('a');
-    mobileLinks.forEach(link => {
-      link.addEventListener('click', function() {
-        mobileNav.classList.remove('show');
-        menuIcon.textContent = '☰';
-        isMenuOpen = false;
-      });
-    });
-
-    // Header scroll effect
-    const header = document.getElementById('header');
-    window.addEventListener('scroll', function() {
-      if (window.scrollY > 10) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-    });
-
-    // Scroll animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+        // Scroll to top functionality
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
-      });
-    }, observerOptions);
 
-    // Observe all scroll-animate elements
-    const animateElements = document.querySelectorAll('.scroll-animate');
-    animateElements.forEach(el => observer.observe(el));
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    mobileMenuBtn.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        });
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
+        // Dynamic page title
+        let originalTitle = document.title;
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                document.title = "✨ Come Back to Bindutara.com!";
+            } else {
+                document.title = originalTitle;
+            }
+        });
 
-    // Package cards horizontal scroll snap
-    const packagesScroll = document.querySelector('.packages-scroll');
-    if (packagesScroll) {
-      packagesScroll.style.scrollBehavior = 'smooth';
-    }
-  </script>
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideMenu = mobileMenu.contains(event.target);
+            const isClickOnButton = mobileMenuBtn.contains(event.target);
+            
+            if (!isClickInsideMenu && !isClickOnButton && mobileMenu.classList.contains('active')) {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // Escape key to close mobile menu
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
