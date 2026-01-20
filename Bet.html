@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>99% Survival Betting Calculator</title>
+<style>
+    body { font-family: Arial, sans-serif; background:#f4f6f8; padding:20px; }
+    .box { background:#fff; padding:20px; max-width:600px; margin:auto; border-radius:8px; }
+    h2 { margin-bottom:10px; }
+    label { display:block; margin-top:12px; }
+    input, select { width:100%; padding:8px; margin-top:5px; }
+    button { margin-top:15px; padding:10px; width:100%; font-size:16px; }
+    .result { margin-top:20px; background:#eef2f5; padding:15px; border-radius:6px; }
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <h2>99% Survival Betting Calculator</h2>
+
+    <label>Starting Bankroll (₹)</label>
+    <input type="number" id="bankroll" value="1000">
+
+    <label>Bet 1 Result</label>
+    <select id="bet1">
+        <option value="W">Win</option>
+        <option value="L">Loss</option>
+    </select>
+
+    <label>Bet 2 Result (only if Bet 1 lost)</label>
+    <select id="bet2">
+        <option value="NA">Not Played</option>
+        <option value="W">Win</option>
+        <option value="L">Loss</option>
+    </select>
+
+    <button onclick="calculate()">Calculate</button>
+
+    <div class="result" id="output"></div>
+</div>
+
+<script>
+function calculate() {
+
+    let bankroll = parseFloat(document.getElementById("bankroll").value);
+    let bet1 = document.getElementById("bet1").value;
+    let bet2 = document.getElementById("bet2").value;
+
+    let stake = bankroll * 0.0025; // 0.25%
+    let pnl = 0;
+
+    if (bet1 === "W") {
+        pnl = stake * 0.8;
+    } else if (bet1 === "L" && bet2 === "W") {
+        pnl = (stake * 2 * 0.8) - stake;
+    } else if (bet1 === "L" && bet2 === "L") {
+        pnl = -stake * 3;
+    }
+
+    let newBankroll = bankroll + pnl;
+
+    document.getElementById("output").innerHTML = `
+        <strong>Stake This Cycle:</strong> ₹${stake.toFixed(2)}<br>
+        <strong>Net P/L:</strong> ₹${pnl.toFixed(2)}<br>
+        <strong>Bankroll After Bet:</strong> ₹${newBankroll.toFixed(2)}
+    `;
+}
+</script>
+
+</body>
+</html>
