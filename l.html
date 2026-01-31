@@ -2,35 +2,81 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Lawyaar App</title>
+<title>Lawyaar App - Advanced Legal Assistant</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  min-height: 100vh;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* LOGIN PAGE */
 #loginPage {
   max-width: 500px;
   margin: 80px auto;
-  padding: 30px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3),
+              0 0 20px rgba(255,255,255,0.1) inset;
   text-align: center;
+  transform: perspective(1000px) rotateX(2deg);
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255,255,255,0.3);
+}
+
+#loginPage:hover {
+  transform: perspective(1000px) rotateX(0deg) scale(1.02);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4),
+              0 0 30px rgba(255,255,255,0.2) inset;
 }
 
 #loginPage h2 {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 32px;
+  font-weight: bold;
 }
 
 #loginPage button {
-  padding: 12px 20px;
-  font-size: 16px;
+  padding: 15px 30px;
+  font-size: 18px;
   cursor: pointer;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  transition: all 0.3s ease;
+  transform: translateY(0);
+}
+
+#loginPage button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(102, 126, 234, 0.6);
+}
+
+#loginPage button:active {
+  transform: translateY(-1px);
 }
 
 /* MODAL */
@@ -38,89 +84,499 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.7);
   z-index: 9999;
+  backdrop-filter: blur(5px);
 }
 
 /* APP */
 #lawyaarApp {
-  background: #fff;
+  background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
   width: 96%;
   height: 96%;
   margin: 2% auto;
-  border-radius: 12px;
+  border-radius: 20px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 30px 90px rgba(0,0,0,0.5),
+              0 0 30px rgba(102, 126, 234, 0.3);
+  border: 2px solid rgba(102, 126, 234, 0.3);
 }
 
 #header {
-  background: #111;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #fff;
-  padding: 15px;
-  font-size: 20px;
+  padding: 20px;
+  font-size: 22px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+#header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: rotate(45deg);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+#header button {
+  background: rgba(255,255,255,0.2);
+  border: 2px solid rgba(255,255,255,0.3);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+#header button:hover {
+  background: rgba(255,255,255,0.3);
+  transform: rotate(90deg);
 }
 
 #main {
   flex: 1;
   display: flex;
+  overflow: hidden;
 }
 
 #leftPanel {
   width: 30%;
-  border-right: 1px solid #ccc;
-  padding: 10px;
+  background: linear-gradient(180deg, #2d2d44 0%, #1e1e2e 100%);
+  border-right: 2px solid rgba(102, 126, 234, 0.3);
+  padding: 20px;
   overflow-y: auto;
+  box-shadow: 5px 0 20px rgba(0,0,0,0.3);
+}
+
+#leftPanel h4 {
+  color: #f093fb;
+  margin: 20px 0 10px 0;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(240, 147, 251, 0.5);
 }
 
 #chatPanel {
   width: 70%;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(180deg, #1e1e2e 0%, #2d2d44 100%);
 }
 
 #chatWindow {
   flex: 1;
-  padding: 15px;
+  padding: 20px;
   overflow-y: auto;
-  background: #f7f7f7;
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
 }
 
 .msg {
-  margin-bottom: 12px;
+  margin-bottom: 15px;
+  animation: slideIn 0.3s ease;
 }
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .user { text-align: right; }
 .bot { text-align: left; }
 
 .bubble {
   display: inline-block;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 12px 18px;
+  border-radius: 18px;
   max-width: 75%;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  position: relative;
+  transition: all 0.3s ease;
 }
 
-.user .bubble { background: #cce5ff; }
-.bot .bubble { background: #eaeaea; }
+.bubble:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+.user .bubble {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.bot .bubble {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: #1e1e2e;
+  font-weight: 500;
+}
+
+.timestamp {
+  font-size: 10px;
+  opacity: 0.7;
+  margin-top: 5px;
+}
 
 #controls {
-  padding: 10px;
-  border-top: 1px solid #ccc;
+  padding: 20px;
+  background: linear-gradient(180deg, #2d2d44 0%, #1e1e2e 100%);
+  border-top: 2px solid rgba(102, 126, 234, 0.3);
+  box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
 }
 
-input, textarea, select, button {
+input, textarea, select {
   width: 100%;
-  padding: 8px;
-  margin-top: 6px;
+  padding: 12px;
+  margin-top: 8px;
+  background: rgba(255,255,255,0.1);
+  border: 2px solid rgba(102, 126, 234, 0.3);
+  border-radius: 10px;
+  color: white;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+  background: rgba(255,255,255,0.15);
+}
+
+input::placeholder, textarea::placeholder {
+  color: rgba(255,255,255,0.5);
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(245, 87, 108, 0.6);
+}
+
+button:active {
+  transform: translateY(-1px);
 }
 
 .caseItem {
-  padding: 8px;
-  border-bottom: 1px solid #ddd;
+  padding: 12px;
+  margin: 8px 0;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+  border: 2px solid rgba(102, 126, 234, 0.3);
+  border-radius: 10px;
   cursor: pointer;
+  color: white;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.caseItem:hover { background: #f2f2f2; }
+
+.caseItem::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: linear-gradient(180deg, #f093fb, #f5576c);
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+
+.caseItem:hover::before {
+  transform: scaleY(1);
+}
+
+.caseItem:hover {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.4), rgba(118, 75, 162, 0.4));
+  transform: translateX(5px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.deleteBtn {
+  width: auto;
+  padding: 6px 12px;
+  margin: 0;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+  font-size: 12px;
+}
+
+.voiceBtn {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+}
+
+.voiceBtn:hover {
+  box-shadow: 0 8px 25px rgba(79, 172, 254, 0.6);
+}
+
+.docBtn {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  box-shadow: 0 5px 15px rgba(67, 233, 123, 0.4);
+}
+
+.docBtn:hover {
+  box-shadow: 0 8px 25px rgba(67, 233, 123, 0.6);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #667eea, #764ba2);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #764ba2, #f093fb);
+}
+
+/* Search box */
+#searchBox {
+  margin-bottom: 10px;
+}
+
+/* Stats */
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.statCard {
+  background: linear-gradient(135deg, rgba(67, 233, 123, 0.2), rgba(56, 249, 215, 0.2));
+  border: 2px solid rgba(67, 233, 123, 0.3);
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.statCard h3 {
+  margin: 0;
+  font-size: 24px;
+  color: #43e97b;
+  text-shadow: 0 0 10px rgba(67, 233, 123, 0.5);
+}
+
+.statCard p {
+  margin: 5px 0 0 0;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* Priority badge */
+.priority {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-size: 10px;
+  margin-left: 8px;
+}
+
+.priority-high {
+  background: #ff6b6b;
+}
+
+.priority-medium {
+  background: #feca57;
+}
+
+.priority-low {
+  background: #48dbfb;
+}
+
+/* Recording indicator */
+.recording {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: #ff6b6b;
+  border-radius: 50%;
+  margin-left: 10px;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+/* Button Grid */
+.btnGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Notification */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #43e97b, #38f9d7);
+  color: white;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  z-index: 10000;
+  animation: slideInRight 0.3s ease;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Dark mode toggle */
+#darkModeToggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  z-index: 10000;
+  transition: all 0.3s ease;
+}
+
+#darkModeToggle:hover {
+  transform: scale(1.1) rotate(180deg);
+}
+
+/* Case tags */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.tag {
+  background: rgba(102, 126, 234, 0.3);
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-size: 10px;
+  color: #4facfe;
+}
+
+/* Loading animation */
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #main {
+    flex-direction: column;
+  }
+  
+  #leftPanel, #chatPanel {
+    width: 100%;
+  }
+  
+  #leftPanel {
+    border-right: none;
+    border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+    max-height: 40%;
+  }
+}
 </style>
 </head>
 
@@ -128,10 +584,11 @@ input, textarea, select, button {
 
 <!-- ================= LOGIN PAGE ================= -->
 <div id="loginPage">
-  <h2>Lawyaar Login</h2>
-  <button onclick="openLawyaar()">⚖️ Lawyer Login</button>
+  <h2>⚖️ Lawyaar Login</h2>
+  <p style="color: #666; margin-bottom: 20px;">Advanced AI-Powered Legal Assistant</p>
+  <button onclick="openLawyaar()">🚀 Lawyer Login</button>
 
-  <div style="margin-top:15px;color:#666;font-size:14px">
+  <div style="margin-top:20px;color:#999;font-size:14px">
     (Client login coming soon)
   </div>
 </div>
@@ -142,31 +599,65 @@ input, textarea, select, button {
   <div id="lawyaarApp">
 
     <div id="header">
-      <span>⚖️ Lawyaar – Voice Legal Assistant</span>
-      <button onclick="closeLawyaar()" style="width:auto;">✖</button>
+      <span>⚖️ Lawyaar – Voice Legal Assistant <span id="recordingIndicator"></span></span>
+      <button onclick="closeLawyaar()">✖</button>
     </div>
 
     <div id="main">
 
       <!-- LEFT PANEL -->
       <div id="leftPanel">
-        <h4>Client Cases</h4>
+        
+        <!-- Stats -->
+        <div class="stats">
+          <div class="statCard">
+            <h3 id="totalCases">0</h3>
+            <p>Total Cases</p>
+          </div>
+          <div class="statCard">
+            <h3 id="activeChats">0</h3>
+            <p>Messages</p>
+          </div>
+        </div>
+
+        <h4>📁 Client Cases</h4>
+        
+        <input id="searchBox" placeholder="🔍 Search cases..." oninput="searchCases()">
+        
         <input id="clientName" placeholder="Client Name">
-        <button onclick="saveCase()">💾 Save Case</button>
+        
+        <select id="casePriority">
+          <option value="low">Low Priority</option>
+          <option value="medium">Medium Priority</option>
+          <option value="high">High Priority</option>
+        </select>
+        
+        <input id="caseTags" placeholder="Tags (comma separated)">
+        
+        <div class="btnGrid">
+          <button onclick="saveCase()">💾 Save Case</button>
+          <button onclick="exportAllCases()" class="docBtn">📦 Export All</button>
+        </div>
+        
         <div id="caseList"></div>
 
-        <hr>
+        <hr style="border-color: rgba(102, 126, 234, 0.3); margin: 20px 0;">
 
-        <h4>Documents</h4>
+        <h4>📄 Documents</h4>
         <select id="courtType">
           <option>District Court</option>
           <option>High Court</option>
+          <option>Supreme Court</option>
           <option>Consumer Forum</option>
           <option>Family Court</option>
+          <option>Labor Court</option>
+          <option>Tax Tribunal</option>
         </select>
 
-        <button onclick="generatePetition()">📄 Generate Petition</button>
-        <button onclick="downloadNotice()">📜 Legal Notice (DOC)</button>
+        <button onclick="generatePetition()" class="docBtn">📄 Generate Petition</button>
+        <button onclick="downloadNotice()" class="docBtn">📜 Legal Notice (DOC)</button>
+        <button onclick="generateAffidavit()" class="docBtn">📋 Generate Affidavit</button>
+        <button onclick="printCase()" class="docBtn">🖨️ Print Case</button>
       </div>
 
       <!-- CHAT PANEL -->
@@ -174,13 +665,20 @@ input, textarea, select, button {
         <div id="chatWindow"></div>
 
         <div id="controls">
-          <button onclick="startVoice()">🎙️ Start Voice</button>
-          <button onclick="stopVoice()">🛑 Stop Voice</button>
+          <div class="btnGrid">
+            <button onclick="startVoice()" class="voiceBtn">🎙️ Start Voice</button>
+            <button onclick="stopVoice()" class="voiceBtn">🛑 Stop Voice</button>
+          </div>
+
+          <button onclick="speakLastMessage()" class="voiceBtn">🔊 Speak Last Message</button>
 
           <textarea id="chatInput" rows="2"
             placeholder="Ask follow-up questions or give instructions…"></textarea>
 
-          <button onclick="sendChat()">Send</button>
+          <div class="btnGrid">
+            <button onclick="sendChat()">📤 Send</button>
+            <button onclick="clearChat()">🗑️ Clear Chat</button>
+          </div>
         </div>
       </div>
 
@@ -191,102 +689,350 @@ input, textarea, select, button {
 <script>
 let recognition;
 let conversation = [];
+let isRecording = false;
+let synthesis = window.speechSynthesis;
 
 /* MODAL */
 function openLawyaar() {
   document.getElementById("lawyaarModal").style.display = "block";
+  updateStats();
 }
+
 function closeLawyaar() {
   document.getElementById("lawyaarModal").style.display = "none";
+  if (recognition) recognition.stop();
+}
+
+/* NOTIFICATION */
+function showNotification(message) {
+  const notif = document.createElement('div');
+  notif.className = 'notification';
+  notif.textContent = message;
+  document.body.appendChild(notif);
+  
+  setTimeout(() => {
+    notif.style.animation = 'slideInRight 0.3s ease reverse';
+    setTimeout(() => notif.remove(), 300);
+  }, 3000);
 }
 
 /* CHAT */
 function addMessage(role, text) {
-  conversation.push({ role, text });
+  conversation.push({ role, text, timestamp: new Date().toLocaleString() });
   const chat = document.getElementById("chatWindow");
   const div = document.createElement("div");
   div.className = "msg " + role;
-  div.innerHTML = `<div class="bubble">${text}</div>`;
+  div.innerHTML = `
+    <div class="bubble">
+      ${text}
+      <div class="timestamp">${new Date().toLocaleTimeString()}</div>
+    </div>
+  `;
   chat.appendChild(div);
   chat.scrollTop = chat.scrollHeight;
+  updateStats();
 }
 
 function sendChat() {
   const input = document.getElementById("chatInput");
-  if (!input.value) return;
+  if (!input.value.trim()) return;
   addMessage("user", input.value);
-  addMessage("bot",
-    "Understood. You may ask for a legal notice, petition drafting, or next procedural steps."
-  );
+  
+  // Simulate AI response
+  setTimeout(() => {
+    addMessage("bot",
+      "Understood. I can help you with legal notices, petition drafting, case analysis, and procedural guidance. What specific assistance do you need?"
+    );
+  }, 500);
+  
   input.value = "";
+}
+
+function clearChat() {
+  if (confirm("Clear all chat messages?")) {
+    conversation = [];
+    document.getElementById("chatWindow").innerHTML = "";
+    updateStats();
+    showNotification("Chat cleared!");
+  }
 }
 
 /* VOICE */
 function startVoice() {
+  if (isRecording) return;
+  
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) {
+    alert("Speech recognition not supported in this browser");
+    return;
+  }
+  
   recognition = new SR();
   recognition.continuous = true;
   recognition.lang = 'en-IN';
+  recognition.interimResults = true;
+
+  recognition.onstart = () => {
+    isRecording = true;
+    document.getElementById("recordingIndicator").innerHTML = '<span class="recording"></span>';
+    showNotification("Recording started");
+  };
 
   recognition.onresult = e => {
     const text = e.results[e.results.length - 1][0].transcript;
-    const speaker = text.toLowerCase().includes("i advise") ? "Lawyer" : "Client";
-    addMessage("bot", `<b>${speaker}:</b> ${text}`);
+    if (e.results[e.results.length - 1].isFinal) {
+      const speaker = text.toLowerCase().includes("i advise") || text.toLowerCase().includes("legal") ? "Lawyer" : "Client";
+      addMessage("bot", `<b>${speaker}:</b> ${text}`);
+    }
   };
+
+  recognition.onerror = (e) => {
+    console.error("Speech recognition error:", e);
+    showNotification("Error: " + e.error);
+  };
+
+  recognition.onend = () => {
+    isRecording = false;
+    document.getElementById("recordingIndicator").innerHTML = '';
+  };
+
   recognition.start();
 }
 
 function stopVoice() {
-  if (recognition) recognition.stop();
+  if (recognition) {
+    recognition.stop();
+    isRecording = false;
+    document.getElementById("recordingIndicator").innerHTML = '';
+    showNotification("Recording stopped");
+  }
+}
+
+function speakLastMessage() {
+  if (conversation.length === 0) return;
+  
+  const lastMsg = conversation[conversation.length - 1];
+  const utterance = new SpeechSynthesisUtterance(lastMsg.text.replace(/<[^>]*>/g, ''));
+  utterance.rate = 0.9;
+  utterance.pitch = 1;
+  utterance.lang = 'en-IN';
+  
+  synthesis.cancel();
+  synthesis.speak(utterance);
+  showNotification("Playing message...");
 }
 
 /* SAVE / LOAD */
 function saveCase() {
-  const name = document.getElementById("clientName").value;
-  if (!name) return alert("Enter client name");
-  localStorage.setItem("case_" + name, JSON.stringify(conversation));
+  const name = document.getElementById("clientName").value.trim();
+  if (!name) {
+    showNotification("Please enter client name");
+    return;
+  }
+  
+  const priority = document.getElementById("casePriority").value;
+  const tags = document.getElementById("caseTags").value.split(',').map(t => t.trim()).filter(t => t);
+  
+  const caseData = {
+    conversation: conversation,
+    priority: priority,
+    tags: tags,
+    date: new Date().toISOString()
+  };
+  
+  localStorage.setItem("case_" + name, JSON.stringify(caseData));
   loadCases();
+  showNotification("Case saved: " + name);
+  
+  // Clear inputs
+  document.getElementById("clientName").value = "";
+  document.getElementById("caseTags").value = "";
 }
 
 function loadCases() {
   const list = document.getElementById("caseList");
+  const searchTerm = document.getElementById("searchBox").value.toLowerCase();
   list.innerHTML = "";
+  
+  let count = 0;
   Object.keys(localStorage).forEach(k => {
     if (k.startsWith("case_")) {
+      const caseName = k.replace("case_", "");
+      
+      if (searchTerm && !caseName.toLowerCase().includes(searchTerm)) {
+        return;
+      }
+      
+      count++;
+      const caseData = JSON.parse(localStorage.getItem(k));
       const div = document.createElement("div");
       div.className = "caseItem";
-      div.innerText = k.replace("case_", "");
-      div.onclick = () => loadCase(k);
+      
+      const priorityClass = `priority priority-${caseData.priority || 'low'}`;
+      const tagsHTML = caseData.tags ? `<div class="tags">${caseData.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>` : '';
+      
+      div.innerHTML = `
+        <div onclick="loadCase('${k}')" style="flex: 1;">
+          <div>
+            ${caseName}
+            <span class="${priorityClass}">${(caseData.priority || 'low').toUpperCase()}</span>
+          </div>
+          ${tagsHTML}
+        </div>
+        <button class="deleteBtn" onclick="event.stopPropagation(); deleteCase('${k}')">🗑️</button>
+      `;
+      
       list.appendChild(div);
     }
   });
+  
+  document.getElementById("totalCases").textContent = count;
 }
 
 function loadCase(key) {
-  conversation = JSON.parse(localStorage.getItem(key));
+  const caseData = JSON.parse(localStorage.getItem(key));
+  conversation = caseData.conversation || caseData;
+  
+  if (!Array.isArray(conversation)) {
+    conversation = [];
+  }
+  
   document.getElementById("chatWindow").innerHTML = "";
   conversation.forEach(m => addMessage(m.role, m.text));
+  showNotification("Case loaded: " + key.replace("case_", ""));
+}
+
+function deleteCase(key) {
+  if (confirm("Delete this case?")) {
+    localStorage.removeItem(key);
+    loadCases();
+    showNotification("Case deleted");
+  }
+}
+
+function searchCases() {
+  loadCases();
+}
+
+function exportAllCases() {
+  const allCases = {};
+  Object.keys(localStorage).forEach(k => {
+    if (k.startsWith("case_")) {
+      allCases[k] = localStorage.getItem(k);
+    }
+  });
+  
+  const dataStr = JSON.stringify(allCases, null, 2);
+  const blob = new Blob([dataStr], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `All_Cases_${new Date().toISOString().split('T')[0]}.json`;
+  a.click();
+  showNotification("Cases exported!");
 }
 
 /* DOCUMENTS */
 function downloadNotice() {
-  const text = "LEGAL NOTICE\n\n" +
-    conversation.map(c => c.text).join("\n");
+  if (conversation.length === 0) {
+    showNotification("No conversation to export");
+    return;
+  }
+  
+  const clientName = document.getElementById("clientName").value || "Client";
+  const text = `LEGAL NOTICE\n\nDate: ${new Date().toLocaleDateString()}\n\nTo: ${clientName}\n\n` +
+    "CASE DISCUSSION:\n\n" +
+    conversation.map(c => `[${c.role.toUpperCase()}] ${c.text.replace(/<[^>]*>/g, '')}`).join("\n\n") +
+    "\n\n---\nGenerated by Lawyaar Legal Assistant";
+    
   const blob = new Blob([text], { type: "application/msword" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = "Legal_Notice.doc";
+  a.download = `Legal_Notice_${clientName}_${new Date().toISOString().split('T')[0]}.doc`;
   a.click();
+  showNotification("Legal notice downloaded!");
 }
 
 function generatePetition() {
   const court = document.getElementById("courtType").value;
+  const clientName = document.getElementById("clientName").value || "Client";
+  
   addMessage("bot",
-    `Petition template prepared for ${court}. Include parties, facts, grounds, and relief based on this case discussion.`
+    `<b>Petition Template - ${court}</b><br><br>` +
+    `IN THE ${court.toUpperCase()}<br>` +
+    `Case of: ${clientName}<br><br>` +
+    `This petition is prepared based on the case discussion. ` +
+    `Please include: (1) Parties involved, (2) Facts of the case, (3) Legal grounds, (4) Relief sought, (5) Supporting documents.<br><br>` +
+    `The petition should be drafted according to ${court} procedural rules.`
   );
+  showNotification("Petition template generated!");
 }
 
+function generateAffidavit() {
+  const clientName = document.getElementById("clientName").value || "Deponent";
+  
+  addMessage("bot",
+    `<b>Affidavit Template</b><br><br>` +
+    `I, ${clientName}, do hereby solemnly affirm and state as follows:<br><br>` +
+    `1. That I am the [relation] and competent to swear this affidavit.<br>` +
+    `2. That the facts stated herein are true to the best of my knowledge.<br>` +
+    `3. [Additional clauses based on case discussion]<br><br>` +
+    `DEPONENT: ${clientName}<br>` +
+    `Date: ${new Date().toLocaleDateString()}`
+  );
+  showNotification("Affidavit template generated!");
+}
+
+function printCase() {
+  if (conversation.length === 0) {
+    showNotification("No case to print");
+    return;
+  }
+  
+  const printWindow = window.open('', '', 'height=600,width=800');
+  printWindow.document.write('<html><head><title>Case Print</title>');
+  printWindow.document.write('<style>body{font-family:Arial;padding:20px;} .msg{margin:15px 0;} .user{color:#667eea;} .bot{color:#4facfe;}</style>');
+  printWindow.document.write('</head><body>');
+  printWindow.document.write('<h1>Case Discussion</h1>');
+  printWindow.document.write('<p>Date: ' + new Date().toLocaleString() + '</p><hr>');
+  
+  conversation.forEach(m => {
+    printWindow.document.write(`<div class="msg ${m.role}"><b>${m.role.toUpperCase()}:</b> ${m.text}</div>`);
+  });
+  
+  printWindow.document.write('</body></html>');
+  printWindow.document.close();
+  printWindow.print();
+  showNotification("Printing...");
+}
+
+/* STATS */
+function updateStats() {
+  document.getElementById("activeChats").textContent = conversation.length;
+}
+
+/* INITIALIZE */
 loadCases();
+updateStats();
+
+// Add welcome message
+setTimeout(() => {
+  if (conversation.length === 0) {
+    addMessage("bot", "👋 Welcome to Lawyaar! I'm your AI legal assistant. How can I help you today?");
+  }
+}, 500);
+
+// Enter key to send
+document.addEventListener('DOMContentLoaded', () => {
+  const chatInput = document.getElementById('chatInput');
+  if (chatInput) {
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendChat();
+      }
+    });
+  }
+});
 </script>
 
 </body>
