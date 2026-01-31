@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Lawyaar App - Advanced Legal Assistant</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <style>
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -17,6 +18,7 @@ body {
   background-size: 400% 400%;
   animation: gradientShift 15s ease infinite;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 @keyframes gradientShift {
@@ -27,9 +29,10 @@ body {
 
 /* LOGIN PAGE */
 #loginPage {
-  max-width: 500px;
-  margin: 80px auto;
-  padding: 40px;
+  max-width: 90%;
+  width: 500px;
+  margin: 60px auto;
+  padding: 30px 20px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   border-radius: 20px;
@@ -48,18 +51,22 @@ body {
 }
 
 #loginPage h2 {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   background: linear-gradient(135deg, #667eea, #764ba2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-size: 32px;
+  font-size: clamp(24px, 6vw, 32px);
   font-weight: bold;
+}
+
+#loginPage p {
+  font-size: clamp(12px, 3vw, 14px);
 }
 
 #loginPage button {
   padding: 15px 30px;
-  font-size: 18px;
+  font-size: clamp(14px, 4vw, 18px);
   cursor: pointer;
   background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
@@ -68,6 +75,8 @@ body {
   box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
   transition: all 0.3s ease;
   transform: translateY(0);
+  width: 100%;
+  max-width: 300px;
 }
 
 #loginPage button:hover {
@@ -92,29 +101,36 @@ body {
 /* APP */
 #lawyaarApp {
   background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
-  width: 96%;
-  height: 96%;
-  margin: 2% auto;
-  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border-radius: 0;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 30px 90px rgba(0,0,0,0.5),
-              0 0 30px rgba(102, 126, 234, 0.3);
-  border: 2px solid rgba(102, 126, 234, 0.3);
+  box-shadow: 0 30px 90px rgba(0,0,0,0.5);
 }
 
 #header {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #fff;
-  padding: 20px;
-  font-size: 22px;
+  padding: 15px;
+  font-size: clamp(14px, 4vw, 22px);
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 5px 20px rgba(0,0,0,0.3);
   position: relative;
   overflow: hidden;
+  flex-shrink: 0;
+}
+
+#header span {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
 }
 
 #header::before {
@@ -138,11 +154,13 @@ body {
   background: rgba(255,255,255,0.2);
   border: 2px solid rgba(255,255,255,0.3);
   color: white;
-  padding: 8px 16px;
+  padding: 8px 12px;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
   z-index: 1;
+  flex-shrink: 0;
+  font-size: clamp(12px, 3vw, 16px);
 }
 
 #header button:hover {
@@ -154,42 +172,48 @@ body {
   flex: 1;
   display: flex;
   overflow: hidden;
+  flex-direction: column;
 }
 
 #leftPanel {
-  width: 30%;
+  width: 100%;
   background: linear-gradient(180deg, #2d2d44 0%, #1e1e2e 100%);
-  border-right: 2px solid rgba(102, 126, 234, 0.3);
-  padding: 20px;
+  border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+  padding: 15px;
   overflow-y: auto;
-  box-shadow: 5px 0 20px rgba(0,0,0,0.3);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  max-height: 40vh;
+  flex-shrink: 0;
 }
 
 #leftPanel h4 {
   color: #f093fb;
-  margin: 20px 0 10px 0;
-  font-size: 18px;
+  margin: 15px 0 10px 0;
+  font-size: clamp(14px, 4vw, 18px);
   text-transform: uppercase;
   letter-spacing: 1px;
   text-shadow: 0 0 10px rgba(240, 147, 251, 0.5);
 }
 
 #chatPanel {
-  width: 70%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   background: linear-gradient(180deg, #1e1e2e 0%, #2d2d44 100%);
+  flex: 1;
+  min-height: 0;
 }
 
 #chatWindow {
   flex: 1;
-  padding: 20px;
+  padding: 15px 10px;
   overflow-y: auto;
   background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+  -webkit-overflow-scrolling: touch;
 }
 
 .msg {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   animation: slideIn 0.3s ease;
 }
 
@@ -209,17 +233,18 @@ body {
 
 .bubble {
   display: inline-block;
-  padding: 12px 18px;
-  border-radius: 18px;
-  max-width: 75%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  max-width: 85%;
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   position: relative;
   transition: all 0.3s ease;
+  font-size: clamp(12px, 3.5vw, 14px);
+  word-wrap: break-word;
 }
 
-.bubble:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+.bubble:active {
+  transform: scale(0.98);
 }
 
 .user .bubble {
@@ -234,16 +259,17 @@ body {
 }
 
 .timestamp {
-  font-size: 10px;
+  font-size: clamp(9px, 2.5vw, 10px);
   opacity: 0.7;
   margin-top: 5px;
 }
 
 #controls {
-  padding: 20px;
+  padding: 15px 10px;
   background: linear-gradient(180deg, #2d2d44 0%, #1e1e2e 100%);
   border-top: 2px solid rgba(102, 126, 234, 0.3);
   box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
+  flex-shrink: 0;
 }
 
 input, textarea, select {
@@ -254,7 +280,7 @@ input, textarea, select {
   border: 2px solid rgba(102, 126, 234, 0.3);
   border-radius: 10px;
   color: white;
-  font-size: 14px;
+  font-size: clamp(12px, 3.5vw, 14px);
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
 }
@@ -272,19 +298,20 @@ input::placeholder, textarea::placeholder {
 
 button {
   width: 100%;
-  padding: 12px;
+  padding: 14px 12px;
   margin-top: 8px;
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   border: none;
   border-radius: 10px;
   color: white;
-  font-size: 14px;
+  font-size: clamp(12px, 3.5vw, 14px);
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
   position: relative;
   overflow: hidden;
+  touch-action: manipulation;
 }
 
 button::before {
@@ -300,18 +327,13 @@ button::before {
   transition: width 0.6s, height 0.6s;
 }
 
-button:hover::before {
+button:active::before {
   width: 300px;
   height: 300px;
 }
 
-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(245, 87, 108, 0.6);
-}
-
 button:active {
-  transform: translateY(-1px);
+  transform: scale(0.98);
 }
 
 .caseItem {
@@ -328,6 +350,8 @@ button:active {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
+  font-size: clamp(12px, 3.5vw, 14px);
 }
 
 .caseItem::before {
@@ -342,11 +366,11 @@ button:active {
   transition: transform 0.3s ease;
 }
 
-.caseItem:hover::before {
+.caseItem:active::before {
   transform: scaleY(1);
 }
 
-.caseItem:hover {
+.caseItem:active {
   background: linear-gradient(135deg, rgba(102, 126, 234, 0.4), rgba(118, 75, 162, 0.4));
   transform: translateX(5px);
   box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
@@ -354,10 +378,11 @@ button:active {
 
 .deleteBtn {
   width: auto;
-  padding: 6px 12px;
+  padding: 8px 12px;
   margin: 0;
   background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
-  font-size: 12px;
+  font-size: clamp(11px, 3vw, 12px);
+  flex-shrink: 0;
 }
 
 .voiceBtn {
@@ -365,22 +390,14 @@ button:active {
   box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
 }
 
-.voiceBtn:hover {
-  box-shadow: 0 8px 25px rgba(79, 172, 254, 0.6);
-}
-
 .docBtn {
   background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
   box-shadow: 0 5px 15px rgba(67, 233, 123, 0.4);
 }
 
-.docBtn:hover {
-  box-shadow: 0 8px 25px rgba(67, 233, 123, 0.6);
-}
-
 /* Scrollbar styling */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -405,15 +422,15 @@ button:active {
 .stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin: 15px 0;
+  gap: 8px;
+  margin: 10px 0 15px 0;
 }
 
 .statCard {
   background: linear-gradient(135deg, rgba(67, 233, 123, 0.2), rgba(56, 249, 215, 0.2));
   border: 2px solid rgba(67, 233, 123, 0.3);
   border-radius: 10px;
-  padding: 15px;
+  padding: 12px 8px;
   text-align: center;
   color: white;
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
@@ -421,24 +438,24 @@ button:active {
 
 .statCard h3 {
   margin: 0;
-  font-size: 24px;
+  font-size: clamp(20px, 6vw, 24px);
   color: #43e97b;
   text-shadow: 0 0 10px rgba(67, 233, 123, 0.5);
 }
 
 .statCard p {
   margin: 5px 0 0 0;
-  font-size: 12px;
+  font-size: clamp(10px, 3vw, 12px);
   opacity: 0.8;
 }
 
 /* Priority badge */
 .priority {
   display: inline-block;
-  padding: 3px 8px;
+  padding: 3px 6px;
   border-radius: 5px;
-  font-size: 10px;
-  margin-left: 8px;
+  font-size: clamp(9px, 2.5vw, 10px);
+  margin-left: 5px;
 }
 
 .priority-high {
@@ -456,11 +473,11 @@ button:active {
 /* Recording indicator */
 .recording {
   display: inline-block;
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   background: #ff6b6b;
   border-radius: 50%;
-  margin-left: 10px;
+  margin-left: 8px;
   animation: pulse 1s infinite;
 }
 
@@ -479,78 +496,59 @@ button:active {
 .btnGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 10px;
+  gap: 8px;
+  margin-top: 8px;
 }
 
 /* Notification */
 .notification {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 70px;
+  left: 10px;
+  right: 10px;
   background: linear-gradient(135deg, #43e97b, #38f9d7);
   color: white;
-  padding: 15px 20px;
+  padding: 12px 15px;
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   z-index: 10000;
-  animation: slideInRight 0.3s ease;
+  animation: slideInDown 0.3s ease;
+  font-size: clamp(12px, 3.5vw, 14px);
+  text-align: center;
 }
 
-@keyframes slideInRight {
+@keyframes slideInDown {
   from {
-    transform: translateX(400px);
+    transform: translateY(-100px);
     opacity: 0;
   }
   to {
-    transform: translateX(0);
+    transform: translateY(0);
     opacity: 1;
   }
-}
-
-/* Dark mode toggle */
-#darkModeToggle {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border: none;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  z-index: 10000;
-  transition: all 0.3s ease;
-}
-
-#darkModeToggle:hover {
-  transform: scale(1.1) rotate(180deg);
 }
 
 /* Case tags */
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 4px;
   margin-top: 5px;
 }
 
 .tag {
   background: rgba(102, 126, 234, 0.3);
-  padding: 3px 8px;
+  padding: 3px 6px;
   border-radius: 5px;
-  font-size: 10px;
+  font-size: clamp(9px, 2.5vw, 10px);
   color: #4facfe;
 }
 
 /* Loading animation */
 .loading {
   display: inline-block;
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   border: 3px solid rgba(255,255,255,0.3);
   border-top-color: white;
   border-radius: 50%;
@@ -561,20 +559,134 @@ button:active {
   to { transform: rotate(360deg); }
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  #main {
-    flex-direction: column;
+/* Tablet view */
+@media (min-width: 768px) {
+  #lawyaarApp {
+    width: 96%;
+    height: 96%;
+    margin: 2%;
+    border-radius: 20px;
   }
   
-  #leftPanel, #chatPanel {
-    width: 100%;
+  #main {
+    flex-direction: row;
   }
   
   #leftPanel {
-    border-right: none;
-    border-bottom: 2px solid rgba(102, 126, 234, 0.3);
-    max-height: 40%;
+    width: 35%;
+    max-height: none;
+    border-bottom: none;
+    border-right: 2px solid rgba(102, 126, 234, 0.3);
+  }
+  
+  #chatPanel {
+    width: 65%;
+  }
+  
+  .bubble {
+    max-width: 75%;
+  }
+  
+  .notification {
+    left: auto;
+    right: 20px;
+    max-width: 350px;
+  }
+}
+
+/* Desktop view */
+@media (min-width: 1024px) {
+  #leftPanel {
+    width: 30%;
+  }
+  
+  #chatPanel {
+    width: 70%;
+  }
+  
+  #chatWindow {
+    padding: 20px;
+  }
+  
+  #controls {
+    padding: 20px;
+  }
+  
+  #leftPanel {
+    padding: 20px;
+  }
+  
+  button:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+  
+  button:hover {
+    transform: translateY(-3px);
+  }
+  
+  .caseItem:hover::before {
+    transform: scaleY(1);
+  }
+  
+  .caseItem:hover {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.4), rgba(118, 75, 162, 0.4));
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  }
+  
+  .bubble:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  }
+}
+
+/* Landscape mobile fix */
+@media (max-height: 500px) and (orientation: landscape) {
+  #leftPanel {
+    max-height: 50vh;
+  }
+  
+  #loginPage {
+    margin: 20px auto;
+    padding: 20px;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+  #header {
+    padding: 12px;
+  }
+  
+  #leftPanel, #chatWindow, #controls {
+    padding: 10px;
+  }
+  
+  .stats {
+    gap: 6px;
+  }
+  
+  .statCard {
+    padding: 10px 6px;
+  }
+  
+  .btnGrid {
+    gap: 6px;
+  }
+}
+
+/* Fix for iOS Safari */
+@supports (-webkit-touch-callout: none) {
+  #lawyaarApp {
+    height: -webkit-fill-available;
+  }
+}
+
+/* Prevent zoom on input focus iOS */
+@media screen and (max-width: 767px) {
+  input, textarea, select {
+    font-size: 16px;
   }
 }
 </style>
@@ -588,7 +700,7 @@ button:active {
   <p style="color: #666; margin-bottom: 20px;">Advanced AI-Powered Legal Assistant</p>
   <button onclick="openLawyaar()">🚀 Lawyer Login</button>
 
-  <div style="margin-top:20px;color:#999;font-size:14px">
+  <div style="margin-top:20px;color:#999;font-size:clamp(12px, 3vw, 14px)">
     (Client login coming soon)
   </div>
 </div>
@@ -599,7 +711,7 @@ button:active {
   <div id="lawyaarApp">
 
     <div id="header">
-      <span>⚖️ Lawyaar – Voice Legal Assistant <span id="recordingIndicator"></span></span>
+      <span>⚖️ Lawyaar <span id="recordingIndicator"></span></span>
       <button onclick="closeLawyaar()">✖</button>
     </div>
 
@@ -635,13 +747,13 @@ button:active {
         <input id="caseTags" placeholder="Tags (comma separated)">
         
         <div class="btnGrid">
-          <button onclick="saveCase()">💾 Save Case</button>
-          <button onclick="exportAllCases()" class="docBtn">📦 Export All</button>
+          <button onclick="saveCase()">💾 Save</button>
+          <button onclick="exportAllCases()" class="docBtn">📦 Export</button>
         </div>
         
         <div id="caseList"></div>
 
-        <hr style="border-color: rgba(102, 126, 234, 0.3); margin: 20px 0;">
+        <hr style="border-color: rgba(102, 126, 234, 0.3); margin: 15px 0;">
 
         <h4>📄 Documents</h4>
         <select id="courtType">
@@ -654,10 +766,10 @@ button:active {
           <option>Tax Tribunal</option>
         </select>
 
-        <button onclick="generatePetition()" class="docBtn">📄 Generate Petition</button>
-        <button onclick="downloadNotice()" class="docBtn">📜 Legal Notice (DOC)</button>
-        <button onclick="generateAffidavit()" class="docBtn">📋 Generate Affidavit</button>
-        <button onclick="printCase()" class="docBtn">🖨️ Print Case</button>
+        <button onclick="generatePetition()" class="docBtn">📄 Petition</button>
+        <button onclick="downloadNotice()" class="docBtn">📜 Notice</button>
+        <button onclick="generateAffidavit()" class="docBtn">📋 Affidavit</button>
+        <button onclick="printCase()" class="docBtn">🖨️ Print</button>
       </div>
 
       <!-- CHAT PANEL -->
@@ -666,18 +778,18 @@ button:active {
 
         <div id="controls">
           <div class="btnGrid">
-            <button onclick="startVoice()" class="voiceBtn">🎙️ Start Voice</button>
-            <button onclick="stopVoice()" class="voiceBtn">🛑 Stop Voice</button>
+            <button onclick="startVoice()" class="voiceBtn">🎙️ Start</button>
+            <button onclick="stopVoice()" class="voiceBtn">🛑 Stop</button>
           </div>
 
-          <button onclick="speakLastMessage()" class="voiceBtn">🔊 Speak Last Message</button>
+          <button onclick="speakLastMessage()" class="voiceBtn">🔊 Speak</button>
 
           <textarea id="chatInput" rows="2"
-            placeholder="Ask follow-up questions or give instructions…"></textarea>
+            placeholder="Type your message..."></textarea>
 
           <div class="btnGrid">
             <button onclick="sendChat()">📤 Send</button>
-            <button onclick="clearChat()">🗑️ Clear Chat</button>
+            <button onclick="clearChat()">🗑️ Clear</button>
           </div>
         </div>
       </div>
@@ -692,14 +804,35 @@ let conversation = [];
 let isRecording = false;
 let synthesis = window.speechSynthesis;
 
+/* Prevent body scroll when modal is open */
+function preventBodyScroll(prevent) {
+  if (prevent) {
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+  } else {
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.width = '';
+  }
+}
+
 /* MODAL */
 function openLawyaar() {
   document.getElementById("lawyaarModal").style.display = "block";
+  preventBodyScroll(true);
   updateStats();
+  
+  // Scroll to top on mobile
+  setTimeout(() => {
+    const chatWindow = document.getElementById("chatWindow");
+    if (chatWindow) chatWindow.scrollTop = 0;
+  }, 100);
 }
 
 function closeLawyaar() {
   document.getElementById("lawyaarModal").style.display = "none";
+  preventBodyScroll(false);
   if (recognition) recognition.stop();
 }
 
@@ -711,7 +844,8 @@ function showNotification(message) {
   document.body.appendChild(notif);
   
   setTimeout(() => {
-    notif.style.animation = 'slideInRight 0.3s ease reverse';
+    notif.style.opacity = '0';
+    notif.style.transform = 'translateY(-100px)';
     setTimeout(() => notif.remove(), 300);
   }, 3000);
 }
@@ -746,6 +880,7 @@ function sendChat() {
   }, 500);
   
   input.value = "";
+  input.focus();
 }
 
 function clearChat() {
@@ -759,11 +894,14 @@ function clearChat() {
 
 /* VOICE */
 function startVoice() {
-  if (isRecording) return;
+  if (isRecording) {
+    showNotification("Already recording");
+    return;
+  }
   
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SR) {
-    alert("Speech recognition not supported in this browser");
+    showNotification("Speech recognition not supported");
     return;
   }
   
@@ -789,6 +927,8 @@ function startVoice() {
   recognition.onerror = (e) => {
     console.error("Speech recognition error:", e);
     showNotification("Error: " + e.error);
+    isRecording = false;
+    document.getElementById("recordingIndicator").innerHTML = '';
   };
 
   recognition.onend = () => {
@@ -796,7 +936,12 @@ function startVoice() {
     document.getElementById("recordingIndicator").innerHTML = '';
   };
 
-  recognition.start();
+  try {
+    recognition.start();
+  } catch (e) {
+    showNotification("Could not start recording");
+    isRecording = false;
+  }
 }
 
 function stopVoice() {
@@ -809,7 +954,10 @@ function stopVoice() {
 }
 
 function speakLastMessage() {
-  if (conversation.length === 0) return;
+  if (conversation.length === 0) {
+    showNotification("No messages to speak");
+    return;
+  }
   
   const lastMsg = conversation[conversation.length - 1];
   const utterance = new SpeechSynthesisUtterance(lastMsg.text.replace(/<[^>]*>/g, ''));
@@ -869,17 +1017,17 @@ function loadCases() {
       div.className = "caseItem";
       
       const priorityClass = `priority priority-${caseData.priority || 'low'}`;
-      const tagsHTML = caseData.tags ? `<div class="tags">${caseData.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>` : '';
+      const tagsHTML = caseData.tags && caseData.tags.length ? `<div class="tags">${caseData.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>` : '';
       
       div.innerHTML = `
-        <div onclick="loadCase('${k}')" style="flex: 1;">
-          <div>
+        <div onclick="loadCase('${k.replace(/'/g, "\\'")}')" style="flex: 1; min-width: 0;">
+          <div style="word-wrap: break-word;">
             ${caseName}
             <span class="${priorityClass}">${(caseData.priority || 'low').toUpperCase()}</span>
           </div>
           ${tagsHTML}
         </div>
-        <button class="deleteBtn" onclick="event.stopPropagation(); deleteCase('${k}')">🗑️</button>
+        <button class="deleteBtn" onclick="event.stopPropagation(); deleteCase('${k.replace(/'/g, "\\'")}')">🗑️</button>
       `;
       
       list.appendChild(div);
@@ -921,6 +1069,11 @@ function exportAllCases() {
       allCases[k] = localStorage.getItem(k);
     }
   });
+  
+  if (Object.keys(allCases).length === 0) {
+    showNotification("No cases to export");
+    return;
+  }
   
   const dataStr = JSON.stringify(allCases, null, 2);
   const blob = new Blob([dataStr], { type: "application/json" });
@@ -990,6 +1143,7 @@ function printCase() {
   
   const printWindow = window.open('', '', 'height=600,width=800');
   printWindow.document.write('<html><head><title>Case Print</title>');
+  printWindow.document.write('<meta name="viewport" content="width=device-width, initial-scale=1.0">');
   printWindow.document.write('<style>body{font-family:Arial;padding:20px;} .msg{margin:15px 0;} .user{color:#667eea;} .bot{color:#4facfe;}</style>');
   printWindow.document.write('</head><body>');
   printWindow.document.write('<h1>Case Discussion</h1>');
@@ -1021,17 +1175,27 @@ setTimeout(() => {
   }
 }, 500);
 
-// Enter key to send
+// Enter key to send (Shift+Enter for new line)
 document.addEventListener('DOMContentLoaded', () => {
   const chatInput = document.getElementById('chatInput');
   if (chatInput) {
-    chatInput.addEventListener('keypress', (e) => {
+    chatInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
         sendChat();
       }
     });
   }
+});
+
+// Handle orientation change
+window.addEventListener('orientationchange', () => {
+  setTimeout(() => {
+    const chatWindow = document.getElementById('chatWindow');
+    if (chatWindow) {
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+  }, 100);
 });
 </script>
 
