@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lawyaar App</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
+
+/* LOGIN PAGE */
+#loginPage {
+  max-width: 500px;
+  margin: 80px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  text-align: center;
+}
+
+#loginPage h2 {
+  margin-bottom: 20px;
+}
+
+#loginPage button {
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* MODAL */
+#lawyaarModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 9999;
+}
+
+/* APP */
+#lawyaarApp {
+  background: #fff;
+  width: 96%;
+  height: 96%;
+  margin: 2% auto;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+#header {
+  background: #111;
+  color: #fff;
+  padding: 15px;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#main {
+  flex: 1;
+  display: flex;
+}
+
+#leftPanel {
+  width: 30%;
+  border-right: 1px solid #ccc;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+#chatPanel {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+}
+
+#chatWindow {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  background: #f7f7f7;
+}
+
+.msg {
+  margin-bottom: 12px;
+}
+.user { text-align: right; }
+.bot { text-align: left; }
+
+.bubble {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 75%;
+}
+
+.user .bubble { background: #cce5ff; }
+.bot .bubble { background: #eaeaea; }
+
+#controls {
+  padding: 10px;
+  border-top: 1px solid #ccc;
+}
+
+input, textarea, select, button {
+  width: 100%;
+  padding: 8px;
+  margin-top: 6px;
+}
+
+.caseItem {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+.caseItem:hover { background: #f2f2f2; }
+</style>
+</head>
+
+<body>
+
+<!-- ================= LOGIN PAGE ================= -->
+<div id="loginPage">
+  <h2>Lawyaar Login</h2>
+  <button onclick="openLawyaar()">⚖️ Lawyer Login</button>
+
+  <div style="margin-top:15px;color:#666;font-size:14px">
+    (Client login coming soon)
+  </div>
+</div>
+
+<!-- ================= MODAL ================= -->
+<div id="lawyaarModal">
+
+  <div id="lawyaarApp">
+
+    <div id="header">
+      <span>⚖️ Lawyaar – Voice Legal Assistant</span>
+      <button onclick="closeLawyaar()" style="width:auto;">✖</button>
+    </div>
+
+    <div id="main">
+
+      <!-- LEFT PANEL -->
+      <div id="leftPanel">
+        <h4>Client Cases</h4>
+        <input id="clientName" placeholder="Client Name">
+        <button onclick="saveCase()">💾 Save Case</button>
+        <div id="caseList"></div>
+
+        <hr>
+
+        <h4>Documents</h4>
+        <select id="courtType">
+          <option>District Court</option>
+          <option>High Court</option>
+          <option>Consumer Forum</option>
+          <option>Family Court</option>
+        </select>
+
+        <button onclick="generatePetition()">📄 Generate Petition</button>
+        <button onclick="downloadNotice()">📜 Legal Notice (DOC)</button>
+      </div>
+
+      <!-- CHAT PANEL -->
+      <div id="chatPanel">
+        <div id="chatWindow"></div>
+
+        <div id="controls">
+          <button onclick="startVoice()">🎙️ Start Voice</button>
+          <button onclick="stopVoice()">🛑 Stop Voice</button>
+
+          <textarea id="chatInput" rows="2"
+            placeholder="Ask follow-up questions or give instructions…"></textarea>
+
+          <button onclick="sendChat()">Send</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+let recognition;
+let conversation = [];
+
+/* MODAL */
+function openLawyaar() {
+  document.getElementById("lawyaarModal").style.display = "block";
+}
+function closeLawyaar() {
+  document.getElementById("lawyaarModal").style.display = "none";
+}
+
+/* CHAT */
+function addMessage(role, text) {
+  conversation.push({ role, text });
+  const chat = document.getElementById("chatWindow");
+  const div = document.createElement("div");
+  div.className = "msg " + role;
+  div.innerHTML = `<div class="bubble">${text}</div>`;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function sendChat() {
+  const input = document.getElementById("chatInput");
+  if (!input.value) return;
+  addMessage("user", input.value);
+  addMessage("bot",
+    "Understood. You may ask for a legal notice, petition drafting, or next procedural steps."
+  );
+  input.value = "";
+}
+
+/* VOICE */
+function startVoice() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SR();
+  recognition.continuous = true;
+  recognition.lang = 'en-IN';
+
+  recognition.onresult = e => {
+    const text = e.results[e.results.length - 1][0].transcript;
+    const speaker = text.toLowerCase().includes("i advise") ? "Lawyer" : "Client";
+    addMessage("bot", `<b>${speaker}:</b> ${text}`);
+  };
+  recognition.start();
+}
+
+function stopVoice() {
+  if (recognition) recognition.stop();
+}
+
+/* SAVE / LOAD */
+function saveCase() {
+  const name = document.getElementById("clientName").value;
+  if (!name) return alert("Enter client name");
+  localStorage.setItem("case_" + name, JSON.stringify(conversation));
+  loadCases();
+}
+
+function loadCases() {
+  const list = document.getElementById("caseList");
+  list.innerHTML = "";
+  Object.keys(localStorage).forEach(k => {
+    if (k.startsWith("case_")) {
+      const div = document.createElement("div");
+      div.className = "caseItem";
+      div.innerText = k.replace("case_", "");
+      div.onclick = () => loadCase(k);
+      list.appendChild(div);
+    }
+  });
+}
+
+function loadCase(key) {
+  conversation = JSON.parse(localStorage.getItem(key));
+  document.getElementById("chatWindow").innerHTML = "";
+  conversation.forEach(m => addMessage(m.role, m.text));
+}
+
+/* DOCUMENTS */
+function downloadNotice() {
+  const text = "LEGAL NOTICE\n\n" +
+    conversation.map(c => c.text).join("\n");
+  const blob = new Blob([text], { type: "application/msword" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "Legal_Notice.doc";
+  a.click();
+}
+
+function generatePetition() {
+  const court = document.getElementById("courtType").value;
+  addMessage("bot",
+    `Petition template prepared for ${court}. Include parties, facts, grounds, and relief based on this case discussion.`
+  );
+}
+
+loadCases();
+</script>
+
+</body>
+</html>
